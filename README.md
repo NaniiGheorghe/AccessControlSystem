@@ -4,7 +4,8 @@
 
 
 **What is an access control system?**
->System that helps you monitor the access to some important places from your office or house. The Access Control System will give you posibilty to control and restrict all the entrances and exits which happens in your building.
+>
+System that helps you monitor the access to some important places from your office or house. The Access Control System will give you posibilty to control and restrict all the entrances and exits which happens in your building.
 
 **Advantages of an Access Control System**
 1. **Track each entry and exit**
