@@ -14,3 +14,5 @@ Access Control systems log each access made through a door, and track who entere
 With an Access Control System in place, you can control who enters the building, and when. Employees who are not allowed post a certain period cannot exceed their stay or enter the premises post their shift, and janitorial staff who work night shifts can only access the facility at night.
 3. **Remote Access Control**
 Access Control Systems are remotely accessible, which means they can be controlled or monitored from a remote location, and are only available for a handful of staff members or the security team.
+
+For more details [software documentaion](https://github.com/NaniiGheorghe/AccessControlSystem/wiki)
