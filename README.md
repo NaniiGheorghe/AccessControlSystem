@@ -1,6 +1,6 @@
 # Access Control System in an Office
 
-![alt text](https://github.com/NaniiGheorghe/AccessControlSystem/blob/master/banner02.jpg)
+![alt text](https://github.com/NaniiGheorghe/AccessControlSystem/blob/master/resources/home_photo.jpg)
 
 
 **What is an access control system?**
