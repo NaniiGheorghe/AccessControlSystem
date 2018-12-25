@@ -1,0 +1,3 @@
+liquibase --driver=org.postgresql.Driver --classpath=C:\Users\gnanii\Downloads\postgresql-9.4.1212.jre7.jar --changeLogFile=db.changelog.xml --url="jdbc:postgresql://localhost:5432/acs_db"  --username=user_acs --password=aozhnl --defaultSchemaName=acs generateChangeLog   
+
+liquibase --driver=org.postgresql.Driver --classpath=C:\Users\gnanii\Downloads\postgresql-9.4.1212.jre7.jar --changeLogFile=D:\personal\ACS\AccessControlSystem\project\src\main\resources\liquibase\db.changelog-master.xml --url="jdbc:postgresql://localhost:5432/acs_db"  --username=user_acs --password=aozhnl --defaultSchemaName=acs update   
