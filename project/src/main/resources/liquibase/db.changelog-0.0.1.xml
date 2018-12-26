@@ -8,18 +8,15 @@
     <changeSet author="gnanii" id="Added values">
 
         <sql>
-            INSERT INTO acs.acs_usergroup
-            (id, description)
-            VALUES(1 , 'ADMINISTRATOR');
-
             INSERT INTO acs.acs_officeroom
             (id, "name")
             VALUES(1, 'DEV_ROOM');
 
 
-            INSERT INTO acs.acs_employee
-            (id, firs_name, last_name, password, username, usergroup_id, working_room_id)
-            VALUES(1, 'Gicu', 'Nanii', '12345', 'gnanii', 1, 1);
+            INSERT INTO acs.acs_user
+            (id, firs_name, last_name, password, usergroup, username)
+            VALUES(1 , 'Gicu', 'Nanii', 'test', 1, 'gnanii');
+
         </sql>
 
     </changeSet>
