@@ -14,4 +14,6 @@ public interface OfficeRoomService {
     Optional<OfficeRoom> findById(Integer id);
 
     void delete(OfficeRoom officeRoom);
+
+    List<OfficeRoom> findByEmployeeId(Integer employee_id);
 }

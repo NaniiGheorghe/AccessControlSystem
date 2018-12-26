@@ -3,6 +3,7 @@ package com.acs.service.impl;
 
 import com.acs.model.Action;
 import com.acs.model.DoorLock;
+import com.acs.model.OfficeRoom;
 import com.acs.repository.DoorLockRepository;
 import com.acs.service.DoorLockService;
 import org.springframework.beans.factory.annotation.Autowired;

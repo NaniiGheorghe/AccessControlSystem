@@ -22,22 +22,28 @@ public class OfficeRoomController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createAction(@RequestBody OfficeRoom officeRoom) {
+    public ResponseEntity createOfficeRoom(@RequestBody OfficeRoom officeRoom) {
         officeRoomService.save(officeRoom);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public ResponseEntity createAction(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deleteOfficeRoom(@PathVariable(value = "id") Integer id) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = {"application/json"})
-    public ResponseEntity updateAction(@PathVariable(value = "id") Integer id, @RequestBody OfficeRoom officeRoom) {
+    public ResponseEntity updateOfficeRoom(@PathVariable(value = "id") Integer id, @RequestBody OfficeRoom officeRoom) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         officeRoomService.save(officeRoom);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/accessible_rooms/{employee_id}/")
+    public List<OfficeRoom> getAccessibleRooms(@PathVariable(value = "employee_id") Integer employee_id) {
+        return officeRoomService.findByEmployeeId(employee_id);
     }
 
 }

@@ -22,19 +22,19 @@ public class DoorLockController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createAction(@RequestBody DoorLock doorLock) {
+    public ResponseEntity createDoorLock(@RequestBody DoorLock doorLock) {
         doorLockService.save(doorLock);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public ResponseEntity createAction(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity createDoorLock(@PathVariable(value = "id") Integer id) {
         doorLockService.findById(id).ifPresent(a -> doorLockService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = {"application/json"})
-    public ResponseEntity updateAction(@PathVariable(value = "id") Integer id, @RequestBody DoorLock doorLock) {
+    public ResponseEntity updateDoorLock(@PathVariable(value = "id") Integer id, @RequestBody DoorLock doorLock) {
         doorLockService.findById(id).ifPresent(a -> doorLockService.delete(a));
         doorLockService.save(doorLock);
         return new ResponseEntity(HttpStatus.OK);

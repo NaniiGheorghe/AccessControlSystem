@@ -22,19 +22,19 @@ public class KeyController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createAction(@RequestBody Key key) {
+    public ResponseEntity createKey(@RequestBody Key key) {
         keyService.save(key);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public ResponseEntity createAction(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity createKey(@PathVariable(value = "id") Integer id) {
         keyService.findById(id).ifPresent(a -> keyService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = {"application/json"})
-    public ResponseEntity updateAction(@PathVariable(value = "id") Integer id, @RequestBody Key key) {
+    public ResponseEntity updateKey(@PathVariable(value = "id") Integer id, @RequestBody Key key) {
         keyService.findById(id).ifPresent(a -> keyService.delete(a));
         keyService.save(key);
         return new ResponseEntity(HttpStatus.OK);
