@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/officeroom")
 public class OfficeRoomController {
 
     @Autowired
     private OfficeRoomService officeRoomService;
 
-    @RequestMapping(value = "/list/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/api/v1/officeroom/list/", method = RequestMethod.GET)
     public List<OfficeRoom> list() {
         return officeRoomService.getAllOfficeRooms();
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "/administrator/api/v1/officeroom", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity createOfficeRoom(@RequestBody OfficeRoom officeRoom) {
         officeRoomService.save(officeRoom);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/administrator/api/v1/officeroom/{id}")
     public ResponseEntity deleteOfficeRoom(@PathVariable(value = "id") Integer id) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = {"application/json"})
+    @RequestMapping(method = RequestMethod.PUT, value = "/administrator/api/v1/officeroom/{id}", consumes = {"application/json"})
     public ResponseEntity updateOfficeRoom(@PathVariable(value = "id") Integer id, @RequestBody OfficeRoom officeRoom) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         officeRoomService.save(officeRoom);
@@ -41,7 +41,7 @@ public class OfficeRoomController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/accessible_rooms/{employee_id}/")
+    @RequestMapping(method = RequestMethod.POST, value = "/user/api/v1/officeroom/accessible_rooms/{employee_id}/")
     public List<OfficeRoom> getAccessibleRooms(@PathVariable(value = "employee_id") Integer employee_id) {
         return officeRoomService.findByEmployeeId(employee_id);
     }

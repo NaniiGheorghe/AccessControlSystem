@@ -10,30 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/doorlock")
 public class DoorLockController {
 
     @Autowired
     private DoorLockService doorLockService;
 
-    @RequestMapping(value = "/list/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/api/v1/doorlock/list/", method = RequestMethod.GET)
     public List<DoorLock> list() {
         return doorLockService.getAllDoorLocks();
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "/administrator/api/v1/doorlock", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity createDoorLock(@RequestBody DoorLock doorLock) {
         doorLockService.save(doorLock);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/administrator/api/v1/doorlock/{id}")
     public ResponseEntity createDoorLock(@PathVariable(value = "id") Integer id) {
         doorLockService.findById(id).ifPresent(a -> doorLockService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = {"application/json"})
+    @RequestMapping(method = RequestMethod.PUT, value = "/administrator/api/v1/doorlock/{id}", consumes = {"application/json"})
     public ResponseEntity updateDoorLock(@PathVariable(value = "id") Integer id, @RequestBody DoorLock doorLock) {
         doorLockService.findById(id).ifPresent(a -> doorLockService.delete(a));
         doorLockService.save(doorLock);

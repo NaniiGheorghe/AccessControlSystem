@@ -13,8 +13,12 @@ public class Employee{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(targetEntity = User.class)
-    private User user;
+    @OneToOne(targetEntity = ApplicationUser.class)
+    private ApplicationUser user;
+
+    private String firsName;
+
+    private String lastName;
 
     @OneToOne(targetEntity = OfficeRoom.class)
     private OfficeRoom workingRoom;
@@ -31,11 +35,11 @@ public class Employee{
         this.workingRoom = workingRoom;
     }
 
-    public User getUser() {
+    public ApplicationUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(ApplicationUser user) {
         this.user = user;
     }
 
@@ -55,4 +59,19 @@ public class Employee{
         this.id = id;
     }
 
+    public String getFirsName() {
+        return firsName;
+    }
+
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

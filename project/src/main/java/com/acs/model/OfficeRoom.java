@@ -14,7 +14,7 @@ public class OfficeRoom {
 
     private String name;
 
-    @OneToMany(targetEntity = DoorLock.class)
+    @OneToMany(targetEntity = DoorLock.class, fetch = FetchType.EAGER)
     private List<DoorLock> doorLocks;
 
     public int getId() {

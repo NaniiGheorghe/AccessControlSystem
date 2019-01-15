@@ -1,48 +1,44 @@
 package com.acs.rest;
 
-import com.acs.model.OfficeRoom;
-import com.acs.model.User;
-import com.acs.service.UserService;
+import com.acs.model.ApplicationUser;
+import com.acs.model.UserGroup;
+import com.acs.repository.ApplicationUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.jws.soap.SOAPBinding;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/users")
 public class UserController {
 
     Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private ApplicationUserRepository applicationUserRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public UserController(ApplicationUserRepository applicationUserRepository,
+                          BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.applicationUserRepository = applicationUserRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
-    @Autowired
-    private UserService userService;
+    @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+    public ResponseEntity signUp(@RequestBody ApplicationUser user) {
+        if (applicationUserRepository.findByUsername(user.getUsername()).isPresent())
+            return new ResponseEntity(HttpStatus.CONFLICT);
 
-    @RequestMapping(value = "/list/", method = RequestMethod.GET)
-    public List<User> list() {
-        return userService.getAllUsers();
+        if(user.getUsergroup() == null)
+            user.setUsergroup(UserGroup.USER);
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        applicationUserRepository.save(user);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createOfficeRoom(@RequestBody User user) {
-        userService.save(user);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            LOGGER.info("User was logged in.");
-        }
-        return null;
-    }
 }

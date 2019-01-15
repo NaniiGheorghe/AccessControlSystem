@@ -10,17 +10,15 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name="acs_user")
-public class User implements UserDetails {
+@Table(name = "acs_user")
+public class ApplicationUser implements UserDetails {
+
+    private static final String ROLE_PREFIX = "ROLE_";
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String firsName;
-
-    private String lastName;
 
     private String username;
 
@@ -51,7 +49,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(usergroup.name()));
+        authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + usergroup.name()));
         return authorities;
     }
 
@@ -86,22 +84,5 @@ public class User implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getFirsName() {
-        return firsName;
-    }
-
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
 
 }

@@ -8,16 +8,48 @@
     <changeSet author="gnanii" id="Added values">
 
         <sql>
-            INSERT INTO acs.acs_officeroom
+
+			INSERT INTO acs.acs_user
+			(id, password, usergroup, username)
+			VALUES(1, '$2a$10$f5yLO6IayP9NEz5ZM6sflugF0MLylXAzwLz7KRcexsE1yT0oveA3O', 0, 'user');
+
+			INSERT INTO acs.acs_user
+			(id, password, usergroup, username)
+			VALUES(2, '$2a$10$rxNWy9xI0L40IGyMPymqBu8XagT36gyXtHZy69vXIF71hHVh23iZS', 1, 'admin');
+
+			INSERT INTO acs.acs_officeroom
             (id, "name")
             VALUES(1, 'DEV_ROOM');
 
+			INSERT INTO acs.acs_doorlock
+			(id)
+			VALUES(1);
 
-            INSERT INTO acs.acs_user
-            (id, firs_name, last_name, password, usergroup, username)
-            VALUES(1 , 'Gicu', 'Nanii', 'test', 1, 'gnanii');
+			INSERT INTO acs.acs_officeroom_door_locks
+			(office_room_id, door_locks_id)
+			VALUES(1, 1);
 
-        </sql>
+			INSERT INTO acs.acs_employee
+			(id, firs_name, last_name, user_id, working_room_id)
+			VALUES(1, 'Nanii', 'Gicu', 2, 1);
 
-    </changeSet>
+			INSERT INTO acs.acs_key
+			(id)
+			VALUES(1);
+
+			INSERT INTO acs.acs_employee_keys
+			(employee_id, keys_id)
+			VALUES(1, 1);
+
+			INSERT INTO acs.acs_key_accessible_door_locks
+			(key_id, accessible_door_locks_id)
+			VALUES(1, 1);
+
+			INSERT INTO acs.acs_notification
+			(dtype, id, employee_id, office_room_id)
+			VALUES('', 1, 1, 1);
+
+		</sql>
+
+	</changeSet>
 </databaseChangeLog>

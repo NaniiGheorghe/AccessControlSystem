@@ -105,26 +105,38 @@ public class LoggingAspect {
 
     @Around("getWebPointcut()")
     public Object logAroundWeb(ProceedingJoinPoint joinPoint) throws Throwable {
-
+        String finalPath = "";
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
-        String[] path = method.getAnnotation(RequestMapping.class).value();
-        String[] classPath  = method.getDeclaringClass().getAnnotation(RequestMapping.class).value();
-        RequestMethod[] requestMethods = method.getAnnotation(RequestMapping.class).method();
-        LOGGER_WEB.debug("Executing end point [" + classPath[0] + path[0] + "] and method [" + requestMethods[0] + "]");
-
-        if (LOGGER_WEB.isDebugEnabled()) {
-            LOGGER_WEB.debug("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " + Arrays.toString(joinPoint.getArgs()));
-        }
-        try {
-            Object result = joinPoint.proceed();
-            if (LOGGER_WEB.isDebugEnabled()) {
-                LOGGER_WEB.debug("Exit: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with result = " + result);
+        if (method != null && method.getAnnotation(RequestMapping.class) != null) {
+            String[] path = method.getAnnotation(RequestMapping.class).value();
+            if(method.getDeclaringClass().getAnnotation(RequestMapping.class) != null) {
+                String[] classPath = method.getDeclaringClass().getAnnotation(RequestMapping.class).value();
+                if (classPath.length > 0) {
+                    finalPath += classPath[0];
+                }
             }
-            return result;
-        } catch (IllegalArgumentException e) {
-            LOGGER_WEB.error("Illegal argument: " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
-            throw e;
+
+            RequestMethod[] requestMethods = method.getAnnotation(RequestMapping.class).method();
+            if (path.length > 0) {
+                finalPath += path[0];
+            }
+            LOGGER_WEB.debug("Executing end point [" + finalPath + "] and method [" + requestMethods[0] + "]");
+
+            if (LOGGER_WEB.isDebugEnabled()) {
+                LOGGER_WEB.debug("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " + Arrays.toString(joinPoint.getArgs()));
+            }
+            try {
+                Object result = joinPoint.proceed();
+                if (LOGGER_WEB.isDebugEnabled()) {
+                    LOGGER_WEB.debug("Exit: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with result = " + result);
+                }
+                return result;
+            } catch (IllegalArgumentException e) {
+                LOGGER_WEB.error("Illegal argument: " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
+                throw e;
+            }
         }
+        return null;
     }
 }
