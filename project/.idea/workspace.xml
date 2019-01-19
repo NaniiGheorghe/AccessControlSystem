@@ -2,64 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88542270-eee6-4ae7-9f7f-55976f52bd3d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AccessControlSystem-Client/AccessControlSystem-Client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/aop/logging/LoggingAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/AccessControlSystemApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/security/JWTAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/security/JWTAuthorizationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/security/SecurityConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/security/WebSecurity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/configuration/swagger/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/jmx/LoggerMXBean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/jmx/LoggerMXBeanImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/Action.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/ApplicationUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/Direction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/DoorLock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/Employee.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/Key.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/Notification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/OfficeRoom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/RequestAccessNotification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/model/UserGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/ActionRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/ApplicationUserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/DoorLockRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/EmployeeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/KeyRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/NotificationRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/repository/OfficeRoomRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/ActionController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/DoorLockController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/EmployeeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/KeyController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/OfficeRoomController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/rest/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/ActionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/DoorLockService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/EmployeeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/KeyService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/NotificationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/OfficeRoomService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/ActionServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/DoorLockServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/EmployeeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/KeyServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/NotificationServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/OfficeRoomServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/java/com/acs/service/impl/UserDetailsServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/resources/liquibase/db.changelog-0.0.1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/resources/liquibase/db.changelog-initialization.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/resources/liquibase/db.changelog-master.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/main/resources/logback-spring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../temp/project/src/test/java/com/acs/configuration/AccessControlSystemApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccessControlSystem-Server/.gitignore" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -75,7 +19,7 @@
     <session id="1448762705">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="2" />
@@ -122,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/AccessControlSystem-Client/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -130,8 +74,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AccessControlSystem-Server/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-985">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="315">
+              <caret line="76" column="43" selection-start-line="76" selection-start-column="43" selection-end-line="76" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -224,12 +168,17 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547886254988" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -248,7 +197,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.Client">
+  <component name="RunManager" selected="Spring Boot.Server">
     <configuration name="Server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="AccessControlSystem-Server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.acs.configuration.AccessControlSystemApplication" />
@@ -283,17 +232,17 @@
       <option name="presentableId" value="Default" />
       <updated>1547885691090</updated>
       <workItem from="1547885694144" duration="615000" />
-      <workItem from="1547886358679" duration="234000" />
+      <workItem from="1547886358679" duration="821000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="932000" />
+    <option name="totallyTimeSpent" value="1436000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -304,7 +253,7 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27620396" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.16005665" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -351,14 +300,14 @@
     <entry file="file://$PROJECT_DIR$/AccessControlSystem-Client/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AccessControlSystem-Server/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-984">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="315">
+          <caret line="76" column="43" selection-start-line="76" selection-start-column="43" selection-end-line="76" selection-end-column="43" />
         </state>
       </provider>
     </entry>
