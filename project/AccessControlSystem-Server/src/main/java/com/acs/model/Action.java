@@ -19,6 +19,9 @@ public class Action {
 
     private Date gendate;
 
+    @OneToOne(targetEntity = OfficeRoom.class)
+    private OfficeRoom officeRoom;
+
     public int getId() {
         return id;
     }
@@ -49,5 +52,13 @@ public class Action {
 
     public void setGendate(Date gendate) {
         this.gendate = gendate;
+    }
+
+    public OfficeRoom getOfficeRoom() {
+        return officeRoom;
+    }
+
+    public void setOfficeRoom(OfficeRoom officeRoom) {
+        this.officeRoom = officeRoom;
     }
 }

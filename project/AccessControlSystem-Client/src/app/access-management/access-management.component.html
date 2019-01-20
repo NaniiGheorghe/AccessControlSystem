@@ -1,0 +1,70 @@
+<div class="full-width-table">
+  <mat-grid-list [cols]="2" rowHeight="65px">
+    <mat-grid-tile >
+      <h1 class="align-start text-color">Access Management</h1>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <form class="align-end form-style">
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Search" type="text" [(ngModel)]="emplyeeSearchKey" name="searchKey"/>
+        </mat-form-field>
+      </form>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="mat-elevation-z8" (scroll)="row">
+      <table mat-table class="inside-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row">{{row.id}}</td>
+        </ng-container>
+
+        <!-- First name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
+          <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+        </ng-container>
+
+        <!-- First name Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last name</th>
+          <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+        </ng-container>
+
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Position</th>
+          <td mat-cell *matCellDef="let row">{{row.position}}</td>
+        </ng-container>
+
+        <!-- Departament Column -->
+        <ng-container matColumnDef="departament">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Departament</th>
+          <td mat-cell *matCellDef="let row">{{row.departament}}</td>
+        </ng-container>
+
+        <!-- Default working room Column -->
+        <ng-container matColumnDef="defaultWorkingRoom">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Default working room</th>
+          <td mat-cell *matCellDef="let row">{{row.defaultWorkingRoom}}</td>
+        </ng-container>
+
+        <!-- Key Type Column -->
+        <ng-container matColumnDef="keyType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Key Type</th>
+          <td mat-cell *matCellDef="let row">{{row.keyType}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginator
+                     [length]="dataSource.data.length"
+                     [pageIndex]="0"
+                     [pageSize]="20"
+                     [pageSizeOptions]="[20, 50, 100, 250]">
+      </mat-paginator>
+    </div>
+  </div>

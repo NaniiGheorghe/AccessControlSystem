@@ -1,0 +1,58 @@
+<div class="full-width-table">
+  <mat-grid-list [cols]="2" rowHeight="65px">
+    <mat-grid-tile >
+      <h1 class="align-start text-color">Events</h1>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <form class="align-end form-style">
+        <mat-form-field class="full-width-input">
+          <input  matInput (keyup)="applyFilter($event.target.value)" type="text"/>
+        </mat-form-field>
+      </form>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="mat-elevation-z8" (scroll)="row">
+
+    <table mat-table class="inside-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="employee">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee name</th>
+        <td mat-cell *matCellDef="let row">{{row.employee}}</td>
+      </ng-container>
+
+      <!-- Office Room Column -->
+      <ng-container matColumnDef="officeRoom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Office Room</th>
+        <td mat-cell *matCellDef="let row">{{row.officeRoom}}</td>
+      </ng-container>
+
+      <!-- Direction Column -->
+      <ng-container matColumnDef="direction">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Direction</th>
+        <td mat-cell *matCellDef="let row">{{row.direction}}</td>
+      </ng-container>
+
+      <!-- Time Column -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+        <td mat-cell *matCellDef="let row">{{row.time}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator
+                   [length]="dataSource.data.length"
+                   [pageIndex]="0"
+                   [pageSize]="20"
+                   [pageSizeOptions]="[20, 50, 100, 250]">
+    </mat-paginator>
+  </div>
+</div>

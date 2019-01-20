@@ -3,17 +3,13 @@
 }
 
 .sidenav {
-  width: 200px;
-  margin-top: 35px;
+  width: 15%;
+  margin-top:  35px;
   background: gainsboro;
 }
 
 .mat-toolbar.mat-primary {
   height: 35px;
-}
-
-::ng-deep .mat-icon {
-  height: 100px;
 }
 
 .menu-button {
@@ -27,7 +23,7 @@
 }
 
 .mat-button-toggle-group {
-  width: 199px;
+  width: 100%;
   border: none;
   margin: 0;
   border-radius: 0;
@@ -75,14 +71,17 @@
   font-size: medium;
   display: inline-block;
   margin: 0;
+  position: fixed;
 }
 
 .red{
   background-color: darkorange;
 }
-//
-//.login-logout-icons{
-//  margin: 0;
-//  padding: 0;
-//  text-align: center;
-//}
+
+.fixed{
+  //position: fixed;
+}
+mat-sidenav-content {
+  margin-left: 0 !important;
+  flex: 1 1 auto;
+}

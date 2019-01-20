@@ -1,20 +1,22 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer class="sidenav "
+  <mat-sidenav #drawer class="sidenav"
                [fixedInViewport]="true"
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async)">
     <mat-nav-list>
-      <mat-button-toggle-group vertical class="mat-button-toggle-group">
-        <mat-button-toggle class="menu-button">Home</mat-button-toggle>
-        <mat-button-toggle class="menu-button">Events</mat-button-toggle>
-        <mat-button-toggle class="menu-button">Access Management</mat-button-toggle>
-        <mat-button-toggle class="menu-button">Reports</mat-button-toggle>
-        <mat-button-toggle class="menu-button">System Administration</mat-button-toggle>
+      <mat-button-toggle-group [vertical]="true" class="mat-button-toggle-group">
+        <mat-button-toggle class="menu-button" (click)='loadHomeComponent();'>Home</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadEventsComponent();'>Events</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadAccessManagementComponent();'>Access Management</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadReportsComponent();'>Reports</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadEventsComponent();'>System Administration
+        </mat-button-toggle>
       </mat-button-toggle-group>
     </mat-nav-list>
   </mat-sidenav>
 </mat-sidenav-container>
+
 
 <mat-sidenav-container>
   <mat-sidenav-content class="red">
@@ -43,3 +45,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
+
+<div id="home">Thank you for choosing ACS</div>
+<app-event-table id="events"></app-event-table>
+<app-access-management id="accessManagement"></app-access-management>
+<app-report id="reports"></app-report>
