@@ -1,0 +1,88 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  margin-top: 35px;
+  background: gainsboro;
+}
+
+.mat-toolbar.mat-primary {
+  height: 35px;
+}
+
+::ng-deep .mat-icon {
+  height: 100px;
+}
+
+.menu-button {
+  text-align: center;
+  width: 100%;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: small;
+}
+
+.mat-button-toggle-group {
+  width: 199px;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.mat-button-toggle {
+  background-color:  gainsboro;
+  border: 1px ;
+}
+
+
+.mat-button-toggle-checked {
+  background-color: darkorange;
+  color: white;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+
+}
+.mat-nav-list{
+  margin: 0;
+  padding: 0;
+}
+
+.mat-button-toggle-login-logout-group {
+  align-content: end;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.login-logout-icons{
+  text-align: center;
+  width: 100%;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: small;
+}
+
+.access-constrol-system{
+  font-size: medium;
+  display: inline-block;
+  margin: 0;
+}
+
+.red{
+  background-color: darkorange;
+}
+//
+//.login-logout-icons{
+//  margin: 0;
+//  padding: 0;
+//  text-align: center;
+//}

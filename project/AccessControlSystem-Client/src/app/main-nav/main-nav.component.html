@@ -1,0 +1,45 @@
+<mat-sidenav-container>
+  <mat-sidenav #drawer class="sidenav "
+               [fixedInViewport]="true"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async)">
+    <mat-nav-list>
+      <mat-button-toggle-group vertical class="mat-button-toggle-group">
+        <mat-button-toggle class="menu-button">Home</mat-button-toggle>
+        <mat-button-toggle class="menu-button">Events</mat-button-toggle>
+        <mat-button-toggle class="menu-button">Access Management</mat-button-toggle>
+        <mat-button-toggle class="menu-button">Reports</mat-button-toggle>
+        <mat-button-toggle class="menu-button">System Administration</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<mat-sidenav-container>
+  <mat-sidenav-content class="red">
+    <mat-toolbar color="primary" class="access-constrol-system">
+      <mat-grid-list [cols]="7" rowHeight="100%">
+        <mat-grid-tile class="center">
+          <button
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            class="fa fa-bars"
+            (click)="drawer.toggle()"
+            *ngIf="isHandset$ | async">
+            <mat-icon aria-label="Side nav toggle icon">Menu</mat-icon>
+          </button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="5">
+          <span class="center">Access Control System</span>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button class="login-logout-icons">Settings</button>
+          <button mat-button class="login-logout-icons">My Account</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
