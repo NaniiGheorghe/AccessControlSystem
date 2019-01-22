@@ -13,8 +13,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EventTableComponent} from './event-table/event-table.component';
 import {AccessManagementComponent} from './access-management/access-management.component';
 import {ReportComponent} from './report/report.component'
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {SpinnerComponent} from "./spinner/spinner.component";
+import {MessageService} from "../services/MessageService";
+import {ActionService} from "../services/ActionService";
+import {SpinnerService} from "../services/SpinnerService";
+import {HttpClientModule} from "@angular/common/http";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -26,6 +31,8 @@ import {SpinnerComponent} from "./spinner/spinner.component";
     SpinnerComponent
   ],
   imports: [
+    HttpClientModule,
+    HttpModule,
     BrowserModule,
     LayoutModule,
     MatToolbarModule,
@@ -45,7 +52,7 @@ import {SpinnerComponent} from "./spinner/spinner.component";
     MatInputModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [ActionService, MessageService, SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

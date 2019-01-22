@@ -1,15 +1,17 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {delay, map} from 'rxjs/operators';
+import {ActionService} from "../../services/ActionService";
+import {MessageService} from "../../services/MessageService";
+import {SpinnerService} from "../../services/SpinnerService";
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss']
 })
-export class MainNavComponent {
-
+export class MainNavComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -17,23 +19,31 @@ export class MainNavComponent {
     );
 
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private messageService: MessageService,
+              private spinnerService: SpinnerService) {
   }
 
-  ngOnInit(){
-    this.hideAll()
+
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.hideAll();
+    this.spinnerService.hide();
   }
 
   loadEventsComponent() {
-    var events = document.getElementById('events');
     this.hideAll();
-    events.style.display = 'block';
+    delay(500);
+    this.spinnerService.show();
+    this.messageService.notify();
   }
 
 
   loadHomeComponent() {
-    var home = document.getElementById('home');
     this.hideAll();
+    var home = document.getElementById('home');
     home.style.display = 'block';
   }
 
@@ -62,4 +72,6 @@ export class MainNavComponent {
     reports.style.display = 'none';
     // systemAdministration.style.display = 'hidden';
   }
+
+
 }

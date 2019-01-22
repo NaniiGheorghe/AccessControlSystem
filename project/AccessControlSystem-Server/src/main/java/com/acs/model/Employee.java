@@ -5,8 +5,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name="acs_employee")
-public class Employee{
+@Table(name = "acs_employee")
+public class Employee {
 
     @Id
     @Column(name = "id")
@@ -23,8 +23,8 @@ public class Employee{
     @OneToOne(targetEntity = OfficeRoom.class)
     private OfficeRoom workingRoom;
 
-    @OneToMany(targetEntity = Key.class)
-    private List<Key> keys;
+    @OneToMany(targetEntity = Key.class, fetch = FetchType.EAGER)
+    transient private List<Key> keys;
 
 
     public OfficeRoom getWorkingRoom() {

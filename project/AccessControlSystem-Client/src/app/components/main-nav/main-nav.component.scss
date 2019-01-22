@@ -4,7 +4,7 @@
 
 .sidenav {
   width: 15%;
-  margin-top:  35px;
+  margin-top: 35px;
   background: gainsboro;
 }
 
@@ -31,10 +31,9 @@
 }
 
 .mat-button-toggle {
-  background-color:  gainsboro;
-  border: 1px ;
+  background-color: gainsboro;
+  border: 1px;
 }
-
 
 .mat-button-toggle-checked {
   background-color: darkorange;
@@ -44,7 +43,8 @@
   padding: 0;
 
 }
-.mat-nav-list{
+
+.mat-nav-list {
   margin: 0;
   padding: 0;
 }
@@ -57,7 +57,7 @@
   padding: 0;
 }
 
-.login-logout-icons{
+.login-logout-icons {
   text-align: center;
   width: 100%;
   border: none;
@@ -67,21 +67,23 @@
   font-size: small;
 }
 
-.access-constrol-system{
+.access-constrol-system {
   font-size: medium;
   display: inline-block;
   margin: 0;
   position: fixed;
 }
 
-.red{
+.red {
   background-color: darkorange;
 }
 
-.fixed{
+.fixed {
   //position: fixed;
 }
+
 mat-sidenav-content {
   margin-left: 0 !important;
   flex: 1 1 auto;
 }
+

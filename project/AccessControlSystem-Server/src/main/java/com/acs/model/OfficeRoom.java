@@ -33,4 +33,11 @@ public class OfficeRoom {
         this.doorLocks = doorLocks;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

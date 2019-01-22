@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="gnanii" id="Added values">
+
+        <sql>
+			INSERT INTO acs.acs_officeroom
+			(id, name)
+			VALUES(2, 'Service office room');
+
+			INSERT INTO acs.acs_officeroom
+			(id, name)
+			VALUES(3, 'Relax room');
+
+			INSERT INTO acs.acs_officeroom
+			(id, name)
+			VALUES(4, 'Administration office room');
+
+			INSERT INTO acs.acs_officeroom
+			(id, name)
+			VALUES(5, 'PLC office room');
+
+			INSERT INTO acs.acs_action
+			(id, direction, gendate, employee_id, office_room_id)
+			VALUES(nextval('acs.acs_action_id_seq'::regclass), 0, '2002-09-28 22:10:00', 1, 2);
+
+			INSERT INTO acs.acs_action
+			(id, direction, gendate, employee_id, office_room_id)
+			VALUES(nextval('acs.acs_action_id_seq'::regclass), 1, '2004-09-28 01:02:11', 1, 3);
+
+			INSERT INTO acs.acs_action
+			(id, direction, gendate, employee_id, office_room_id)
+			VALUES(nextval('acs.acs_action_id_seq'::regclass), 1, '2019-09-28 01:02:11', 1, 4);
+
+		</sql>
+
+	</changeSet>
+</databaseChangeLog>
