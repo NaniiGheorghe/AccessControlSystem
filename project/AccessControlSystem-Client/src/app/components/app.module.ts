@@ -21,6 +21,7 @@ import {SpinnerService} from "../services/SpinnerService";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
 import {CookieModule, CookieService} from "ngx-cookie";
+import {FormLoginComponent} from "./login/form-login.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {CookieModule, CookieService} from "ngx-cookie";
     EventTableComponent,
     AccessManagementComponent,
     ReportComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    FormLoginComponent
   ],
   imports: [
     HttpClientModule,
