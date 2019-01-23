@@ -11,8 +11,8 @@ export class MessageService {
     return this.listener.asObservable();
   }
 
-  notify() {
-    this.listener.next();
+  notify(event: any) {
+    this.listener.next(event);
   }
 
 }

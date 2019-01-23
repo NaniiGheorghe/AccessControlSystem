@@ -4,15 +4,17 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="acs_key")
+@Table(name = "acs_key")
 public class Key {
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany(targetEntity = Employee.class)
+    private KeyTypeEnum keyType;
+
+    @ManyToMany(targetEntity = DoorLock.class, fetch = FetchType.EAGER)
     private List<DoorLock> accessibleDoorLocks;
 
     public int getId() {
@@ -29,5 +31,13 @@ public class Key {
 
     public void setAccessibleDoorLocks(List<DoorLock> accessibleDoorLocks) {
         this.accessibleDoorLocks = accessibleDoorLocks;
+    }
+
+    public KeyTypeEnum getKeyType() {
+        return keyType;
+    }
+
+    public void setKeyType(KeyTypeEnum keyType) {
+        this.keyType = keyType;
     }
 }

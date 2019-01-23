@@ -11,7 +11,7 @@ export interface SpinnerState {
 })
 export class SpinnerService {
   private spinnerSubject = new Subject();
-  public isProgressShowing: boolean = true;
+  public isProgressShowing: boolean = false;
 
   spinnerState = <Observable<SpinnerState>>this.spinnerSubject.asObservable();
 

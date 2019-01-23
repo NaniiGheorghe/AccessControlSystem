@@ -25,8 +25,10 @@ export class EventTableComponent implements OnInit {
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
               private actionService: ActionService) {
-    this.messageService.listen().subscribe(() => {
-      this.loadAllActions();
+    this.messageService.listen().subscribe((event) => {
+      if (event == 'action') {
+        this.loadAllActions();
+      }
     })
   }
 

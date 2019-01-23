@@ -1,20 +1,24 @@
 package com.acs.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="acs_officeroom")
+@Table(name = "acs_officeroom")
 public class OfficeRoom {
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
     @OneToMany(targetEntity = DoorLock.class, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<DoorLock> doorLocks;
 
     public int getId() {

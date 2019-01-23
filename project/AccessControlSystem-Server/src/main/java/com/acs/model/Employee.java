@@ -1,5 +1,9 @@
 package com.acs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,12 +24,15 @@ public class Employee {
 
     private String lastName;
 
-    @OneToOne(targetEntity = OfficeRoom.class)
+    @OneToOne(targetEntity = OfficeRoom.class, fetch = FetchType.EAGER)
     private OfficeRoom workingRoom;
 
     @OneToMany(targetEntity = Key.class, fetch = FetchType.EAGER)
-    transient private List<Key> keys;
+    private List<Key> keys;
 
+    private String positions;
+
+    private String departament;
 
     public OfficeRoom getWorkingRoom() {
         return workingRoom;
@@ -73,5 +80,21 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPositions() {
+        return positions;
+    }
+
+    public void setPositions(String positions) {
+        this.positions = positions;
+    }
+
+    public String getDepartament() {
+        return departament;
+    }
+
+    public void setDepartament(String departament) {
+        this.departament = departament;
     }
 }

@@ -5,11 +5,13 @@ import {delay, map} from 'rxjs/operators';
 import {ActionService} from "../../services/ActionService";
 import {MessageService} from "../../services/MessageService";
 import {SpinnerService} from "../../services/SpinnerService";
+import {CookieOptions, CookieService} from "ngx-cookie";
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.scss']
+  styleUrls: ['./main-nav.component.scss'],
+  providers: [CookieService]
 })
 export class MainNavComponent implements OnInit {
 
@@ -21,25 +23,21 @@ export class MainNavComponent implements OnInit {
 
   constructor(private breakpointObserver: BreakpointObserver,
               private messageService: MessageService,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService,
+              private cookiesService: CookieService) {
   }
 
 
-  ngOnInit(): void {
+  ngOnInit() {
+    let exp = new Date(2040, 12, 21);
+    let cookieOptions = {expires: exp} as CookieOptions;
+    this.cookiesService.put('token', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU0OTA1Mjk2Mn0.Nozz-Vyo9hHyXpqx7VCkxqDW60_3GNH-dEChPrX7hvIjvYZGqm6RXyrQpntpL50BI7GCN_Rn3efOFwC21qjHlw', cookieOptions);
   }
 
   ngAfterViewInit() {
     this.hideAll();
-    this.spinnerService.hide();
+    //this.spinnerService.hide();
   }
-
-  loadEventsComponent() {
-    this.hideAll();
-    delay(500);
-    this.spinnerService.show();
-    this.messageService.notify();
-  }
-
 
   loadHomeComponent() {
     this.hideAll();
@@ -47,17 +45,22 @@ export class MainNavComponent implements OnInit {
     home.style.display = 'block';
   }
 
+  loadEventsComponent() {
+    this.hideAll();
+    this.spinnerService.show();
+    this.messageService.notify('action');
+  }
 
   loadAccessManagementComponent() {
-    var accessManagement = document.getElementById('accessManagement');
     this.hideAll();
-    accessManagement.style.display = 'block';
+    this.spinnerService.show();
+    this.messageService.notify('accessManagement');
   }
 
   loadReportsComponent() {
-    var reports = document.getElementById('reports');
     this.hideAll();
-    reports.style.display = 'block';
+    this.spinnerService.show();
+    this.messageService.notify('reports');
   }
 
   hideAll() {

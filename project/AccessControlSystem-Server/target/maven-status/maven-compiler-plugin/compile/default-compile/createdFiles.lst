@@ -14,6 +14,7 @@ com\acs\service\DoorLockService.class
 com\acs\repository\DoorLockRepository.class
 com\acs\model\RequestAccessNotification.class
 com\acs\service\NotificationService.class
+com\acs\model\KeyTypeEnum.class
 com\acs\repository\KeyRepository.class
 com\acs\rest\OfficeRoomController.class
 com\acs\repository\ActionRepository.class

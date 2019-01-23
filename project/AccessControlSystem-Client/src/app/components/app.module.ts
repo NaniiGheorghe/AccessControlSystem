@@ -20,6 +20,7 @@ import {ActionService} from "../services/ActionService";
 import {SpinnerService} from "../services/SpinnerService";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
+import {CookieModule, CookieService} from "ngx-cookie";
 
 @NgModule({
   declarations: [
@@ -50,9 +51,10 @@ import {HttpModule} from "@angular/http";
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CookieModule.forRoot()
   ],
-  providers: [ActionService, MessageService, SpinnerService],
+  providers: [ActionService, MessageService, SpinnerService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
