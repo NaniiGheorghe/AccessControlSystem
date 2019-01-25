@@ -5,11 +5,12 @@ import {map} from "rxjs/operators";
 import {Employee} from "../models/Employee";
 import {Report} from "../models/Report";
 import {CookieService} from "ngx-cookie";
+import {Room} from "../models/Room";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReportService {
+export class RoomService {
 
 
   constructor(private http: HttpClient,
@@ -23,26 +24,20 @@ export class ReportService {
     })
   };
 
-  getAllReports() {
-    let reports: Report[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', this.httpOptions).pipe(
+  getAllRooms() {
+    let rooms: Room[] = [];
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/list/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
-            reports.push(new Report(
+            rooms.push(new Room(
               JSON.parse(JSON.stringify(entry)).id,
-              JSON.parse(JSON.stringify(entry)).firstName + " " + JSON.parse(JSON.stringify(entry)).lastName,
-              JSON.parse(JSON.stringify(entry)).usergroup,
-              JSON.parse(JSON.stringify(entry)).workingRoom,
-              JSON.parse(JSON.stringify(entry)).position,
-              JSON.parse(JSON.stringify(entry)).departament,
-              'January',
-              145,
-              2));
+              JSON.parse(JSON.stringify(entry)).name,
+              JSON.parse(JSON.stringify(entry)).doorLocks
+            ));
           }
-          return reports;
+          return rooms;
         }
       )
     );
   }
 }
-

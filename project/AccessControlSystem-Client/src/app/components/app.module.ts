@@ -22,6 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
 import {CookieModule, CookieService} from "ngx-cookie";
 import {FormLoginComponent} from "./login/form-login.component";
+import { UserComponent } from './user/user.component';
+import { RoomComponent } from './room/room.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {FormLoginComponent} from "./login/form-login.component";
     AccessManagementComponent,
     ReportComponent,
     SpinnerComponent,
-    FormLoginComponent
+    FormLoginComponent,
+    UserComponent,
+    RoomComponent
   ],
   imports: [
     HttpClientModule,

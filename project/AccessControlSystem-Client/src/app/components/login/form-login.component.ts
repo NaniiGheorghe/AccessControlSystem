@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector:    'slt-form-login',
-  templateUrl: 'form-login.component.html',
-  styleUrls:   ['../login.component.scss']
+  templateUrl: './form-login.component.html',
+  styleUrls:   ['./login.component.scss']
 })
 export class FormLoginComponent implements OnInit {
 

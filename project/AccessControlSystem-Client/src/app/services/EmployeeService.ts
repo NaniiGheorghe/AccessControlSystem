@@ -27,18 +27,19 @@ export class EmployeeService {
     return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
-            let keyIds;
-            for (let key of JSON.parse(JSON.stringify(entry)).keys) {
-              keyIds += key.id;
-            }
-
-            actions.push(new Employee(JSON.parse(JSON.stringify(entry)).id,
-              JSON.parse(JSON.stringify(entry)).firsName,
+            actions.push(new Employee(
+              JSON.parse(JSON.stringify(entry)).id,
+              JSON.parse(JSON.stringify(entry)).username,
+              JSON.parse(JSON.stringify(entry)).password,
+              JSON.parse(JSON.stringify(entry)).firstName,
               JSON.parse(JSON.stringify(entry)).lastName,
-              JSON.parse(JSON.stringify(entry)).positions,
+              JSON.parse(JSON.stringify(entry)).usergroup,
+              JSON.parse(JSON.stringify(entry)).position,
               JSON.parse(JSON.stringify(entry)).departament,
-              JSON.parse(JSON.stringify(entry)).workingRoom.name,
-              keyIds));
+              JSON.parse(JSON.stringify(entry)).workingRoom,
+              JSON.parse(JSON.stringify(entry)).accessibleRoom,
+              JSON.parse(JSON.stringify(entry)).accessibleRoomDoorLock,
+              JSON.parse(JSON.stringify(entry)).keys));
           }
           return actions;
         }

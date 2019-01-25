@@ -19,16 +19,10 @@
         <td mat-cell *matCellDef="let row">{{row.id}}</td>
       </ng-container>
 
-      <!-- First name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
-        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-      </ng-container>
-
-      <!-- First name Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last name</th>
-        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      <!-- Employee Name Column -->
+      <ng-container matColumnDef="employeeName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee name</th>
+        <td mat-cell *matCellDef="let row">{{row.employeeName}}</td>
       </ng-container>
 
 

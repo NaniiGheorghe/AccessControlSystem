@@ -1,19 +1,17 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {MessageService} from "../../services/MessageService";
-import {SpinnerService} from "../../services/SpinnerService";
-import {ActionService} from "../../services/ActionService";
-import {Employee} from "../../models/Employee";
 import {Subscription} from "rxjs";
+import {Employee} from "../../models/Employee";
+import {SpinnerService} from "../../services/SpinnerService";
+import {MessageService} from "../../services/MessageService";
 import {EmployeeService} from "../../services/EmployeeService";
-import {e} from "@angular/core/src/render3";
 
 @Component({
-  selector: 'app-access-management',
-  templateUrl: './access-management.component.html',
-  styleUrls: ['./access-management.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AccessManagementComponent implements OnInit {
+export class UserComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -21,13 +19,13 @@ export class AccessManagementComponent implements OnInit {
   employees: Employee[] = [];
 
   dataSource = new MatTableDataSource(this.employees);
-  displayedColumns = ['id', 'firstName', 'lastName', 'position', 'departament', 'defaultWorkingRoom', 'accessibleRoom', 'doorLock'];
+  displayedColumns = ['id', 'firstName', 'lastName','userGroup', 'position', 'departament', 'defaultWorkingRoom', 'keys'];
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
               private employeeService: EmployeeService) {
     this.messageService.listen().subscribe((event) => {
-      if (event == 'accessManagement') {
+      if (event == 'users') {
         this.loadAllEmployees();
       }
     })
@@ -50,7 +48,7 @@ export class AccessManagementComponent implements OnInit {
   loadAllEmployees() {
     this.subscriptionAction = this.employeeService.getAllEmployees().subscribe(employees => {
       this.dataSource.data = employees;
-      var events = document.getElementById('accessManagement');
+      var events = document.getElementById('users');
       events.style.display = 'block';
       if (this.spinnerService.isShowing()) {
         this.spinnerService.hide();

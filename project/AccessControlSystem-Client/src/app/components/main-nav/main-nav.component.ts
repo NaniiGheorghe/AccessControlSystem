@@ -20,13 +20,11 @@ export class MainNavComponent implements OnInit {
       map(result => result.matches)
     );
 
-
   constructor(private breakpointObserver: BreakpointObserver,
               private messageService: MessageService,
               private spinnerService: SpinnerService,
               private cookiesService: CookieService) {
   }
-
 
   ngOnInit() {
     let exp = new Date(2040, 12, 21);
@@ -35,20 +33,7 @@ export class MainNavComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.hideAll();
-    //this.spinnerService.hide();
-  }
-
-  loadHomeComponent() {
-    this.hideAll();
-    var home = document.getElementById('home');
-    home.style.display = 'block';
-  }
-
-  loadEventsComponent() {
-    this.hideAll();
-    this.spinnerService.show();
-    this.messageService.notify('action');
+    this.loadAccessManagementComponent();
   }
 
   loadAccessManagementComponent() {
@@ -57,23 +42,44 @@ export class MainNavComponent implements OnInit {
     this.messageService.notify('accessManagement');
   }
 
+  loadUserComponent() {
+    this.hideAll();
+    this.spinnerService.show();
+    this.messageService.notify('users');
+  }
+
+  loadRoomsComponent(){
+    this.hideAll();
+    this.spinnerService.show();
+    this.messageService.notify('rooms');
+  }
+
+  loadEventsComponent() {
+    this.hideAll();
+    this.spinnerService.show();
+    this.messageService.notify('action');
+  }
+
   loadReportsComponent() {
     this.hideAll();
     this.spinnerService.show();
     this.messageService.notify('reports');
   }
 
+
   hideAll() {
-    var home = document.getElementById('home');
-    var events = document.getElementById('events');
     var accessManagement = document.getElementById('accessManagement');
+    var users = document.getElementById('users');
     var reports = document.getElementById('reports');
-    var systemAdministration = document.getElementById('systemAdministration');
-    home.style.display = 'none';
-    events.style.display = 'none';
+    var events = document.getElementById('events');
+    var rooms = document.getElementById('rooms');
+
+
     accessManagement.style.display = 'none';
     reports.style.display = 'none';
-    // systemAdministration.style.display = 'hidden';
+    events.style.display = 'none';
+    users.style.display = 'none';
+    rooms.style.display = 'none';
   }
 
 

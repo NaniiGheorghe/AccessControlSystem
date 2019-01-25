@@ -24,10 +24,10 @@ public class Employee {
 
     private String lastName;
 
-    @OneToOne(targetEntity = OfficeRoom.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = OfficeRoom.class, fetch = FetchType.LAZY)
     private OfficeRoom workingRoom;
 
-    @OneToMany(targetEntity = Key.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Key.class, fetch = FetchType.LAZY)
     private List<Key> keys;
 
     private String positions;

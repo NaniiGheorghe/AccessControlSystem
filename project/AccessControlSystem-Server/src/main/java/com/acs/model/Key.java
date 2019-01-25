@@ -14,7 +14,7 @@ public class Key {
 
     private KeyTypeEnum keyType;
 
-    @ManyToMany(targetEntity = DoorLock.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = DoorLock.class, fetch = FetchType.LAZY)
     private List<DoorLock> accessibleDoorLocks;
 
     public int getId() {

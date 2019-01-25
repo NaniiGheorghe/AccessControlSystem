@@ -17,8 +17,7 @@ public class OfficeRoom {
 
     private String name;
 
-    @OneToMany(targetEntity = DoorLock.class, fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(targetEntity = DoorLock.class, fetch = FetchType.LAZY)
     private List<DoorLock> doorLocks;
 
     public int getId() {

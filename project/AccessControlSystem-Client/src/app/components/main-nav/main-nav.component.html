@@ -5,13 +5,12 @@
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async)">
     <mat-nav-list>
-      <mat-button-toggle-group [vertical]="true" class="mat-button-toggle-group">
-        <mat-button-toggle class="menu-button" (click)='loadHomeComponent();'>Home</mat-button-toggle>
-        <mat-button-toggle class="menu-button" (click)='loadEventsComponent();'>Events</mat-button-toggle>
-        <mat-button-toggle class="menu-button" (click)='loadAccessManagementComponent();'>Access Management</mat-button-toggle>
+      <mat-button-toggle-group [vertical]="true" class="mat-button-toggle-group" value="default">
+        <mat-button-toggle class="menu-button" (click)='loadAccessManagementComponent();' value="default">Access Management</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadUserComponent();'>Users</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadRoomsComponent();'>Rooms</mat-button-toggle>
+        <mat-button-toggle class="menu-button" (click)='loadEventsComponent();'>Actions</mat-button-toggle>
         <mat-button-toggle class="menu-button" (click)='loadReportsComponent();'>Reports</mat-button-toggle>
-        <mat-button-toggle class="menu-button" (click)='loadEventsComponent();'>System Administration
-        </mat-button-toggle>
       </mat-button-toggle-group>
     </mat-nav-list>
   </mat-sidenav>
@@ -37,8 +36,9 @@
           <span class="center">Access Control System</span>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button class="login-logout-icons">Settings</button>
-          <button mat-button class="login-logout-icons">My Account</button>
+          <img src="../../../assets/user.png" class="account-icon" />
+          <img src="../../../assets/settings.png" class="setting-icon" />
+          <img src="../../../assets/information.png" class="information-icon" />
         </mat-grid-tile>
       </mat-grid-list>
     </mat-toolbar>
@@ -47,7 +47,8 @@
 
 <app-spinner></app-spinner>
 
-<div id="home">Thank you for choosing ACS</div>
-<app-event-table id="events"></app-event-table>
 <app-access-management id="accessManagement"></app-access-management>
+<app-user id="users"></app-user>
+<app-room id ="rooms"></app-room>
+<app-event-table id="events"></app-event-table>
 <app-report id="reports"></app-report>

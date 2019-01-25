@@ -8,6 +8,7 @@ com\acs\repository\ApplicationUserRepository.class
 com\acs\service\impl\KeyServiceImpl.class
 com\acs\repository\NotificationRepository.class
 com\acs\model\Notification.class
+com\acs\model\dto\RoomDTO.class
 com\acs\configuration\security\WebSecurity.class
 com\acs\rest\UserController.class
 com\acs\service\DoorLockService.class
@@ -16,6 +17,7 @@ com\acs\model\RequestAccessNotification.class
 com\acs\service\NotificationService.class
 com\acs\model\KeyTypeEnum.class
 com\acs\repository\KeyRepository.class
+com\acs\model\dto\ReportDTO.class
 com\acs\rest\OfficeRoomController.class
 com\acs\repository\ActionRepository.class
 com\acs\service\EmployeeService.class
@@ -23,6 +25,7 @@ com\acs\rest\EmployeeController.class
 com\acs\service\impl\DoorLockServiceImpl.class
 com\acs\jmx\LoggerMXBeanImpl.class
 com\acs\service\KeyService.class
+com\acs\model\dto\ActionDTO.class
 com\acs\service\impl\OfficeRoomServiceImpl.class
 com\acs\model\DoorLock.class
 com\acs\model\UserGroup.class
@@ -43,4 +46,5 @@ com\acs\model\Employee.class
 com\acs\rest\ActionController.class
 com\acs\service\impl\NotificationServiceImpl.class
 com\acs\service\ActionService.class
+com\acs\model\dto\UserDTO.class
 com\acs\configuration\security\JWTAuthenticationFilter.class

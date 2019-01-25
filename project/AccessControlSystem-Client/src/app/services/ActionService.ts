@@ -5,7 +5,6 @@ import {map} from "rxjs/operators";
 import {CookieService} from "ngx-cookie";
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -27,11 +26,14 @@ export class ActionService {
     return this.http.get<Object[]>('http://localhost:8080/user/api/v1/action/list/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
-            actions.push(new Action(JSON.parse(JSON.stringify(entry)).id,
-              JSON.parse(JSON.stringify(entry)).employee.firsName + " " + JSON.parse(JSON.stringify(entry)).employee.lastName,
-              JSON.parse(JSON.stringify(entry)).officeRoom.name,
+            actions.push(new Action(
+              JSON.parse(JSON.stringify(entry)).id,
+              JSON.parse(JSON.stringify(entry)).employee,
               JSON.parse(JSON.stringify(entry)).direction,
-              JSON.parse(JSON.stringify(entry)).gendate));
+              JSON.parse(JSON.stringify(entry)).officeRoom,
+              JSON.parse(JSON.stringify(entry)).doorLock,
+              JSON.parse(JSON.stringify(entry)).gendate
+            ));
           }
           return actions;
         }
