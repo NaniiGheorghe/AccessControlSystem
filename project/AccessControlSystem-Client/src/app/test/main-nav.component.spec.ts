@@ -9,7 +9,7 @@ import {
   MatToolbarModule,
 } from '@angular/material';
 
-import { MainNavComponent } from './main-nav.component';
+import { MainNavComponent } from '../components/main-nav/main-nav.component';
 
 describe('MainNavComponent', () => {
   let component: MainNavComponent;

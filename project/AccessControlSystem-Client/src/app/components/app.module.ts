@@ -20,10 +20,12 @@ import {ActionService} from "../services/ActionService";
 import {SpinnerService} from "../services/SpinnerService";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
-import {CookieModule, CookieService} from "ngx-cookie";
-import {FormLoginComponent} from "./login/form-login.component";
-import { UserComponent } from './user/user.component';
-import { RoomComponent } from './room/room.component';
+import {CookieModule} from "ngx-cookie";
+import {LoginComponent} from "./login/login.componenet";
+import {UserComponent} from '../test/user.component';
+import {RoomComponent} from './room/room.component';
+import {RouterModule, Routes} from "@angular/router";
+import {AppRoutingModule} from "./app.routing";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import { RoomComponent } from './room/room.component';
     AccessManagementComponent,
     ReportComponent,
     SpinnerComponent,
-    FormLoginComponent,
+    LoginComponent,
     UserComponent,
     RoomComponent
   ],
@@ -58,10 +60,15 @@ import { RoomComponent } from './room/room.component';
     FormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    RouterModule,
+    AppRoutingModule
   ],
-  providers: [ActionService, MessageService, SpinnerService, ],
+  exports: [RouterModule],
+  providers: [ActionService, MessageService, SpinnerService],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
 }

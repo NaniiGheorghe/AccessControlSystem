@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from "rxjs";
-import {Employee} from "../../models/Employee";
-import {SpinnerService} from "../../services/SpinnerService";
-import {MessageService} from "../../services/MessageService";
-import {EmployeeService} from "../../services/EmployeeService";
+import {Employee} from "../models/Employee";
+import {SpinnerService} from "../services/SpinnerService";
+import {MessageService} from "../services/MessageService";
+import {EmployeeService} from "../services/EmployeeService";
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: '../components/user/user.component.html',
+  styleUrls: ['../components/user/user.component.css']
 })
 export class UserComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

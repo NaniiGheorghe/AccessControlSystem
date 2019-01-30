@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
 
-import { EventTableComponent } from './event-table.component';
+import { EventTableComponent } from '../components/event-table/event-table.component';
 
 describe('EventTableComponent', () => {
   let component: EventTableComponent;
