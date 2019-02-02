@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {delay, map} from 'rxjs/operators';
+import {delay, first, map} from 'rxjs/operators';
 import {ActionService} from "../../services/ActionService";
 import {MessageService} from "../../services/MessageService";
 import {SpinnerService} from "../../services/SpinnerService";
 import {CookieOptions, CookieService} from "ngx-cookie";
+import {AuthenticationService} from "../../services/AuthentiticationService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-nav',
@@ -23,13 +25,22 @@ export class MainNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
               private messageService: MessageService,
               private spinnerService: SpinnerService,
-              private cookiesService: CookieService) {
+              private authentiticationService: AuthenticationService,
+              private zone: NgZone,
+              private router: Router
+              ) {
   }
 
   ngOnInit() {
-    let exp = new Date(2040, 12, 21);
-    let cookieOptions = {expires: exp} as CookieOptions;
-    this.cookiesService.put('token', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU0OTA1Mjk2Mn0.Nozz-Vyo9hHyXpqx7VCkxqDW60_3GNH-dEChPrX7hvIjvYZGqm6RXyrQpntpL50BI7GCN_Rn3efOFwC21qjHlw', cookieOptions);
+    this.authentiticationService.isAuthentiticated()
+      .pipe()
+      .subscribe(
+        data => {
+          console.log('Token is valid.')
+        },
+        error => {
+          //this.zone.run(() => this.router.navigateByUrl("/"));
+        });
   }
 
   ngAfterViewInit() {
@@ -48,7 +59,7 @@ export class MainNavComponent implements OnInit {
     this.messageService.notify('users');
   }
 
-  loadRoomsComponent(){
+  loadRoomsComponent() {
     this.hideAll();
     this.spinnerService.show();
     this.messageService.notify('rooms');

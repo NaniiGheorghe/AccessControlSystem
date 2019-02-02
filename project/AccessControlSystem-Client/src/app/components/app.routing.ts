@@ -6,9 +6,8 @@ import {MainNavComponent} from "./main-nav/main-nav.component";
 import {LoginComponent} from "./login/login.componenet";
 
 const routes: Routes = [
-  {path: 'user', component: MainNavComponent},
-  {path: 'login', component: LoginComponent},
-  {path: '', component: LoginComponent}
+  {path: '', component: MainNavComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

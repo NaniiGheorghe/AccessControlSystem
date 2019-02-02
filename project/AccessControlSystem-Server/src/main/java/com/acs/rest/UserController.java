@@ -31,7 +31,7 @@ public class UserController {
         if (applicationUserRepository.findByUsername(user.getUsername()).isPresent())
             return new ResponseEntity(HttpStatus.CONFLICT);
 
-        if(user.getUsergroup() == null)
+        if (user.getUsergroup() == null)
             user.setUsergroup(UserGroup.USER);
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -40,5 +40,9 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/validateToken", method = RequestMethod.GET)
+    public ResponseEntity validateToken() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

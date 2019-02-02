@@ -13,7 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EventTableComponent} from './event-table/event-table.component';
 import {AccessManagementComponent} from './access-management/access-management.component';
 import {ReportComponent} from './report/report.component'
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {MessageService} from "../services/MessageService";
 import {ActionService} from "../services/ActionService";
@@ -26,6 +26,8 @@ import {UserComponent} from '../test/user.component';
 import {RoomComponent} from './room/room.component';
 import {RouterModule, Routes} from "@angular/router";
 import {AppRoutingModule} from "./app.routing";
+import {AuthenticationService} from "../services/AuthentiticationService";
+import {AlertService} from "../services/AlertService";
 
 @NgModule({
   declarations: [
@@ -62,10 +64,11 @@ import {AppRoutingModule} from "./app.routing";
     MatProgressSpinnerModule,
     CookieModule.forRoot(),
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [RouterModule],
-  providers: [ActionService, MessageService, SpinnerService],
+  providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService],
   bootstrap: [AppComponent]
 })
 
