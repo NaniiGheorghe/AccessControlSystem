@@ -37,4 +37,9 @@ public class DoorLockServiceImpl implements DoorLockService {
     public void delete(DoorLock doorLock) {
         doorLockRepository.delete(doorLock);
     }
+
+    @Override
+    public Optional<DoorLock> findByName(String name) {
+        return doorLockRepository.findByName(name);
+    }
 }

@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Create a new room.</h1>
+
+<div mat-dialog-content>
+  <mat-form-field style="width: 350px">
+    <input matInput [(ngModel)]="room.name" placeholder="Room name">
+  </mat-form-field>
+  <mat-form-field style="width: 350px">
+    <input matInput [(ngModel)]="door.name" placeholder="Door identifier">
+  </mat-form-field>
+</div>
+
+<div *ngIf="roomNameAlreadyExist" class="green">
+  This room name already exist;
+</div>
+<div *ngIf="doorIdentifierAlreadyExist" class="green">
+  This door identifier name already exist;
+</div>
+
+<p></p>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
+</div>
+

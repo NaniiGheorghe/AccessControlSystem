@@ -48,9 +48,9 @@ export class RoomService {
     );
   }
 
-  getInaccesibleRoomsForEmployee(employeeId : number) {
+  getInaccesibleRoomsForEmployee(employeeId: number) {
     let rooms: Room[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/inaccesible_rooms/' + employeeId +'/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/inaccesible_rooms/' + employeeId + '/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             rooms.push(new Room(
@@ -61,6 +61,26 @@ export class RoomService {
             ));
           }
           return rooms;
+        }
+      )
+    );
+  }
+
+  deleteRoom(roomId: number) {
+    let rooms: Room[] = [];
+    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/delete/' + roomId + '/',{}, this.httpOptions).pipe(
+      map(response => {
+          return 'Ok';
+        }
+      )
+    );
+  }
+
+  createRoom(roomName: string, doorIdentifier: string) {
+    console.log('http://localhost:8080/administrator/api/v1/officeroom/' + roomName + '/' + doorIdentifier + '/',);
+    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/' + roomName + '/' + doorIdentifier + '/', {}, this.httpOptions).pipe(
+      map(response => {
+          return response;
         }
       )
     );

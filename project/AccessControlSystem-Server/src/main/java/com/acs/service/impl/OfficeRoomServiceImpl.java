@@ -100,4 +100,32 @@ public class OfficeRoomServiceImpl implements OfficeRoomService {
             return Optional.empty();
         }
     }
+
+    @Override
+    @Transactional
+    public void createaRoom(String roomName, String doorName) {
+        DoorLock doorLock = new DoorLock();
+        doorLock.setName(doorName);
+        doorLockService.save(doorLock);
+        Optional<OfficeRoom> officeRoomOptional = officeRoomRepository.findByName(roomName);
+        if (officeRoomOptional.isPresent()) {
+            officeRoomOptional.get().getDoorLocks().add(doorLock);
+        } else {
+            OfficeRoom newRoom = new OfficeRoom();
+            newRoom.setName(roomName);
+            newRoom.setDoorLocks(new ArrayList<>());
+            newRoom.getDoorLocks().add(doorLock);
+            officeRoomRepository.save(newRoom);
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean isValiCombination(String roomName, String doorName) {
+        Optional<DoorLock> doorLockOptional = doorLockService.findByName(doorName);
+        if (doorLockOptional.isPresent()) {
+            return false;
+        }
+        return true;
+    }
 }

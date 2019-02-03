@@ -16,4 +16,7 @@ public interface DoorLockService {
     Optional<DoorLock> findById(Integer id);
 
     void delete(DoorLock doorLock);
+
+    Optional<DoorLock> findByName(String name);
+
 }

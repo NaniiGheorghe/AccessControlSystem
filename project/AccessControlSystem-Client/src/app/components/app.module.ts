@@ -40,7 +40,7 @@ import {HttpModule} from "@angular/http";
 import {CookieModule} from "ngx-cookie";
 import {LoginComponent} from "./login/login.componenet";
 import {UserComponent} from '../test/user.component';
-import {RoomComponent} from './room/room.component';
+import {DialogOverviewCreateRoom, RoomComponent} from './room/room.component';
 import {RouterModule, Routes} from "@angular/router";
 import {AppRoutingModule} from "./app.routing";
 import {AuthenticationService} from "../services/AuthentiticationService";
@@ -58,7 +58,8 @@ import {ToastrModule} from "ngx-toastr";
     LoginComponent,
     UserComponent,
     RoomComponent,
-    DialogOverviewCreateAcMn1
+    DialogOverviewCreateAcMn1,
+    DialogOverviewCreateRoom
   ],
   imports: [
     HttpClientModule,
@@ -91,7 +92,7 @@ import {ToastrModule} from "ngx-toastr";
     ToastrModule.forRoot(),
     MatCheckboxModule
   ],
-  entryComponents: [DialogOverviewCreateAcMn1],
+  entryComponents: [DialogOverviewCreateAcMn1, DialogOverviewCreateRoom],
   exports: [RouterModule],
   providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService],
   bootstrap: [AppComponent]

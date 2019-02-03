@@ -21,5 +21,8 @@ public interface OfficeRoomService {
 
     Optional<OfficeRoom> findByDoorLock(Integer doorLock_id);
 
+    void createaRoom(String roomName, String doorName);
+
+    boolean isValiCombination(String roomName, String doorName);
 
 }

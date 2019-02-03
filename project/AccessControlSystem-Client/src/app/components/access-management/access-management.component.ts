@@ -122,7 +122,6 @@ export class AccessManagementComponent implements OnInit {
     }
     this.loadAllEmployees();
   }
-
 }
 
 @Component({

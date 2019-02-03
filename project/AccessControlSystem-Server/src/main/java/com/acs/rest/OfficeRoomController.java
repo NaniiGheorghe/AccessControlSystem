@@ -35,14 +35,21 @@ public class OfficeRoomController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/administrator/api/v1/officeroom", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createOfficeRoom(@RequestBody OfficeRoom officeRoom) {
-        officeRoomService.save(officeRoom);
-        return new ResponseEntity(HttpStatus.CREATED);
+    @RequestMapping(value = "/administrator/api/v1/officeroom/{room_name}/{door_name}/", method = RequestMethod.POST, consumes = {"application/json"})
+    public ResponseEntity createOfficeRoom(@PathVariable(value = "room_name") String roomName,
+                                           @PathVariable(value = "door_name") String doorName) {
+        if (officeRoomService.isValiCombination(roomName, doorName)) {
+            officeRoomService.createaRoom(roomName, doorName);
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("This door identifier already exist!");
+        }
     }
 
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/administrator/api/v1/officeroom/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/officeroom/delete/{id}")
     public ResponseEntity deleteOfficeRoom(@PathVariable(value = "id") Integer id) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
@@ -77,8 +84,8 @@ public class OfficeRoomController {
         roomDTO.setId(officeRoom.getId());
         roomDTO.setName(officeRoom.getName());
         roomDTO.setDoorLocks(officeRoom.getDoorLocks().stream()
-                            .map(this::convertDoorLockToDto)
-                            .collect(Collectors.toList()));
+                .map(this::convertDoorLockToDto)
+                .collect(Collectors.toList()));
         return roomDTO;
     }
 
