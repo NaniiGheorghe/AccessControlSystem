@@ -28,7 +28,7 @@ public class UserDTO {
 
     private String accessibleRoom;
 
-    private int accessibleRoomDoorLock;
+    private DoorDTO accessibleRoomDoorLock;
 
     public int getId() {
         return id;
@@ -118,11 +118,11 @@ public class UserDTO {
         this.accessibleRoom = accessibleRoom;
     }
 
-    public int getAccessibleRoomDoorLock() {
+    public DoorDTO getAccessibleRoomDoorLock() {
         return accessibleRoomDoorLock;
     }
 
-    public void setAccessibleRoomDoorLock(int accessibleRoomDoorLock) {
+    public void setAccessibleRoomDoorLock(DoorDTO accessibleRoomDoorLock) {
         this.accessibleRoomDoorLock = accessibleRoomDoorLock;
     }
 }

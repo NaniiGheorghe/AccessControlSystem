@@ -1,14 +1,10 @@
 package com.acs.model.dto;
 
-import java.util.List;
-
-public class RoomDTO {
+public class DoorDTO {
 
     private int id;
 
     private String name;
-
-    private List<DoorDTO> doorLocks;
 
     public int getId() {
         return id;
@@ -24,13 +20,5 @@ public class RoomDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<DoorDTO> getDoorLocks() {
-        return doorLocks;
-    }
-
-    public void setDoorLocks(List<DoorDTO> doorLocks) {
-        this.doorLocks = doorLocks;
     }
 }

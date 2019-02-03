@@ -1,3 +1,5 @@
+import {DoorLock} from "./DoorLock";
+
 export class Employee {
   id: number;
   username: string;
@@ -9,10 +11,10 @@ export class Employee {
   departament: string;
   defaultWorkingRoom: string;
   accessibleRoom: string;
-  accessibleRoomDoorLock: number;
+  accessibleRoomDoorLock: DoorLock;
   keys: string;
 
-  constructor(id: number, username: string, password: string, firstName: string, lastName: string, usergroup: string, position: string, departament: string, defaultWorkingRoom: string, accessibleRoom: string, accessibleRoomDoorLock: number, keys: string) {
+  constructor(id: number, username: string, password: string, firstName: string, lastName: string, usergroup: string, position: string, departament: string, defaultWorkingRoom: string, accessibleRoom: string, accessibleRoomDoorLock: DoorLock, keys: string) {
     this.id = id;
     this.username = username;
     this.password = password;

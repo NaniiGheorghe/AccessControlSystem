@@ -105,13 +105,13 @@ export class AccessManagementComponent implements OnInit {
   deleteSelected() {
     if (this.selection.selected.length > 0) {
       var employee = this.selection.selected[0];
-      this.employeeService.removeAnAccess(employee.id, employee.accessibleRoomDoorLock)
+      this.employeeService.removeAnAccess(employee.id, employee.accessibleRoomDoorLock.id)
         .pipe()
         .subscribe(
           data => {
             this.toastr.success("Access removed successfully for user ["
               + employee.firstName + " " + employee.lastName + "] to room ["
-              + employee.accessibleRoom + "], door [" + employee.accessibleRoomDoorLock + "]");
+              + employee.accessibleRoom + "], door [" + employee.accessibleRoomDoorLock.name + "]");
             this.selection.deselect(employee);
             this.deleteSelected();
           },
@@ -191,7 +191,7 @@ export class DialogOverviewCreateAcMn1 {
         data => {
           this.toastr.success("Access registered successfully for user ["
             + this.selectedEmployee.firstName + " " + this.selectedEmployee.lastName + "] to room ["
-            + this.selectedRoom.name + "], door [" + this.selectedDoor.id + "]");
+            + this.selectedRoom.name + "], door [" + this.selectedDoor.name + "]");
           this.dialogRef.close();
         },
         error => {

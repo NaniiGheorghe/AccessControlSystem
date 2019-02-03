@@ -5,6 +5,7 @@ import com.acs.model.DoorLock;
 import com.acs.model.Employee;
 import com.acs.model.Key;
 import com.acs.model.dto.ActionDTO;
+import com.acs.model.dto.DoorDTO;
 import com.acs.model.dto.UserDTO;
 import com.acs.service.EmployeeService;
 import com.acs.service.OfficeRoomService;
@@ -53,7 +54,7 @@ public class EmployeeController {
                                         doorLock -> {
                                             officeRoomService.findByDoorLock(doorLock.getId()).ifPresent(
                                                     officeRoom -> {
-                                                        accesses.add(convertToDTOAccess(employee, officeRoom.getName(), doorLock.getId()));
+                                                        accesses.add(convertToDTOAccess(employee, officeRoom.getName(), doorLock));
                                                     }
                                             );
                                         }
@@ -125,13 +126,19 @@ public class EmployeeController {
         return userDTO;
     }
 
-    private UserDTO convertToDTOAccess(Employee employee, String accessibleRoom, Integer accessibleDoorLock) {
+    private UserDTO convertToDTOAccess(Employee employee, String accessibleRoom, DoorLock accessibleDoorLock) {
         UserDTO user = convertToDto(employee);
         user.setAccessibleRoom(accessibleRoom);
-        user.setAccessibleRoomDoorLock(accessibleDoorLock);
+        user.setAccessibleRoomDoorLock(convertDoorLockToDto(accessibleDoorLock));
         return user;
     }
 
+    private DoorDTO convertDoorLockToDto(DoorLock doorLock) {
+        DoorDTO doorDTO = new DoorDTO();
+        doorDTO.setId(doorLock.getId());
+        doorDTO.setName(doorLock.getName());
+        return doorDTO;
+    }
 
     private Optional<Employee> convertToEntity(UserDTO userDTO) {
         Employee employee = modelMapper.map(userDTO, Employee.class);

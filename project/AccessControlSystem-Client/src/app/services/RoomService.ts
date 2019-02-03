@@ -29,10 +29,17 @@ export class RoomService {
     return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/list/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
+            var doorNames: string[] = [];
+
+            for (let name of JSON.parse(JSON.stringify(entry)).doorLocks) {
+              doorNames.push(name.name);
+            }
+
             rooms.push(new Room(
               JSON.parse(JSON.stringify(entry)).id,
               JSON.parse(JSON.stringify(entry)).name,
-              JSON.parse(JSON.stringify(entry)).doorLocks
+              JSON.parse(JSON.stringify(entry)).doorLocks,
+              doorNames
             ));
           }
           return rooms;
@@ -49,7 +56,8 @@ export class RoomService {
             rooms.push(new Room(
               JSON.parse(JSON.stringify(entry)).id,
               JSON.parse(JSON.stringify(entry)).name,
-              JSON.parse(JSON.stringify(entry)).doorLocks
+              JSON.parse(JSON.stringify(entry)).doorLocks,
+              JSON.parse(JSON.stringify(entry)).doorLocks.name
             ));
           }
           return rooms;

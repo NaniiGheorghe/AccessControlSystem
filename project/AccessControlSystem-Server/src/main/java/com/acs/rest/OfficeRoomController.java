@@ -3,6 +3,7 @@ package com.acs.rest;
 import com.acs.model.DoorLock;
 import com.acs.model.Employee;
 import com.acs.model.OfficeRoom;
+import com.acs.model.dto.DoorDTO;
 import com.acs.model.dto.RoomDTO;
 import com.acs.model.dto.UserDTO;
 import com.acs.service.OfficeRoomService;
@@ -76,13 +77,27 @@ public class OfficeRoomController {
         roomDTO.setId(officeRoom.getId());
         roomDTO.setName(officeRoom.getName());
         roomDTO.setDoorLocks(officeRoom.getDoorLocks().stream()
-                            .map(DoorLock::getId)
+                            .map(this::convertDoorLockToDto)
                             .collect(Collectors.toList()));
         return roomDTO;
+    }
+
+    private DoorDTO convertDoorLockToDto(DoorLock doorLock) {
+        DoorDTO doorDTO = new DoorDTO();
+        doorDTO.setId(doorLock.getId());
+        doorDTO.setName(doorLock.getName());
+        return doorDTO;
+    }
+
+    private Optional<OfficeRoom> convertDoorLockToEntity(RoomDTO roomDTO) {
+        OfficeRoom officeRoom = modelMapper.map(roomDTO, OfficeRoom.class);
+        return officeRoomService.findById(roomDTO.getId());
     }
 
     private Optional<OfficeRoom> convertToEntity(RoomDTO roomDTO) {
         OfficeRoom officeRoom = modelMapper.map(roomDTO, OfficeRoom.class);
         return officeRoomService.findById(roomDTO.getId());
     }
+
+
 }

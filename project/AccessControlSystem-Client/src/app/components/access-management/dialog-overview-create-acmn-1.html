@@ -32,7 +32,7 @@
     <mat-select placeholder="Select Door" [(ngModel)]="selectedDoor" [formControl]="selectFormControlDoor" required>
       <mat-option>--</mat-option>
       <mat-option *ngFor="let door of allDoors" [value]="door">
-        {{door.id}}
+        {{door.name}}
       </mat-option>
     </mat-select>
     <mat-error *ngIf="selectFormControlDoor.hasError('required')">Please choose the door</mat-error>

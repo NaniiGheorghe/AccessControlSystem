@@ -27,15 +27,16 @@ export class DoorLockService {
 
 
   getInaccessibleDoorLocks(employeeId: number, roomId: number) {
-    let rooms: DoorLock[] = [];
+    let doors: DoorLock[] = [];
     return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/officeroom/inaccesible_doorLocks/' + employeeId + '/' + roomId + '/', this.httpOptions).pipe(
       map(response => {
           for (let entry of response) {
-            rooms.push(new DoorLock(
-              JSON.parse(JSON.stringify(entry)).id
+            doors.push(new DoorLock(
+              JSON.parse(JSON.stringify(entry)).id,
+              JSON.parse(JSON.stringify(entry)).name
             ));
           }
-          return rooms;
+          return doors;
         }
       )
     );
