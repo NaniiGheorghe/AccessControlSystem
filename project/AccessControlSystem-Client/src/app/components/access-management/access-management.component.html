@@ -1,14 +1,18 @@
 <div class="full-width-table">
-  <mat-grid-list [cols]="2"  rowHeight="90px">
+  <mat-grid-list [cols]="2" rowHeight="90px">
     <mat-grid-tile>
-      <h1 class="align-start text-color">Access Management</h1>
+      <h1 class="align-start text-color align-top">Access Management</h1>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button class="btn btn-primary align-end align-bottom" (click)="openCreateDialog()">Create</button>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile>
-    <form class="align-end form-style">
+      <div class="create-delete-buttons align-start">
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">Create</button>
+        <button *ngIf="selection.hasValue()" mat-raised-button color="warn" (click)="deleteSelected()">Delete</button>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <form class="align-end form-style">
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Search" (keyup)="applyFilter($event.target.value)" type="text"/>
         </mat-form-field>
@@ -20,7 +24,7 @@
     <table mat-table class="inside-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
 
       <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
+      <ng-container matColumnDef="checkBox">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null"
                         [checked]="selection.hasValue() && isAllSelected()"
@@ -29,30 +33,17 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
+                        (change)="$event ? (selection.toggle(row) && displyButton()) : null"
                         [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </td>
       </ng-container>
 
-      <!-- Id Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-        <td mat-cell *matCellDef="let row">{{row.id}}</td>
-      </ng-container>
-
       <!-- First name Column -->
-      <ng-container matColumnDef="firstName">
+      <ng-container matColumnDef="firstNameLastName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
-        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+        <td mat-cell *matCellDef="let row">{{row.firstName + " " + row.lastName}}</td>
       </ng-container>
-
-      <!-- First name Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last name</th>
-        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-      </ng-container>
-
 
       <!-- Position Column -->
       <ng-container matColumnDef="position">
@@ -80,7 +71,7 @@
 
       <!-- Door lock Id-->
       <ng-container matColumnDef="doorLock">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Drook lock Id</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Door Id</th>
         <td mat-cell *matCellDef="let row">{{row.accessibleRoomDoorLock}}</td>
       </ng-container>
 

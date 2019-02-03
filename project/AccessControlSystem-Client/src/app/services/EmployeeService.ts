@@ -76,8 +76,16 @@ export class EmployeeService {
   }
 
   registerNewAccess(employeeId: number, doorLockId: number) {
-    console.log(this.httpOptions.headers.get('Authorization'));
     var path = `http://localhost:8080/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
+    return this.http.post(path, {}, this.httpOptions)
+      .pipe(map(response => {
+        return 'Ok';
+      }));
+  }
+
+
+  removeAnAccess(employeeId: number, doorLockId: number) {
+    var path = `http://localhost:8080/administrator/api/v1/employee/remove_access/` + employeeId + '/' + doorLockId + '/';
     console.log(path);
     return this.http.post(path, {}, this.httpOptions)
       .pipe(map(response => {

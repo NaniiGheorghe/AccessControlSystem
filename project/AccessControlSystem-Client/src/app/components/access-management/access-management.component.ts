@@ -32,14 +32,15 @@ export class AccessManagementComponent implements OnInit {
   employees: Employee[] = [];
 
   dataSource = new MatTableDataSource<Employee>(this.employees);
-  displayedColumns = ['id', 'firstName', 'lastName', 'position', 'departament', 'defaultWorkingRoom', 'accessibleRoom', 'doorLock'];
+  displayedColumns = ['checkBox', 'firstNameLastName', 'position', 'departament', 'defaultWorkingRoom', 'accessibleRoom', 'doorLock'];
   selection = new SelectionModel<Employee>(true, []);
 
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
               private employeeService: EmployeeService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private toastr: ToastrService,) {
     this.messageService.listen().subscribe((event) => {
       if (event == 'accessManagement') {
         this.loadAllEmployees();
@@ -58,11 +59,11 @@ export class AccessManagementComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.filteredData.forEach(row => this.selection.select(row));
   }
 
 
-      applyFilter(filterValue: string) {
+  applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
@@ -100,6 +101,28 @@ export class AccessManagementComponent implements OnInit {
       });
     });
   }
+
+  deleteSelected() {
+    if (this.selection.selected.length > 0) {
+      var employee = this.selection.selected[0];
+      this.employeeService.removeAnAccess(employee.id, employee.accessibleRoomDoorLock)
+        .pipe()
+        .subscribe(
+          data => {
+            this.toastr.success("Access removed successfully for user ["
+              + employee.firstName + " " + employee.lastName + "] to room ["
+              + employee.accessibleRoom + "], door [" + employee.accessibleRoomDoorLock + "]");
+            this.selection.deselect(employee);
+            this.deleteSelected();
+          },
+          error => {
+            this.toastr.error("Something went wrong!");
+            this.loadAllEmployees();
+          });
+    }
+    this.loadAllEmployees();
+  }
+
 }
 
 @Component({
@@ -166,7 +189,9 @@ export class DialogOverviewCreateAcMn1 {
       .pipe(first())
       .subscribe(
         data => {
-          this.toastr.success("Access registered successfully!");
+          this.toastr.success("Access registered successfully for user ["
+            + this.selectedEmployee.firstName + " " + this.selectedEmployee.lastName + "] to room ["
+            + this.selectedRoom.name + "], door [" + this.selectedDoor.id + "]");
           this.dialogRef.close();
         },
         error => {

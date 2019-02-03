@@ -77,4 +77,25 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
         );
     }
+
+    @Override
+    @Transactional
+    public void removeAccess(Integer empId, Integer doorLockId) {
+        employeeRepository.findById(empId).ifPresent(
+                employee -> {
+                    employee.getKeys().forEach(
+                            key -> {
+                                doorLockService.findById(doorLockId).ifPresent(
+                                        doorLock -> {
+                                            key.getAccessibleDoorLocks().removeIf(
+                                                    doorLock1 -> {
+                                                        return doorLock1.equals(doorLock);
+                                                    });
+                                        }
+                                );
+                            }
+                    );
+                }
+        );
+    }
 }

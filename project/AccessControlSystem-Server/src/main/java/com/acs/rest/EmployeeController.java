@@ -100,6 +100,14 @@ public class EmployeeController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/remove_access/{employee_id}/{doorLock_id}")
+    public ResponseEntity removeAccess(@PathVariable(value = "employee_id") Integer employeeId,
+                                     @PathVariable(value = "doorLock_id") Integer doorLockId) {
+        employeeService.removeAccess(employeeId, doorLockId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
 
     private UserDTO convertToDto(Employee employee) {
         UserDTO userDTO = new UserDTO();

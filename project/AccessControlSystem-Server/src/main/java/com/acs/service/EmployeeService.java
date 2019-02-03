@@ -21,4 +21,7 @@ public interface EmployeeService {
 
     void giveAccess(Integer empId, Integer doorLockId);
 
+    void removeAccess(Integer empId, Integer doorLockId);
+
+
 }

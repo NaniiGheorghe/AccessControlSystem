@@ -12,11 +12,15 @@ body{
   margin-left: 2%;
 }
 
+
+.align-top {
+  top: 1px;
+}
+
 .align-start {
   position: absolute;
   display: flex;
   left: 20px;
-  top: 1px;
 }
 
 .align-bottom {
@@ -30,14 +34,16 @@ body{
   right: 20px;
 }
 
-
 .error-color{
   color: #DC3545;
 }
 
+.orange{
+  background-color: darkorange;
+}
 
 .red{
-  background-color: darkorange;
+  background-color: #DC3545;
 }
 
 .green{
