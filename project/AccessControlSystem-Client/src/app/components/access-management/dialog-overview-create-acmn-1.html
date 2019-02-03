@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Give access to a person.</h1>
+<div mat-dialog-content>
+  <p></p>
+  <mat-form-field style="width: 350px">
+    <mat-select placeholder="Select User" [(ngModel)]="selectedEmployee" [formControl]="selectFormControlEmp" (selectionChange)="loadAllRooms($event)" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let employee of data.data" [value]="employee">
+        {{employee.firstName}} {{employee.lastName}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectFormControlEmp.hasError('required')">Please choose an user</mat-error>
+  </mat-form-field>
+</div>
+
+<div *ngIf="!userHasAccessToAllRooms">
+<div mat-dialog-content>
+  <p></p>
+  <mat-form-field style="width: 350px">
+    <mat-select placeholder="Select Room" [(ngModel)]="selectedRoom" [formControl]="selectFormControlRoom" (selectionChange)="loadDoorLocks($event)" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let room of allRooms" [value]="room">
+        {{room.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectFormControlRoom.hasError('required')">Please choose the room</mat-error>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-content>
+  <p></p>
+  <mat-form-field style="width: 350px">
+    <mat-select placeholder="Select Door" [(ngModel)]="selectedDoor" [formControl]="selectFormControlDoor" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let door of allDoors" [value]="door">
+        {{door.id}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectFormControlDoor.hasError('required')">Please choose the door</mat-error>
+  </mat-form-field>
+</div>
+</div>
+<div *ngIf="userHasAccessToAllRooms" class="green">
+  This user already has access to all rooms.
+</div>
+
+<p></p>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
+</div>
+

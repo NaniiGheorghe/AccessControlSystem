@@ -15,5 +15,11 @@ public interface OfficeRoomService {
 
     void delete(OfficeRoom officeRoom);
 
-    List<OfficeRoom> findByEmployeeId(Integer employee_id);
+    List<OfficeRoom> findAccessibleByEmployeeId(Integer employee_id);
+
+    List<OfficeRoom> findInaccessibleByEmployeeId(Integer employee_id);
+
+    Optional<OfficeRoom> findByDoorLock(Integer doorLock_id);
+
+
 }

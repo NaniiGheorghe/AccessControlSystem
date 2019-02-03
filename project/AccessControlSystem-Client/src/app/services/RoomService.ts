@@ -40,4 +40,22 @@ export class RoomService {
       )
     );
   }
+
+  getInaccesibleRoomsForEmployee(employeeId : number) {
+    let rooms: Room[] = [];
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/inaccesible_rooms/' + employeeId +'/', this.httpOptions).pipe(
+      map(response => {
+          for (let entry of response) {
+            rooms.push(new Room(
+              JSON.parse(JSON.stringify(entry)).id,
+              JSON.parse(JSON.stringify(entry)).name,
+              JSON.parse(JSON.stringify(entry)).doorLocks
+            ));
+          }
+          return rooms;
+        }
+      )
+    );
+  }
+
 }

@@ -55,9 +55,20 @@ public class OfficeRoomController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user/api/v1/officeroom/accessible_rooms/{employee_id}/")
-    public List<OfficeRoom> getAccessibleRooms(@PathVariable(value = "employee_id") Integer employee_id) {
-        return officeRoomService.findByEmployeeId(employee_id);
+    @RequestMapping(method = RequestMethod.GET, value = "/user/api/v1/officeroom/accessible_rooms/{employee_id}/")
+    @Transactional
+    public List<RoomDTO> getAccessibleRooms(@PathVariable(value = "employee_id") Integer employee_id) {
+        return officeRoomService.findAccessibleByEmployeeId(employee_id).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/user/api/v1/officeroom/inaccesible_rooms/{employee_id}/")
+    public List<RoomDTO> getInnaccessibleRooms(@PathVariable(value = "employee_id") Integer employee_id) {
+        return officeRoomService.findInaccessibleByEmployeeId(employee_id).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     private RoomDTO convertToDto(OfficeRoom officeRoom) {

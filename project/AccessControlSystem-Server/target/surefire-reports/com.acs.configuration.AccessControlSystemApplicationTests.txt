@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.acs.configuration.AccessControlSystemApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.977 s - in com.acs.configuration.AccessControlSystemApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.646 s - in com.acs.configuration.AccessControlSystemApplicationTests

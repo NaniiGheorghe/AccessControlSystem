@@ -5,13 +5,30 @@ import {AppComponent} from './app.component';
 import {MainNavComponent} from './main-nav/main-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {
-  MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
-  MatButtonToggleModule, MatCardModule, MatGridListModule, MatTableModule, MatPaginatorModule,
-  MatSortModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatGridListModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatDialogModule,
+  MatSelectModule,
+  MatOptionModule, MatCheckboxModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EventTableComponent} from './event-table/event-table.component';
-import {AccessManagementComponent} from './access-management/access-management.component';
+import {
+  AccessManagementComponent,
+  DialogOverviewCreateAcMn1
+} from './access-management/access-management.component';
 import {ReportComponent} from './report/report.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from "./spinner/spinner.component";
@@ -28,6 +45,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AppRoutingModule} from "./app.routing";
 import {AuthenticationService} from "../services/AuthentiticationService";
 import {AlertService} from "../services/AlertService";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -39,7 +57,8 @@ import {AlertService} from "../services/AlertService";
     SpinnerComponent,
     LoginComponent,
     UserComponent,
-    RoomComponent
+    RoomComponent,
+    DialogOverviewCreateAcMn1
   ],
   imports: [
     HttpClientModule,
@@ -65,8 +84,14 @@ import {AlertService} from "../services/AlertService";
     CookieModule.forRoot(),
     RouterModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatOptionModule,
+    ToastrModule.forRoot(),
+    MatCheckboxModule
   ],
+  entryComponents: [DialogOverviewCreateAcMn1],
   exports: [RouterModule],
   providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService],
   bootstrap: [AppComponent]

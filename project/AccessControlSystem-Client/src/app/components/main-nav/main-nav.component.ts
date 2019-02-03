@@ -8,6 +8,7 @@ import {SpinnerService} from "../../services/SpinnerService";
 import {CookieOptions, CookieService} from "ngx-cookie";
 import {AuthenticationService} from "../../services/AuthentiticationService";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-main-nav',
@@ -22,13 +23,15 @@ export class MainNavComponent implements OnInit {
       map(result => result.matches)
     );
 
+
   constructor(private breakpointObserver: BreakpointObserver,
               private messageService: MessageService,
               private spinnerService: SpinnerService,
               private authentiticationService: AuthenticationService,
               private zone: NgZone,
-              private router: Router
-              ) {
+              private router: Router,
+              private toastr: ToastrService
+               ) {
   }
 
   ngOnInit() {

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +39,29 @@ public class EmployeeController {
         return employeeService.getAllEmployees().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @RequestMapping(value = "/administrator/api/v1/employee/list/access", method = RequestMethod.GET)
+    public List<UserDTO> listOfAccess() {
+        List<UserDTO> accesses = new ArrayList<>();
+        employeeService.getAllEmployees()
+                .forEach(employee -> {
+                    employee.getKeys().forEach(
+                            key -> {
+                                key.getAccessibleDoorLocks().forEach(
+                                        doorLock -> {
+                                            officeRoomService.findByDoorLock(doorLock.getId()).ifPresent(
+                                                    officeRoom -> {
+                                                        accesses.add(convertToDTOAccess(employee, officeRoom.getName(), doorLock.getId()));
+                                                    }
+                                            );
+                                        }
+                                );
+                            }
+                    );
+                });
+        return accesses;
     }
 
     @RequestMapping(value = "/administrator/api/v1/employee", method = RequestMethod.POST, consumes = {"application/json"})
@@ -69,12 +93,10 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/give_access/{employee_id}/{room_id}")
-    public ResponseEntity giveAccess(@PathVariable(value = "employee_id") Integer employee_id,
-                                     @PathVariable(value = "room_id") Integer room_id) {
-        employeeService.findById(employee_id).ifPresent(e ->
-                employeeService.requestAccess(e, officeRoomService.findById(room_id))
-        );
+    @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/give_access/{employee_id}/{doorLock_id}")
+    public ResponseEntity giveAccess(@PathVariable(value = "employee_id") Integer employeeId,
+                                     @PathVariable(value = "doorLock_id") Integer doorLockId) {
+        employeeService.giveAccess(employeeId, doorLockId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -94,6 +116,14 @@ public class EmployeeController {
         userDTO.setDepartament(employee.getDepartament());
         return userDTO;
     }
+
+    private UserDTO convertToDTOAccess(Employee employee, String accessibleRoom, Integer accessibleDoorLock) {
+        UserDTO user = convertToDto(employee);
+        user.setAccessibleRoom(accessibleRoom);
+        user.setAccessibleRoomDoorLock(accessibleDoorLock);
+        return user;
+    }
+
 
     private Optional<Employee> convertToEntity(UserDTO userDTO) {
         Employee employee = modelMapper.map(userDTO, Employee.class);

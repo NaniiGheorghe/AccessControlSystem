@@ -46,4 +46,44 @@ export class EmployeeService {
       )
     );
   }
+
+
+  getAllAccesses(){
+    let actions: Employee[] = [];
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/access', this.httpOptions).pipe(
+      map(response => {
+          for (let entry of response) {
+            actions.push(new Employee(
+              JSON.parse(JSON.stringify(entry)).id,
+              JSON.parse(JSON.stringify(entry)).username,
+              JSON.parse(JSON.stringify(entry)).password,
+              JSON.parse(JSON.stringify(entry)).firstName,
+              JSON.parse(JSON.stringify(entry)).lastName,
+              JSON.parse(JSON.stringify(entry)).usergroup,
+              JSON.parse(JSON.stringify(entry)).position,
+              JSON.parse(JSON.stringify(entry)).departament,
+              JSON.parse(JSON.stringify(entry)).workingRoom,
+              JSON.parse(JSON.stringify(entry)).accessibleRoom,
+              JSON.parse(JSON.stringify(entry)).accessibleRoomDoorLock,
+              JSON.parse(JSON.stringify(entry)).keys));
+          }
+          return actions;
+        }
+      )
+    );
+
+
+  }
+
+  registerNewAccess(employeeId: number, doorLockId: number) {
+    console.log(this.httpOptions.headers.get('Authorization'));
+    var path = `http://localhost:8080/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
+    console.log(path);
+    return this.http.post(path, {}, this.httpOptions)
+      .pipe(map(response => {
+        return 'Ok';
+      }));
+  }
+
+
 }

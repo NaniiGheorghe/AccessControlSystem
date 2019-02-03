@@ -19,4 +19,6 @@ public interface EmployeeService {
 
     void giveAccess(Employee emp, Optional<OfficeRoom> officeRoom);
 
+    void giveAccess(Integer empId, Integer doorLockId);
+
 }

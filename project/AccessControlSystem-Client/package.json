@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.1.0",
+    "@angular/animations": "^6.1.10",
     "@angular/cdk": "^7.2.1",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
@@ -25,6 +25,7 @@
     "core-js": "^2.5.4",
     "glyphicons": "^0.2.0",
     "ngx-cookie": "^4.1.2",
+    "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

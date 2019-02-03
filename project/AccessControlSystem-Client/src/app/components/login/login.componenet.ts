@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           let exp = new Date(2040, 12, 21);
           let cookieOptions = {expires: exp} as CookieOptions;
           this.cookiesService.put('token', data, cookieOptions);
-          this.zone.run(() => this.router.navigateByUrl("user"));
+          this.zone.run(() => this.router.navigateByUrl(""));
         },
         error => {
           this.wrongUsernameOrPass = true;

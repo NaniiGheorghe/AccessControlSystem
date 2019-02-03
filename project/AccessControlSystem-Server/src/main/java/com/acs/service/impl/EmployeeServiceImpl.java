@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private DoorLockService doorLockService;
 
 
     @Override
@@ -54,5 +58,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void giveAccess(Employee emp, Optional<OfficeRoom> officeRoom) {
         officeRoom.ifPresent(o -> emp.getKeys().forEach(k -> k.getAccessibleDoorLocks().addAll(o.getDoorLocks())));
+    }
+
+    @Override
+    @Transactional
+    public void giveAccess(Integer empId, Integer doorLockId) {
+        employeeRepository.findById(empId).ifPresent(
+                employee -> {
+                    employee.getKeys().forEach(
+                            key -> {
+                                doorLockService.findById(doorLockId).ifPresent(
+                                        doorLock -> {
+                                            key.getAccessibleDoorLocks().add(doorLock);
+                                        }
+                                );
+                            }
+                    );
+                }
+        );
     }
 }

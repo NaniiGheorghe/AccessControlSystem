@@ -6,9 +6,6 @@ body{
   margin: 0;
 }
 
-.red{
-  background-color: darkorange;
-}
 
 .text-color{
   color: #5F5F5F;
@@ -16,13 +13,39 @@ body{
 }
 
 .align-start {
-  width: 100%;
+  position: absolute;
   display: flex;
-  align-items: flex-start;
+  left: 20px;
+  top: 1px;
 }
+
+.align-bottom {
+  bottom: 5px;
+}
+
 
 .align-end {
   position: absolute;
   display: flex;
   right: 20px;
+}
+
+
+.error-color{
+  color: #DC3545;
+}
+
+
+.red{
+  background-color: darkorange;
+}
+
+.green{
+  color: green;
+}
+
+
+#toast-container>.toast-success {
+  background-color: #5CCC6E;
+  color: white;
 }
