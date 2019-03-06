@@ -23,5 +23,6 @@ public interface EmployeeService {
 
     void removeAccess(Integer empId, Integer doorLockId);
 
+    Optional<Employee> findByUsername(String username);
 
 }

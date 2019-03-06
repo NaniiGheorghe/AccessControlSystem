@@ -1,40 +1,41 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {MessageService} from "../../services/MessageService";
-import {SpinnerService} from "../../services/SpinnerService";
-import {ActionService} from "../../services/ActionService";
-import {Employee} from "../../models/Employee";
 import {Subscription} from "rxjs";
+import {Employee} from "../../models/Employee";
+import {SpinnerService} from "../../services/SpinnerService";
+import {MessageService} from "../../services/MessageService";
 import {EmployeeService} from "../../services/EmployeeService";
+import {DialogData, DialogOverviewCreateAcMn1} from "../access-management/access-management.component";
+import {SelectionModel} from "@angular/cdk/collections";
+import {ToastrService} from "ngx-toastr";
 import {FormControl, Validators} from "@angular/forms";
 import {Room} from "../../models/Room";
-import {RoomService} from "../../services/RoomService";
-import {first} from "rxjs/operators";
-import {ToastrService} from "ngx-toastr";
 import {DoorLock} from "../../models/DoorLock";
+import {RoomService} from "../../services/RoomService";
 import {DoorLockService} from "../../services/DoorLockService";
-import {SelectionModel} from "@angular/cdk/collections";
+import {first} from "rxjs/operators";
 
-export interface DialogData {
-  data: Employee[];
+export interface Role {
+  value: number;
+  viewValue: string;
 }
 
 @Component({
-  selector: 'app-access-management',
-  templateUrl: './access-management.component.html',
-  styleUrls: ['./access-management.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AccessManagementComponent implements OnInit {
+export class UserComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   subscriptionAction: Subscription;
   employees: Employee[] = [];
-
-  dataSource = new MatTableDataSource<Employee>(this.employees);
-  displayedColumns = ['checkBox', 'firstNameLastName', 'position', 'departament', 'defaultWorkingRoom', 'accessibleRoom', 'doorLock'];
   selection = new SelectionModel<Employee>(true, []);
 
+
+  dataSource = new MatTableDataSource(this.employees);
+  displayedColumns = ['checkBox', 'id', 'firstName', 'lastName', 'userGroup', 'position', 'departament', 'defaultWorkingRoom', 'keys'];
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
@@ -42,7 +43,7 @@ export class AccessManagementComponent implements OnInit {
               public dialog: MatDialog,
               private toastr: ToastrService) {
     this.messageService.listen().subscribe((event) => {
-      if (event == 'accessManagement') {
+      if (event == 'users') {
         this.loadAllEmployees();
       }
     })
@@ -62,7 +63,6 @@ export class AccessManagementComponent implements OnInit {
       this.dataSource.filteredData.forEach(row => this.selection.select(row));
   }
 
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -78,20 +78,20 @@ export class AccessManagementComponent implements OnInit {
   }
 
   loadAllEmployees() {
-    this.subscriptionAction = this.employeeService.getAllAccesses().subscribe(employees => {
+    this.subscriptionAction = this.employeeService.getAllEmployees().subscribe(employees => {
       this.dataSource.data = employees;
-      var events = document.getElementById('accessManagement');
+      var events = document.getElementById('users');
       events.style.display = 'block';
       if (this.spinnerService.isShowing()) {
         this.spinnerService.hide();
       }
     });
-
   }
+
 
   openCreateDialog(): void {
     this.employeeService.getAllEmployees().subscribe(employees => {
-      const dialogRef = this.dialog.open(DialogOverviewCreateAcMn1, {
+      const dialogRef = this.dialog.open(DialogOverviewCreateUser, {
         width: '400px',
         data: {'data': employees}
       });
@@ -122,28 +122,38 @@ export class AccessManagementComponent implements OnInit {
     }
     this.loadAllEmployees();
   }
+
 }
 
+
 @Component({
-  selector: 'dialog-overview-create-acmn',
-  templateUrl: './dialog-overview-create-acmn-1.html',
+  selector: 'dialog-overview-create-user',
+  templateUrl: './dialog-overview-create-user.html',
 })
-export class DialogOverviewCreateAcMn1 {
+export class DialogOverviewCreateUser {
 
-  selectFormControlEmp = new FormControl('', Validators.required);
-  selectFormControlRoom = new FormControl('', Validators.required);
-  selectFormControlDoor = new FormControl('', Validators.required);
-  selectedEmployee: Employee;
-  selectedRoom: Room;
-  selectedDoor: DoorLock;
-  allRooms: Room[] = [];
-  allDoors: DoorLock[] = [];
+  roles: Role[] = [
+    {value: 0, viewValue: 'Operator'},
+    {value: 1, viewValue: 'Administrator'}
+  ];
 
-  userHasAccessToAllRooms: boolean = false;
 
+
+  firstName: string = null;
+  lastName: string = null;
+  userName: string = null;
+  department: string = null;
+  workingRoom: string = null;
+  password: string = null;
+  confirmedPassword: string = null;
+  position: string = null;
+  selectedRole: Role = null;
+
+  errorMessage: string = null;
+  dispalyErrorMessage: Boolean = false;
 
   constructor(public dialog: MatDialog,
-              public dialogRef: MatDialogRef<DialogOverviewCreateAcMn1>,
+              public dialogRef: MatDialogRef<DialogOverviewCreateUser>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               public spinnerService: SpinnerService,
               public roomService: RoomService,
@@ -158,44 +168,40 @@ export class DialogOverviewCreateAcMn1 {
 
 
   loadAllRooms(event) {
-    this.userHasAccessToAllRooms = false;
-    console.log(event.source.value);
-    if (event.source.value instanceof Employee) {
-      this.roomService.getInaccesibleRoomsForEmployee((<Employee>event.source.value).id).subscribe(
-        rooms => {
-          if (rooms.length == 0) {
-            this.userHasAccessToAllRooms = true;
-          } else {
-            this.allRooms = rooms;
-          }
-        }
-      );
-    }
-  }
 
-  loadDoorLocks(event) {
-    if (event.source.value instanceof Room) {
-      this.doorLockService.getInaccessibleDoorLocks(this.selectedEmployee.id, (<Room>event.source.value).id).subscribe(response => {
-          this.allDoors = response;
-        }
-      )
-    }
   }
 
 
   onOkClick(): void {
-    this.employeeService.registerNewAccess(this.selectedEmployee.id, this.selectedDoor.id)
-      .pipe(first())
+
+    this.employeeService.isValidUsername(this.userName).pipe(first())
       .subscribe(
         data => {
-          this.toastr.success("Access registered successfully for user ["
-            + this.selectedEmployee.firstName + " " + this.selectedEmployee.lastName + "] to room ["
-            + this.selectedRoom.name + "], door [" + this.selectedDoor.name + "]");
-          this.dialogRef.close();
+          if (data == true) {
+            if (this.password == this.confirmedPassword) {
+              this.employeeService.createNewUser(this.firstName, this.lastName, this.userName, this.department, this.workingRoom, this.password, this.confirmedPassword, this.position, this.selectedRole.value)
+                .pipe(first())
+                .subscribe(
+                  data => {
+                    this.toastr.success("A new user was created successfully");
+                    this.dialogRef.close();
+                  },
+                  error => {
+                    this.toastr.error("Something went wrong!");
+                    this.dialogRef.close();
+                  });
+            } else {
+              this.dispalyErrorMessage = true;
+              this.errorMessage = "The password doesn't match."
+            }
+          } else {
+            this.dispalyErrorMessage = true;
+            this.errorMessage = "This username is already used."
+          }
         },
         error => {
-          this.toastr.error("Something went wrong!");
-          this.dialogRef.close();
+          this.dispalyErrorMessage = true;
+          this.errorMessage = error;
         });
 
   }

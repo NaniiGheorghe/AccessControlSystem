@@ -6,7 +6,7 @@ export class Employee {
   password: string;
   firstName: string;
   lastName: string;
-  usergroup: string;
+  usergroup: number;
   position: string;
   departament: string;
   defaultWorkingRoom: string;
@@ -14,7 +14,7 @@ export class Employee {
   accessibleRoomDoorLock: DoorLock;
   keys: string;
 
-  constructor(id: number, username: string, password: string, firstName: string, lastName: string, usergroup: string, position: string, departament: string, defaultWorkingRoom: string, accessibleRoom: string, accessibleRoomDoorLock: DoorLock, keys: string) {
+  constructor(id: number, username: string, password: string, firstName: string, lastName: string, usergroup: number, position: string, departament: string, defaultWorkingRoom: string, accessibleRoom: string, accessibleRoomDoorLock: DoorLock, keys: string) {
     this.id = id;
     this.username = username;
     this.password = password;

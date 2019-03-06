@@ -48,7 +48,7 @@ export class EmployeeService {
   }
 
 
-  getAllAccesses(){
+  getAllAccesses() {
     let actions: Employee[] = [];
     return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/access', this.httpOptions).pipe(
       map(response => {
@@ -93,5 +93,31 @@ export class EmployeeService {
       }));
   }
 
+  isValidUsername(username: string) {
+    var path = `http://localhost:8080/administrator/api/v1/employee/isValid/` + username + '/';
+    console.log(path);
+    return this.http.get<boolean>(path, this.httpOptions).pipe(
+      map(response => {
+          return response;
+        }
+      )
+    );
+  }
+
+
+  createNewUser(firstName: string, lastName: string, userName: string, department: string, workingRoom: string, password: string, confirmedPassword: string
+    , position: string, role: number) {
+    var path = 'http://localhost:8080/administrator/api/v1/employee';
+    var emp: Employee = new Employee(null, userName, password, firstName, lastName, role,
+      position, department, workingRoom, null, null, null);
+    console.log('Tring to persist eployee ' +  JSON.stringify(emp));
+    return this.http.post(path, emp, this.httpOptions)
+      .pipe(map(
+        response => {
+          return response;
+        }
+      ))
+      ;
+  }
 
 }

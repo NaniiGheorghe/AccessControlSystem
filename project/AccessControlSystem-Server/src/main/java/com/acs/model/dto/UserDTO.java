@@ -18,7 +18,7 @@ public class UserDTO {
 
     private String lastName;
 
-    private String workingRoom;
+    private String defaultWorkingRoom;
 
     private List<Integer> keys;
 
@@ -78,12 +78,12 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getWorkingRoom() {
-        return workingRoom;
+    public String getDefaultWorkingRoom() {
+        return defaultWorkingRoom;
     }
 
-    public void setWorkingRoom(String workingRoom) {
-        this.workingRoom = workingRoom;
+    public void setDefaultWorkingRoom(String defaultWorkingRoom) {
+        this.defaultWorkingRoom = defaultWorkingRoom;
     }
 
     public List<Integer> getKeys() {

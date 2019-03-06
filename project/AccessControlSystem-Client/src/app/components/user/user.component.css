@@ -11,3 +11,8 @@
   margin-top: 4%;
   margin-bottom: 2%;
 }
+
+.create-delete-buttons button,
+.create-delete-buttons a {
+  margin-right: 8px;
+}

@@ -98,4 +98,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
         );
     }
+
+    @Override
+    public Optional<Employee> findByUsername(String username) {
+        return employeeRepository.findByUser_Username(username);
+    }
 }

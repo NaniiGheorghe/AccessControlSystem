@@ -66,8 +66,8 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/administrator/api/v1/employee", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity createEmployee(@RequestBody Employee employee) {
-        employeeService.save(employee);
+    public ResponseEntity createEmployee(@RequestBody UserDTO user) {
+        //employeeService.save(employee);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -103,12 +103,15 @@ public class EmployeeController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/remove_access/{employee_id}/{doorLock_id}")
     public ResponseEntity removeAccess(@PathVariable(value = "employee_id") Integer employeeId,
-                                     @PathVariable(value = "doorLock_id") Integer doorLockId) {
+                                       @PathVariable(value = "doorLock_id") Integer doorLockId) {
         employeeService.removeAccess(employeeId, doorLockId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
+    @RequestMapping(value = "/administrator/api/v1/employee/isValid/{username}/", method = RequestMethod.GET, consumes = {"application/json"})
+    public boolean createEmployee(@PathVariable(value = "username") String username) {
+        return !employeeService.findByUsername(username).isPresent();
+    }
 
     private UserDTO convertToDto(Employee employee) {
         UserDTO userDTO = new UserDTO();
@@ -116,7 +119,7 @@ public class EmployeeController {
         userDTO.setUsergroup(employee.getUser().getUsergroup());
         userDTO.setFirstName(employee.getFirsName());
         userDTO.setLastName(employee.getLastName());
-        userDTO.setWorkingRoom(employee.getWorkingRoom().getName());
+        userDTO.setDefaultWorkingRoom(employee.getWorkingRoom().getName());
         userDTO.setKeys(employee.getKeys().stream()
                 .map(Key::getId)
                 .collect(Collectors.toList()));

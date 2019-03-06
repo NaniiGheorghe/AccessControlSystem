@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
 
-import { UserComponent } from '../../test/user.component';
+import { UserComponent } from '../components/user/user.component';
 
 describe('UserComponent', () => {
   let component: UserComponent;
