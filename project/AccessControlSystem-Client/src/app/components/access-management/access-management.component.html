@@ -42,25 +42,25 @@
       <!-- First name Column -->
       <ng-container matColumnDef="firstNameLastName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
-        <td mat-cell *matCellDef="let row">{{row.firstName + " " + row.lastName}}</td>
+        <td mat-cell *matCellDef="let row">{{row.user.firstName + " " + row.user.lastName}}</td>
       </ng-container>
 
       <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Position</th>
-        <td mat-cell *matCellDef="let row">{{row.position}}</td>
+        <td mat-cell *matCellDef="let row">{{row.user.position}}</td>
       </ng-container>
 
       <!-- Departament Column -->
       <ng-container matColumnDef="departament">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Departament</th>
-        <td mat-cell *matCellDef="let row">{{row.departament}}</td>
+        <td mat-cell *matCellDef="let row">{{row.user.departament}}</td>
       </ng-container>
 
       <!-- Default working room Column -->
       <ng-container matColumnDef="defaultWorkingRoom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Default room</th>
-        <td mat-cell *matCellDef="let row">{{row.defaultWorkingRoom}}</td>
+        <td mat-cell *matCellDef="let row">{{row.user.defaultWorkingRoom}}</td>
       </ng-container>
 
       <!-- Accesible Room -->

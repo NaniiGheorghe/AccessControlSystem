@@ -25,4 +25,6 @@ public interface OfficeRoomService {
 
     boolean isValiCombination(String roomName, String doorName);
 
+    Optional<OfficeRoom> findByName(String roomName);
+
 }

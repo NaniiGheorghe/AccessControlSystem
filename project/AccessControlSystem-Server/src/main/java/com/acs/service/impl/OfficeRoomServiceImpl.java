@@ -128,4 +128,9 @@ public class OfficeRoomServiceImpl implements OfficeRoomService {
         }
         return true;
     }
+
+    @Override
+    public Optional<OfficeRoom> findByName(String roomName) {
+        return officeRoomRepository.findByName(roomName);
+    }
 }

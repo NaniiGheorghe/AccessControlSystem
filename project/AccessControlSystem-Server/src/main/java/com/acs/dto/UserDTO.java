@@ -1,4 +1,4 @@
-package com.acs.model.dto;
+package com.acs.dto;
 
 import com.acs.model.UserGroup;
 
@@ -20,15 +20,13 @@ public class UserDTO {
 
     private String defaultWorkingRoom;
 
-    private List<Integer> keys;
+    private List<KeyDTO> keys;
+
+    private Integer keyType;
 
     private String position;
 
     private String departament;
-
-    private String accessibleRoom;
-
-    private DoorDTO accessibleRoomDoorLock;
 
     public int getId() {
         return id;
@@ -86,11 +84,11 @@ public class UserDTO {
         this.defaultWorkingRoom = defaultWorkingRoom;
     }
 
-    public List<Integer> getKeys() {
+    public List<KeyDTO> getKeys() {
         return keys;
     }
 
-    public void setKeys(List<Integer> keys) {
+    public void setKeys(List<KeyDTO> keys) {
         this.keys = keys;
     }
 
@@ -110,20 +108,12 @@ public class UserDTO {
         this.departament = departament;
     }
 
-    public String getAccessibleRoom() {
-        return accessibleRoom;
+    public Integer getKeyType() {
+        return keyType;
     }
 
-    public void setAccessibleRoom(String accessibleRoom) {
-        this.accessibleRoom = accessibleRoom;
-    }
-
-    public DoorDTO getAccessibleRoomDoorLock() {
-        return accessibleRoomDoorLock;
-    }
-
-    public void setAccessibleRoomDoorLock(DoorDTO accessibleRoomDoorLock) {
-        this.accessibleRoomDoorLock = accessibleRoomDoorLock;
+    public void setKeyType(Integer keyType) {
+        this.keyType = keyType;
     }
 }
 

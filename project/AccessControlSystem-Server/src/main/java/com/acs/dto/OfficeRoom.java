@@ -1,6 +1,6 @@
-package com.acs.model.dto;
+package com.acs.dto;
 
-public class DoorDTO {
+public class OfficeRoom {
 
     private int id;
 

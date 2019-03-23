@@ -1,24 +1,23 @@
 package com.acs.rest;
 
-import com.acs.model.Action;
-import com.acs.model.DoorLock;
-import com.acs.model.Employee;
-import com.acs.model.Key;
-import com.acs.model.dto.ActionDTO;
-import com.acs.model.dto.DoorDTO;
-import com.acs.model.dto.UserDTO;
+import com.acs.dto.AccessDTO;
+import com.acs.dto.convertor.AccessDTOConverter;
+import com.acs.dto.convertor.UserDTOConverter;
+import com.acs.model.*;
+import com.acs.dto.UserDTO;
+import com.acs.service.ApplicationUserSevice;
 import com.acs.service.EmployeeService;
 import com.acs.service.OfficeRoomService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -32,20 +31,27 @@ public class EmployeeController {
     private OfficeRoomService officeRoomService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ApplicationUserSevice applicationUserSevice;
+
+    @Autowired
+    private UserDTOConverter userDTOConverter;
+
+    @Autowired
+    private AccessDTOConverter accessDTOConverter;
+
 
     @Transactional
     @RequestMapping(value = "/administrator/api/v1/employee/list/", method = RequestMethod.GET)
     public List<UserDTO> list() {
         return employeeService.getAllEmployees().stream()
-                .map(this::convertToDto)
+                .map(userDTOConverter::convertToDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     @RequestMapping(value = "/administrator/api/v1/employee/list/access", method = RequestMethod.GET)
-    public List<UserDTO> listOfAccess() {
-        List<UserDTO> accesses = new ArrayList<>();
+    public List<AccessDTO> listOfAccess() {
+        List<AccessDTO> accesses = new ArrayList<>();
         employeeService.getAllEmployees()
                 .forEach(employee -> {
                     employee.getKeys().forEach(
@@ -54,7 +60,7 @@ public class EmployeeController {
                                         doorLock -> {
                                             officeRoomService.findByDoorLock(doorLock.getId()).ifPresent(
                                                     officeRoom -> {
-                                                        accesses.add(convertToDTOAccess(employee, officeRoom.getName(), doorLock));
+                                                        accesses.add(accessDTOConverter.convertToDTO(employee, officeRoom.getName(), doorLock));
                                                     }
                                             );
                                         }
@@ -67,11 +73,13 @@ public class EmployeeController {
 
     @RequestMapping(value = "/administrator/api/v1/employee", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity createEmployee(@RequestBody UserDTO user) {
-        //employeeService.save(employee);
+        Employee employee = userDTOConverter.convertToEntity(user);
+        applicationUserSevice.save(employee.getUser());
+        employeeService.save(employee);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/administrator/api/v1/employee/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/remove/{id}")
     public ResponseEntity createEmployee(@PathVariable(value = "id") Integer id) {
         employeeService.findById(id).ifPresent(a -> employeeService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
@@ -113,38 +121,4 @@ public class EmployeeController {
         return !employeeService.findByUsername(username).isPresent();
     }
 
-    private UserDTO convertToDto(Employee employee) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(employee.getId());
-        userDTO.setUsergroup(employee.getUser().getUsergroup());
-        userDTO.setFirstName(employee.getFirsName());
-        userDTO.setLastName(employee.getLastName());
-        userDTO.setDefaultWorkingRoom(employee.getWorkingRoom().getName());
-        userDTO.setKeys(employee.getKeys().stream()
-                .map(Key::getId)
-                .collect(Collectors.toList()));
-        userDTO.setId(employee.getId());
-        userDTO.setPosition(employee.getPositions());
-        userDTO.setDepartament(employee.getDepartament());
-        return userDTO;
-    }
-
-    private UserDTO convertToDTOAccess(Employee employee, String accessibleRoom, DoorLock accessibleDoorLock) {
-        UserDTO user = convertToDto(employee);
-        user.setAccessibleRoom(accessibleRoom);
-        user.setAccessibleRoomDoorLock(convertDoorLockToDto(accessibleDoorLock));
-        return user;
-    }
-
-    private DoorDTO convertDoorLockToDto(DoorLock doorLock) {
-        DoorDTO doorDTO = new DoorDTO();
-        doorDTO.setId(doorLock.getId());
-        doorDTO.setName(doorLock.getName());
-        return doorDTO;
-    }
-
-    private Optional<Employee> convertToEntity(UserDTO userDTO) {
-        Employee employee = modelMapper.map(userDTO, Employee.class);
-        return employeeService.findById(employee.getId());
-    }
 }

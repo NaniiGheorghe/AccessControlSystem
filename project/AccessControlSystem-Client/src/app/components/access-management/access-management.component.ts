@@ -2,10 +2,8 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {MessageService} from "../../services/MessageService";
 import {SpinnerService} from "../../services/SpinnerService";
-import {ActionService} from "../../services/ActionService";
-import {Employee} from "../../models/Employee";
 import {Subscription} from "rxjs";
-import {EmployeeService} from "../../services/EmployeeService";
+import {UserService} from "../../services/UserService";
 import {FormControl, Validators} from "@angular/forms";
 import {Room} from "../../models/Room";
 import {RoomService} from "../../services/RoomService";
@@ -14,9 +12,12 @@ import {ToastrService} from "ngx-toastr";
 import {DoorLock} from "../../models/DoorLock";
 import {DoorLockService} from "../../services/DoorLockService";
 import {SelectionModel} from "@angular/cdk/collections";
+import {Access} from "../../models/Access";
+import {User} from "../../models/User";
+import {AccessService} from "../../services/AccessService";
 
 export interface DialogData {
-  data: Employee[];
+  data: Access[];
 }
 
 @Component({
@@ -29,21 +30,22 @@ export class AccessManagementComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   subscriptionAction: Subscription;
-  employees: Employee[] = [];
+  accesses: Access[] = [];
 
-  dataSource = new MatTableDataSource<Employee>(this.employees);
+  dataSource = new MatTableDataSource<Access>(this.accesses);
   displayedColumns = ['checkBox', 'firstNameLastName', 'position', 'departament', 'defaultWorkingRoom', 'accessibleRoom', 'doorLock'];
-  selection = new SelectionModel<Employee>(true, []);
+  selection = new SelectionModel<Access>(true, []);
 
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
-              private employeeService: EmployeeService,
+              private accessService: AccessService,
+              private userService: UserService,
               public dialog: MatDialog,
               private toastr: ToastrService) {
     this.messageService.listen().subscribe((event) => {
       if (event == 'accessManagement') {
-        this.loadAllEmployees();
+        this.loadAllAccesses();
       }
     })
   }
@@ -77,9 +79,9 @@ export class AccessManagementComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  loadAllEmployees() {
-    this.subscriptionAction = this.employeeService.getAllAccesses().subscribe(employees => {
-      this.dataSource.data = employees;
+  loadAllAccesses() {
+    this.subscriptionAction = this.accessService.getAllAccesses().subscribe(access => {
+      this.dataSource.data = access;
       var events = document.getElementById('accessManagement');
       events.style.display = 'block';
       if (this.spinnerService.isShowing()) {
@@ -90,37 +92,37 @@ export class AccessManagementComponent implements OnInit {
   }
 
   openCreateDialog(): void {
-    this.employeeService.getAllEmployees().subscribe(employees => {
+    this.userService.getAllEmployees().subscribe(employees => {
       const dialogRef = this.dialog.open(DialogOverviewCreateAcMn1, {
         width: '400px',
         data: {'data': employees}
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        this.loadAllEmployees();
+        this.loadAllAccesses();
       });
     });
   }
 
   deleteSelected() {
     if (this.selection.selected.length > 0) {
-      var employee = this.selection.selected[0];
-      this.employeeService.removeAnAccess(employee.id, employee.accessibleRoomDoorLock.id)
+      var access: Access = this.selection.selected[0];
+      this.accessService.removeAnAccess(access.user.id, access.accessibleRoomDoorLock.id)
         .pipe()
         .subscribe(
           data => {
             this.toastr.success("Access removed successfully for user ["
-              + employee.firstName + " " + employee.lastName + "] to room ["
-              + employee.accessibleRoom + "], door [" + employee.accessibleRoomDoorLock.name + "]");
-            this.selection.deselect(employee);
+              + access.user.firstName + " " + access.user.lastName + "] to room ["
+              + access.accessibleRoom + "], door [" + access.accessibleRoomDoorLock.name + "]");
+            this.selection.deselect(access);
             this.deleteSelected();
           },
           error => {
             this.toastr.error("Something went wrong!");
-            this.loadAllEmployees();
+            this.loadAllAccesses();
           });
     }
-    this.loadAllEmployees();
+    this.loadAllAccesses();
   }
 }
 
@@ -133,7 +135,7 @@ export class DialogOverviewCreateAcMn1 {
   selectFormControlEmp = new FormControl('', Validators.required);
   selectFormControlRoom = new FormControl('', Validators.required);
   selectFormControlDoor = new FormControl('', Validators.required);
-  selectedEmployee: Employee;
+  selectedEmployee: User;
   selectedRoom: Room;
   selectedDoor: DoorLock;
   allRooms: Room[] = [];
@@ -145,9 +147,8 @@ export class DialogOverviewCreateAcMn1 {
   constructor(public dialog: MatDialog,
               public dialogRef: MatDialogRef<DialogOverviewCreateAcMn1>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              public spinnerService: SpinnerService,
               public roomService: RoomService,
-              public employeeService: EmployeeService,
+              public accessService: AccessService,
               private toastr: ToastrService,
               private doorLockService: DoorLockService) {
   }
@@ -160,8 +161,8 @@ export class DialogOverviewCreateAcMn1 {
   loadAllRooms(event) {
     this.userHasAccessToAllRooms = false;
     console.log(event.source.value);
-    if (event.source.value instanceof Employee) {
-      this.roomService.getInaccesibleRoomsForEmployee((<Employee>event.source.value).id).subscribe(
+    if (event.source.value instanceof User) {
+      this.roomService.getInaccesibleRoomsForEmployee((<User>event.source.value).id).subscribe(
         rooms => {
           if (rooms.length == 0) {
             this.userHasAccessToAllRooms = true;
@@ -184,11 +185,11 @@ export class DialogOverviewCreateAcMn1 {
 
 
   onOkClick(): void {
-    this.employeeService.registerNewAccess(this.selectedEmployee.id, this.selectedDoor.id)
+    this.accessService.registerNewAccess(this.selectedEmployee.id, this.selectedDoor.id)
       .pipe(first())
       .subscribe(
         data => {
-          this.toastr.success("Access registered successfully for user ["
+          this.toastr.success("Access.ts registered successfully for user ["
             + this.selectedEmployee.firstName + " " + this.selectedEmployee.lastName + "] to room ["
             + this.selectedRoom.name + "], door [" + this.selectedDoor.name + "]");
           this.dialogRef.close();

@@ -1,11 +1,8 @@
 package com.acs.rest;
 
 import com.acs.model.DoorLock;
-import com.acs.model.Employee;
-import com.acs.model.OfficeRoom;
-import com.acs.model.dto.DoorDTO;
-import com.acs.model.dto.RoomDTO;
-import com.acs.model.dto.UserDTO;
+import com.acs.dto.OfficeRoom;
+import com.acs.dto.RoomDTO;
 import com.acs.service.OfficeRoomService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +53,7 @@ public class OfficeRoomController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/administrator/api/v1/officeroom/{id}", consumes = {"application/json"})
-    public ResponseEntity updateOfficeRoom(@PathVariable(value = "id") Integer id, @RequestBody OfficeRoom officeRoom) {
+    public ResponseEntity updateOfficeRoom(@PathVariable(value = "id") Integer id, @RequestBody com.acs.model.OfficeRoom officeRoom) {
         officeRoomService.findById(id).ifPresent(a -> officeRoomService.delete(a));
         officeRoomService.save(officeRoom);
         return new ResponseEntity(HttpStatus.OK);
@@ -79,7 +76,7 @@ public class OfficeRoomController {
                 .collect(Collectors.toList());
     }
 
-    private RoomDTO convertToDto(OfficeRoom officeRoom) {
+    private RoomDTO convertToDto(com.acs.model.OfficeRoom officeRoom) {
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setId(officeRoom.getId());
         roomDTO.setName(officeRoom.getName());
@@ -89,20 +86,20 @@ public class OfficeRoomController {
         return roomDTO;
     }
 
-    private DoorDTO convertDoorLockToDto(DoorLock doorLock) {
-        DoorDTO doorDTO = new DoorDTO();
-        doorDTO.setId(doorLock.getId());
-        doorDTO.setName(doorLock.getName());
-        return doorDTO;
+    private OfficeRoom convertDoorLockToDto(DoorLock doorLock) {
+        OfficeRoom officeRoom = new OfficeRoom();
+        officeRoom.setId(doorLock.getId());
+        officeRoom.setName(doorLock.getName());
+        return officeRoom;
     }
 
-    private Optional<OfficeRoom> convertDoorLockToEntity(RoomDTO roomDTO) {
-        OfficeRoom officeRoom = modelMapper.map(roomDTO, OfficeRoom.class);
+    private Optional<com.acs.model.OfficeRoom> convertDoorLockToEntity(RoomDTO roomDTO) {
+        com.acs.model.OfficeRoom officeRoom = modelMapper.map(roomDTO, com.acs.model.OfficeRoom.class);
         return officeRoomService.findById(roomDTO.getId());
     }
 
-    private Optional<OfficeRoom> convertToEntity(RoomDTO roomDTO) {
-        OfficeRoom officeRoom = modelMapper.map(roomDTO, OfficeRoom.class);
+    private Optional<com.acs.model.OfficeRoom> convertToEntity(RoomDTO roomDTO) {
+        com.acs.model.OfficeRoom officeRoom = modelMapper.map(roomDTO, com.acs.model.OfficeRoom.class);
         return officeRoomService.findById(roomDTO.getId());
     }
 

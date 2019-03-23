@@ -2,7 +2,6 @@ package com.acs.rest;
 
 import com.acs.model.DoorLock;
 import com.acs.model.Employee;
-import com.acs.model.dto.RoomDTO;
 import com.acs.service.DoorLockService;
 import com.acs.service.EmployeeService;
 import com.acs.service.OfficeRoomService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class DoorLockController {

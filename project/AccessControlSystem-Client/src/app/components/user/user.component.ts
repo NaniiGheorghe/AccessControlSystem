@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from "rxjs";
-import {Employee} from "../../models/Employee";
+import {User} from "../../models/User";
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
-import {EmployeeService} from "../../services/EmployeeService";
+import {UserService} from "../../services/UserService";
 import {DialogData, DialogOverviewCreateAcMn1} from "../access-management/access-management.component";
 import {SelectionModel} from "@angular/cdk/collections";
 import {ToastrService} from "ngx-toastr";
@@ -14,6 +14,9 @@ import {DoorLock} from "../../models/DoorLock";
 import {RoomService} from "../../services/RoomService";
 import {DoorLockService} from "../../services/DoorLockService";
 import {first} from "rxjs/operators";
+import {DialogOverviewCreateEmployee} from "./create-employee/dialog-overview-create-employee";
+import {DialogOverviewAddFingerPrint} from "./add-finger-print/dialog-overview-add-finger-print";
+import {DialogOverviewCreateUser} from "./create-user/dialog-overview-create-user";
 
 export interface Role {
   value: number;
@@ -30,16 +33,15 @@ export class UserComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   subscriptionAction: Subscription;
-  employees: Employee[] = [];
-  selection = new SelectionModel<Employee>(true, []);
-
+  employees: User[] = [];
+  selection = new SelectionModel<User>(true, []);
 
   dataSource = new MatTableDataSource(this.employees);
-  displayedColumns = ['checkBox', 'id', 'firstName', 'lastName', 'userGroup', 'position', 'departament', 'defaultWorkingRoom', 'keys'];
+  displayedColumns = ['checkBox', 'id', 'firstName', 'lastName', 'userGroup', 'position', 'departament', 'defaultWorkingRoom'];
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
-              private employeeService: EmployeeService,
+              private employeeService: UserService,
               public dialog: MatDialog,
               private toastr: ToastrService) {
     this.messageService.listen().subscribe((event) => {
@@ -79,6 +81,7 @@ export class UserComponent implements OnInit {
 
   loadAllEmployees() {
     this.subscriptionAction = this.employeeService.getAllEmployees().subscribe(employees => {
+      console.log(employees);
       this.dataSource.data = employees;
       var events = document.getElementById('users');
       events.style.display = 'block';
@@ -91,8 +94,9 @@ export class UserComponent implements OnInit {
 
   openCreateDialog(): void {
     this.employeeService.getAllEmployees().subscribe(employees => {
-      const dialogRef = this.dialog.open(DialogOverviewCreateUser, {
-        width: '400px',
+      const dialogRef = this.dialog.open(DialogOverviewCreateEmployee, {
+        width: '800px',
+        height: '600px',
         data: {'data': employees}
       });
 
@@ -105,13 +109,11 @@ export class UserComponent implements OnInit {
   deleteSelected() {
     if (this.selection.selected.length > 0) {
       var employee = this.selection.selected[0];
-      this.employeeService.removeAnAccess(employee.id, employee.accessibleRoomDoorLock.id)
+      this.employeeService.removeUser(employee.id)
         .pipe()
         .subscribe(
           data => {
-            this.toastr.success("Access removed successfully for user ["
-              + employee.firstName + " " + employee.lastName + "] to room ["
-              + employee.accessibleRoom + "], door [" + employee.accessibleRoomDoorLock.name + "]");
+            this.toastr.success("User [" + employee.firstName + " " + employee.lastName + "] was removed successfully!");
             this.selection.deselect(employee);
             this.deleteSelected();
           },
@@ -123,86 +125,4 @@ export class UserComponent implements OnInit {
     this.loadAllEmployees();
   }
 
-}
-
-
-@Component({
-  selector: 'dialog-overview-create-user',
-  templateUrl: './dialog-overview-create-user.html',
-})
-export class DialogOverviewCreateUser {
-
-  roles: Role[] = [
-    {value: 0, viewValue: 'Operator'},
-    {value: 1, viewValue: 'Administrator'}
-  ];
-
-
-
-  firstName: string = null;
-  lastName: string = null;
-  userName: string = null;
-  department: string = null;
-  workingRoom: string = null;
-  password: string = null;
-  confirmedPassword: string = null;
-  position: string = null;
-  selectedRole: Role = null;
-
-  errorMessage: string = null;
-  dispalyErrorMessage: Boolean = false;
-
-  constructor(public dialog: MatDialog,
-              public dialogRef: MatDialogRef<DialogOverviewCreateUser>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              public spinnerService: SpinnerService,
-              public roomService: RoomService,
-              public employeeService: EmployeeService,
-              private toastr: ToastrService,
-              private doorLockService: DoorLockService) {
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-
-  loadAllRooms(event) {
-
-  }
-
-
-  onOkClick(): void {
-
-    this.employeeService.isValidUsername(this.userName).pipe(first())
-      .subscribe(
-        data => {
-          if (data == true) {
-            if (this.password == this.confirmedPassword) {
-              this.employeeService.createNewUser(this.firstName, this.lastName, this.userName, this.department, this.workingRoom, this.password, this.confirmedPassword, this.position, this.selectedRole.value)
-                .pipe(first())
-                .subscribe(
-                  data => {
-                    this.toastr.success("A new user was created successfully");
-                    this.dialogRef.close();
-                  },
-                  error => {
-                    this.toastr.error("Something went wrong!");
-                    this.dialogRef.close();
-                  });
-            } else {
-              this.dispalyErrorMessage = true;
-              this.errorMessage = "The password doesn't match."
-            }
-          } else {
-            this.dispalyErrorMessage = true;
-            this.errorMessage = "This username is already used."
-          }
-        },
-        error => {
-          this.dispalyErrorMessage = true;
-          this.errorMessage = error;
-        });
-
-  }
 }

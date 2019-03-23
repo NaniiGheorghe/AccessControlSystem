@@ -16,3 +16,8 @@
 .create-delete-buttons a {
   margin-right: 8px;
 }
+
+
+.app-class .mat-list-item {
+  height: auto;
+}

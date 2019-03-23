@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Action} from "../models/Action";
 import {map} from "rxjs/operators";
-import {Employee} from "../models/Employee";
+import {User} from "../models/User";
 import {Report} from "../models/Report";
 import {CookieService} from "ngx-cookie";
 

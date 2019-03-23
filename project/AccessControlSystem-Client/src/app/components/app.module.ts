@@ -39,13 +39,18 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
 import {CookieModule} from "ngx-cookie";
 import {LoginComponent} from "./login/login.componenet";
-import {DialogOverviewCreateUser, UserComponent} from './user/user.component';
+import {UserComponent} from './user/user.component';
 import {DialogOverviewCreateRoom, RoomComponent} from './room/room.component';
 import {RouterModule, Routes} from "@angular/router";
 import {AppRoutingModule} from "./app.routing";
 import {AuthenticationService} from "../services/AuthentiticationService";
 import {AlertService} from "../services/AlertService";
 import {ToastrModule} from "ngx-toastr";
+import {UploadComponent} from "./upload-component/upload.component";
+import {PortalModule} from "@angular/cdk/portal";
+import {DialogOverviewCreateEmployee} from "./user/create-employee/dialog-overview-create-employee";
+import {DialogOverviewCreateUser} from "./user/create-user/dialog-overview-create-user";
+import {DialogOverviewAddFingerPrint} from "./user/add-finger-print/dialog-overview-add-finger-print";
 
 @NgModule({
   declarations: [
@@ -58,9 +63,12 @@ import {ToastrModule} from "ngx-toastr";
     LoginComponent,
     UserComponent,
     RoomComponent,
+    UploadComponent,
     DialogOverviewCreateAcMn1,
     DialogOverviewCreateRoom,
-    DialogOverviewCreateUser
+    DialogOverviewCreateEmployee,
+    DialogOverviewCreateUser,
+    DialogOverviewAddFingerPrint
   ],
   imports: [
     HttpClientModule,
@@ -91,9 +99,9 @@ import {ToastrModule} from "ngx-toastr";
     MatSelectModule,
     MatOptionModule,
     ToastrModule.forRoot(),
-    MatCheckboxModule
-  ],
-  entryComponents: [DialogOverviewCreateAcMn1, DialogOverviewCreateRoom, DialogOverviewCreateUser],
+    MatCheckboxModule,
+    PortalModule],
+  entryComponents: [DialogOverviewCreateAcMn1, DialogOverviewCreateRoom, DialogOverviewCreateEmployee, DialogOverviewCreateUser, DialogOverviewAddFingerPrint],
   exports: [RouterModule],
   providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService],
   bootstrap: [AppComponent]

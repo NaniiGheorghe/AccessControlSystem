@@ -1,8 +1,9 @@
 package com.acs.rest;
 
+import com.acs.dto.convertor.ActionDTOConverter;
 import com.acs.model.Action;
 import com.acs.model.DoorLock;
-import com.acs.model.dto.ActionDTO;
+import com.acs.dto.ActionDTO;
 import com.acs.service.ActionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class ActionController {
     private ActionService actionService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ActionDTOConverter actionDTOConverter;
 
     @Transactional
     @RequestMapping(value = "/user/api/v1/action/list/", method = RequestMethod.GET)
     public List<ActionDTO> list() {
         return actionService.getAllActions().stream()
-                .map(this::convertToDto)
+                .map(actionDTOConverter::convertToDto)
                 .collect(Collectors.toList());
     }
 
@@ -49,21 +50,6 @@ public class ActionController {
         actionService.findById(id).ifPresent(a -> actionService.delete(a));
         actionService.save(action);
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-    private ActionDTO convertToDto(Action action) {
-        ActionDTO actionDTO = modelMapper.map(action, ActionDTO.class);
-        actionDTO.setEmployee(action.getEmployee().getFirsName() + " " + action.getEmployee().getLastName());
-        actionDTO.setOfficeRoom(action.getOfficeRoom().getName());
-        actionDTO.setDoorLock(action.getOfficeRoom().getDoorLocks().stream()
-                .map(DoorLock::getId)
-                .collect(Collectors.toList()));
-        return actionDTO;
-    }
-
-    private Optional<Action> convertToEntity(ActionDTO actionDTO) {
-        Action action = modelMapper.map(actionDTO, Action.class);
-        return actionService.findById(action.getId());
     }
 
 }

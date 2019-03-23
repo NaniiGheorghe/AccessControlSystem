@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>Create a new user.</h1>
+<div>
+  <mat-dialog-content style="margin-bottom: 50px">
+
+    <mat-grid-list [cols]="2" style="margin-top: 20px; margin-left: 20px; margin-right: 20px">
+      <mat-grid-tile style="height: auto;">
+        <div mat-dialog-content style="height: auto;">
+
+          <mat-form-field style="height: auto; width: 300px;">
+            <input matInput [(ngModel)]="firstName" placeholder="First name">
+          </mat-form-field>
+
+          <mat-form-field style="height: auto; width: 300px">
+            <input matInput [(ngModel)]="lastName" placeholder="Last name">
+          </mat-form-field>
+
+          <mat-form-field style="height: auto; width: 300px">
+            <input matInput [(ngModel)]="department" placeholder="Departament">
+          </mat-form-field>
+
+          <mat-form-field style="height: auto; width: 300px">
+            <input matInput [(ngModel)]="position" placeholder="Position">
+          </mat-form-field>
+
+          <mat-form-field style="height: auto; width: 300px">
+            <mat-select placeholder="Role" [(ngModel)]="selectedRole">
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{role.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field style="height: auto; width: 300px">
+            <mat-select placeholder="Select Room" [(ngModel)]="workingRoom">
+              <mat-option *ngFor="let room of allRooms" [value]="room">
+                {{room.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile style="height: auto;">
+        <input-file class="align-top"></input-file>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <div *ngIf="dispalyErrorMessage" class="red-color">
+      {{errorMessage.toString()}}
+    </div>
+
+  </mat-dialog-content>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
+  </div>
+</div>

@@ -40,15 +40,14 @@ export class MainNavComponent implements OnInit {
       .subscribe(
         data => {
           console.log('Token is valid.')
+          this.loadAccessManagementComponent();
         },
         error => {
-          //this.zone.run(() => this.router.navigateByUrl("/"));
+          console.log('Token is invalid.')
+          this.zone.run(() => this.router.navigateByUrl("login"));
         });
   }
 
-  ngAfterViewInit() {
-    this.loadAccessManagementComponent();
-  }
 
   loadAccessManagementComponent() {
     this.hideAll();

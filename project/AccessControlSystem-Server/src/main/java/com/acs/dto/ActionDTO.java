@@ -1,4 +1,4 @@
-package com.acs.model.dto;
+package com.acs.dto;
 
 import com.acs.model.Direction;
 

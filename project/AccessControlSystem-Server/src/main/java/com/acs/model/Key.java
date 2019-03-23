@@ -12,6 +12,10 @@ public class Key {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+
+    private String keyValue;
+
     private KeyTypeEnum keyType;
 
     @ManyToMany(targetEntity = DoorLock.class, fetch = FetchType.LAZY)
@@ -25,6 +29,21 @@ public class Key {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getKeyValue() {
+        return keyValue;
+    }
+
+    public void setKeyValue(String keyValue) {
+        this.keyValue = keyValue;
+    }
 
     public List<DoorLock> getAccessibleDoorLocks() {
         return accessibleDoorLocks;

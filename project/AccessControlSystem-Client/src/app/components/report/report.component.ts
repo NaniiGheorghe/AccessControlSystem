@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from "rxjs";
-import {Employee} from "../../models/Employee";
+import {User} from "../../models/User";
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
-import {EmployeeService} from "../../services/EmployeeService";
+import {UserService} from "../../services/UserService";
 import {Report} from "../../models/Report";
 import {ReportService} from "../../services/ReportService";
 
