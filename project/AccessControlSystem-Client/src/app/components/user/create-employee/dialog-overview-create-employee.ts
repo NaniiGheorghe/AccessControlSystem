@@ -1,10 +1,11 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {Room} from "../../../models/Room";
 import {MatDialog, MatDialogRef} from "@angular/material";
 import {RoomService} from "../../../services/RoomService";
 import {Role} from "../user.component";
 import {User} from "../../../models/User";
 import {DialogOverviewCreateUser} from "../create-user/dialog-overview-create-user";
+import {UploadComponent} from "../../upload-component/upload.component";
 
 export interface CreateEmployeeDialogData {
   employee: User;
@@ -16,6 +17,8 @@ export interface CreateEmployeeDialogData {
   styleUrls: ['./dialog-overview-create-employee.css']
 })
 export class DialogOverviewCreateEmployee {
+
+  @ViewChild(UploadComponent) uploadComponent;
 
   roles: Role[] = [
     {value: 0, viewValue: 'Operator'},
@@ -29,7 +32,6 @@ export class DialogOverviewCreateEmployee {
   position: string = null;
   selectedRole: Role = null;
   workingRoom: Room;
-
 
   errorMessage: string = null;
   dispalyErrorMessage: Boolean = false;
@@ -53,6 +55,8 @@ export class DialogOverviewCreateEmployee {
   }
 
   onOkClick(): void {
+    console.log('Image' + this.uploadComponent.imagePath);
+
     let emplyee = new User(null,
       null,
       null,
@@ -62,7 +66,8 @@ export class DialogOverviewCreateEmployee {
       this.position,
       this.department,
       this.workingRoom.name,
-      null);
+      null,
+      this.uploadComponent.imgURL);
 
     this.dialog.open(DialogOverviewCreateUser, {
       width: '400px',

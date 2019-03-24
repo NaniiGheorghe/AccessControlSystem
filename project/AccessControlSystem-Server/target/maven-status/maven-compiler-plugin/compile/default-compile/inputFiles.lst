@@ -17,6 +17,7 @@ D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\repository\DoorLockRepository.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\service\KeyService.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\model\KeyTypeEnum.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\model\ScannerTypeEnum.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\model\UserGroup.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\configuration\security\SecurityConstants.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\dto\convertor\UserDTOConverter.java
@@ -33,6 +34,7 @@ D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\dto\convertor\DoorDTOConverter.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\repository\OfficeRoomRepository.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\dto\DoorLockDTO.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\model\Scanner.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\dto\convertor\AccessDTOConverter.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\dto\ReportDTO.java
 D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\main\java\com\acs\service\impl\UserDetailsServiceImpl.java

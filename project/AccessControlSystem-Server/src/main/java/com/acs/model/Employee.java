@@ -34,6 +34,8 @@ public class Employee {
 
     private String departament;
 
+    private String image;
+
     public OfficeRoom getWorkingRoom() {
         return workingRoom;
     }
@@ -96,5 +98,13 @@ public class Employee {
 
     public void setDepartament(String departament) {
         this.departament = departament;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

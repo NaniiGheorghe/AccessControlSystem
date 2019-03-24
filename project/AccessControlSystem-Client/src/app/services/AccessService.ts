@@ -40,7 +40,8 @@ export class AccessService {
                   JSON.parse(JSON.stringify(entry)).userDTO.position,
                   JSON.parse(JSON.stringify(entry)).userDTO.departament,
                   JSON.parse(JSON.stringify(entry)).userDTO.defaultWorkingRoom,
-                  JSON.parse(JSON.stringify(entry)).userDTO.keys),
+                  JSON.parse(JSON.stringify(entry)).userDTO.keys,
+                  JSON.parse(JSON.stringify(entry)).userDTO.image),
                 JSON.parse(JSON.stringify(entry)).accessibleRoom,
                 JSON.parse(JSON.stringify(entry)).accessibleRoomDoorLock));
           }
@@ -52,6 +53,7 @@ export class AccessService {
 
   registerNewAccess(employeeId: number, doorLockId: number) {
     var path = `http://localhost:8080/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
+    console.log(path);
     return this.http.post(path, {}, this.httpOptions)
       .pipe(map(response => {
         return 'Ok';

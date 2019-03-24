@@ -38,7 +38,8 @@ export class UserService {
               JSON.parse(JSON.stringify(entry)).position,
               JSON.parse(JSON.stringify(entry)).departament,
               JSON.parse(JSON.stringify(entry)).defaultWorkingRoom,
-              JSON.parse(JSON.stringify(entry)).keys));
+              JSON.parse(JSON.stringify(entry)).keys,
+              JSON.parse(JSON.stringify(entry)).image));
           }
           return actions;
         }

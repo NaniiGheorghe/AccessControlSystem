@@ -189,7 +189,7 @@ export class DialogOverviewCreateAcMn1 {
       .pipe(first())
       .subscribe(
         data => {
-          this.toastr.success("Access.ts registered successfully for user ["
+          this.toastr.success("Access registered successfully for user ["
             + this.selectedEmployee.firstName + " " + this.selectedEmployee.lastName + "] to room ["
             + this.selectedRoom.name + "], door [" + this.selectedDoor.name + "]");
           this.dialogRef.close();

@@ -2,11 +2,13 @@ package com.acs.rest;
 
 import com.acs.dto.AccessDTO;
 import com.acs.dto.convertor.AccessDTOConverter;
+import com.acs.dto.convertor.KeyDTOConverter;
 import com.acs.dto.convertor.UserDTOConverter;
 import com.acs.model.*;
 import com.acs.dto.UserDTO;
 import com.acs.service.ApplicationUserSevice;
 import com.acs.service.EmployeeService;
+import com.acs.service.KeyService;
 import com.acs.service.OfficeRoomService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,11 @@ public class EmployeeController {
     @Autowired
     private AccessDTOConverter accessDTOConverter;
 
+    @Autowired
+    private KeyService keyService;
+
+    @Autowired
+    private KeyDTOConverter keyDTOConverter;
 
     @Transactional
     @RequestMapping(value = "/administrator/api/v1/employee/list/", method = RequestMethod.GET)
@@ -74,6 +81,7 @@ public class EmployeeController {
     @RequestMapping(value = "/administrator/api/v1/employee", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity createEmployee(@RequestBody UserDTO user) {
         Employee employee = userDTOConverter.convertToEntity(user);
+        employee.getKeys().forEach(key -> keyService.save(key));
         applicationUserSevice.save(employee.getUser());
         employeeService.save(employee);
         return new ResponseEntity(HttpStatus.CREATED);

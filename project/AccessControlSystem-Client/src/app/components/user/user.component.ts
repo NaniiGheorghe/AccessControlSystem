@@ -1,22 +1,15 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from "rxjs";
 import {User} from "../../models/User";
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
 import {UserService} from "../../services/UserService";
-import {DialogData, DialogOverviewCreateAcMn1} from "../access-management/access-management.component";
 import {SelectionModel} from "@angular/cdk/collections";
 import {ToastrService} from "ngx-toastr";
-import {FormControl, Validators} from "@angular/forms";
-import {Room} from "../../models/Room";
-import {DoorLock} from "../../models/DoorLock";
-import {RoomService} from "../../services/RoomService";
-import {DoorLockService} from "../../services/DoorLockService";
-import {first} from "rxjs/operators";
+
 import {DialogOverviewCreateEmployee} from "./create-employee/dialog-overview-create-employee";
-import {DialogOverviewAddFingerPrint} from "./add-finger-print/dialog-overview-add-finger-print";
-import {DialogOverviewCreateUser} from "./create-user/dialog-overview-create-user";
+
 
 export interface Role {
   value: number;
@@ -37,7 +30,7 @@ export class UserComponent implements OnInit {
   selection = new SelectionModel<User>(true, []);
 
   dataSource = new MatTableDataSource(this.employees);
-  displayedColumns = ['checkBox', 'id', 'firstName', 'lastName', 'userGroup', 'position', 'departament', 'defaultWorkingRoom'];
+  displayedColumns = ['checkBox', 'id', 'firstName', 'lastName', 'userGroup', 'position', 'departament', 'defaultWorkingRoom', 'image'];
 
   constructor(private spinnerService: SpinnerService,
               private messageService: MessageService,
@@ -124,5 +117,6 @@ export class UserComponent implements OnInit {
     }
     this.loadAllEmployees();
   }
+
 
 }

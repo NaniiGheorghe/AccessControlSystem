@@ -51,6 +51,8 @@ import {PortalModule} from "@angular/cdk/portal";
 import {DialogOverviewCreateEmployee} from "./user/create-employee/dialog-overview-create-employee";
 import {DialogOverviewCreateUser} from "./user/create-user/dialog-overview-create-user";
 import {DialogOverviewAddFingerPrint} from "./user/add-finger-print/dialog-overview-add-finger-print";
+import {ScannerService} from "../services/ScannerService";
+import {AccoutDialog} from "./main-nav/account-dialog/accout-dialog";
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import {DialogOverviewAddFingerPrint} from "./user/add-finger-print/dialog-overv
     DialogOverviewCreateRoom,
     DialogOverviewCreateEmployee,
     DialogOverviewCreateUser,
-    DialogOverviewAddFingerPrint
+    DialogOverviewAddFingerPrint,
+    AccoutDialog
   ],
   imports: [
     HttpClientModule,
@@ -101,9 +104,9 @@ import {DialogOverviewAddFingerPrint} from "./user/add-finger-print/dialog-overv
     ToastrModule.forRoot(),
     MatCheckboxModule,
     PortalModule],
-  entryComponents: [DialogOverviewCreateAcMn1, DialogOverviewCreateRoom, DialogOverviewCreateEmployee, DialogOverviewCreateUser, DialogOverviewAddFingerPrint],
+  entryComponents: [DialogOverviewCreateAcMn1, DialogOverviewCreateRoom, DialogOverviewCreateEmployee, DialogOverviewCreateUser, DialogOverviewAddFingerPrint, AccoutDialog],
   exports: [RouterModule],
-  providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService],
+  providers: [ActionService, MessageService, SpinnerService, AuthenticationService, AlertService, ScannerService],
   bootstrap: [AppComponent]
 })
 

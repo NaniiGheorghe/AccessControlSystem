@@ -122,7 +122,7 @@ export class RoomComponent implements OnInit {
 export class DialogOverviewCreateRoom {
 
   room: Room = new Room(undefined, undefined, undefined, undefined);
-  door: DoorLock = new DoorLock(undefined, undefined);
+  door: DoorLock = new DoorLock(undefined, undefined, undefined);
 
   doorIdentifierAlreadyExist: boolean = false;
   roomNameAlreadyExist: boolean = false;
@@ -147,13 +147,13 @@ export class DialogOverviewCreateRoom {
       .subscribe(
         data => {
           this.toastr.success("The combination room ["
-            + this.room.name + "] - door ["+this.door.name+"] was created sucessfully.");
+            + this.room.name + "] - door [" + this.door.name + "] was created sucessfully.");
           this.dialogRef.close();
         },
         error => {
-          if(error == null){
+          if (error == null) {
             this.toastr.error("Something went wrong!");
-          }else{
+          } else {
             this.toastr.error(JSON.parse(JSON.stringify(error)).error);
           }
           this.dialogRef.close();

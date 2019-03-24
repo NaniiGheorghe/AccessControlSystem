@@ -4,6 +4,7 @@ import com.acs.dto.ActionDTO;
 import com.acs.dto.KeyDTO;
 import com.acs.model.Action;
 import com.acs.model.Key;
+import com.acs.model.KeyTypeEnum;
 import com.acs.service.KeyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,14 @@ public class KeyDTOConverter {
         return keyDTO;
     }
 
-    public Optional<Key> convertToEntity(KeyDTO keyDTO) {
+    public Key convertToEntity(KeyDTO keyDTO) {
         Key key = modelMapper.map(keyDTO, Key.class);
-        return Optional.ofNullable(key);
+        if (keyDTO.getKeyType().equals("Finger Print")) {
+            key.setKeyType(KeyTypeEnum.FINGERPRINT);
+        } else if (keyDTO.getKeyType().equals("NFC Key")) {
+            key.setKeyType(KeyTypeEnum.ELECTRONIC_KEY);
+        }
+        return key;
     }
 
 }

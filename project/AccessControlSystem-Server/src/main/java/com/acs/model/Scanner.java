@@ -1,10 +1,11 @@
 package com.acs.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "acs_doorlock")
-public class DoorLock {
+@Table(name = "acs_scanner")
+public class Scanner {
 
     @Id
     @Column(name = "id")
@@ -13,8 +14,8 @@ public class DoorLock {
 
     private String name;
 
-    @OneToOne(targetEntity = Scanner.class, fetch = FetchType.LAZY)
-    private Scanner scanner;
+    private ScannerTypeEnum scannerType;
+
 
     public int getId() {
         return id;
@@ -32,11 +33,11 @@ public class DoorLock {
         this.name = name;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public ScannerTypeEnum getScannerType() {
+        return scannerType;
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public void setScannerType(ScannerTypeEnum scannerType) {
+        this.scannerType = scannerType;
     }
 }

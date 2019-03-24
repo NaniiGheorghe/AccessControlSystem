@@ -28,6 +28,8 @@ public class UserDTO {
 
     private String departament;
 
+    private String image;
+
     public int getId() {
         return id;
     }
@@ -114,6 +116,14 @@ public class UserDTO {
 
     public void setKeyType(Integer keyType) {
         this.keyType = keyType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
 

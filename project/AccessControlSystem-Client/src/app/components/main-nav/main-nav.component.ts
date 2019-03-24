@@ -9,6 +9,9 @@ import {CookieOptions, CookieService} from "ngx-cookie";
 import {AuthenticationService} from "../../services/AuthentiticationService";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {DialogOverviewCreateEmployee} from "../user/create-employee/dialog-overview-create-employee";
+import {MatDialog} from "@angular/material";
+import {AccoutDialog} from "./account-dialog/accout-dialog";
 
 @Component({
   selector: 'app-main-nav',
@@ -30,8 +33,7 @@ export class MainNavComponent implements OnInit {
               private authentiticationService: AuthenticationService,
               private zone: NgZone,
               private router: Router,
-              private toastr: ToastrService
-               ) {
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -96,4 +98,12 @@ export class MainNavComponent implements OnInit {
   }
 
 
+  openAccoutDialog() {
+    this.dialog.open(AccoutDialog, {
+      width: '280px',
+      height: '170px',
+      position: { top: '50px', right: '10px' },
+      panelClass: 'custom-dialog-container'
+    });
+  }
 }

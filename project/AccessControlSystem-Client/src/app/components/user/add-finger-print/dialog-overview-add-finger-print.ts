@@ -1,12 +1,14 @@
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
-import {DialogData} from "../../access-management/access-management.component";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSelectChange} from "@angular/material";
 import {UserService} from "../../../services/UserService";
 import {ToastrService} from "ngx-toastr";
 import {first} from "rxjs/operators";
 import {CreateEmployeeDialogData} from "../create-employee/dialog-overview-create-employee";
 import {FormControl, Validators} from "@angular/forms";
 import {Key} from "../../../models/Key";
+import {Scanner} from "../../../models/scanner";
+import {ScannerService} from "../../../services/ScannerService";
+import {ScannerTypeEnum} from "../../../models/ScannerType";
 
 @Component({
   selector: 'dialog-overview-create-user',
@@ -18,13 +20,14 @@ export class DialogOverviewAddFingerPrint {
   selectFormControlRoom = new FormControl('', Validators.required);
 
   allKeyTypes: string[] = ['Finger Print', 'NFC Key'];
-  allScanners: string[] = ["SC0001", "SC0002", "SC0003", "SC0004"];
+  allScanners: Scanner[] = [];
 
   selectedScanner: string;
-  keyType: string;
+  selectedKeyType: string;
   fingerPrintName: string;
   keys: Key[] = [];
 
+  NFCKeyId: any;
 
   nothingScanned: Boolean;
   firstScanGif: Boolean;
@@ -36,12 +39,16 @@ export class DialogOverviewAddFingerPrint {
   fourthScanGif: Boolean;
   successfullyRegistered: Boolean;
 
+  fingerPrintTypeSelected: Boolean;
+  NFCKeyTypeSelected: any;
+
 
   constructor(public dialog: MatDialog,
               public dialogRef: MatDialogRef<DialogOverviewAddFingerPrint>,
               @Inject(MAT_DIALOG_DATA) public employeeData: CreateEmployeeDialogData,
               public employeeService: UserService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private scannerService: ScannerService) {
     this.nothingScanned = true;
     this.firstScanGif = false;
     this.secondScan = false;
@@ -51,6 +58,13 @@ export class DialogOverviewAddFingerPrint {
     this.fourthScan = false;
     this.fourthScanGif = false;
     this.successfullyRegistered = false;
+
+    this.fingerPrintTypeSelected = false;
+    this.NFCKeyTypeSelected = false;
+
+    this.scannerService.getAllScannersByType(ScannerTypeEnum.FINGERPRINT_SCANNER).subscribe(scanners => {
+      this.allScanners = scanners;
+    });
   }
 
 
@@ -107,7 +121,12 @@ export class DialogOverviewAddFingerPrint {
   }
 
   onOkClick(): void {
-    var newKet = new Key(null, this.fingerPrintName, this.keyType)
+    var newKet: Key;
+    if (this.NFCKeyTypeSelected) {
+      newKet = new Key(null, this.fingerPrintName, this.NFCKeyId, this.selectedKeyType);
+    } else if (this.fingerPrintTypeSelected) {
+      newKet = new Key(null, this.fingerPrintName, null, this.selectedKeyType);
+    }
     this.keys.push(newKet);
     this.employeeData.employee.keys = this.keys;
     this.employeeService.createNewUser(this.employeeData.employee)
@@ -124,4 +143,16 @@ export class DialogOverviewAddFingerPrint {
   }
 
 
+  displyKeyInputType($event: MatSelectChange) {
+    console.log($event.source.value == 'Finger Print');
+    if ($event.source.value == 'Finger Print') {
+      this.fingerPrintTypeSelected = true;
+      this.NFCKeyTypeSelected = false;
+      this.successfullyRegistered = false;
+    } else if ($event.source.value == 'NFC Key') {
+      this.NFCKeyTypeSelected = true;
+      this.fingerPrintTypeSelected = false;
+      this.successfullyRegistered = true;
+    }
+  }
 }

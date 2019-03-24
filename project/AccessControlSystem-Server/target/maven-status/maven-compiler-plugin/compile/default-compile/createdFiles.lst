@@ -5,11 +5,13 @@ com\acs\model\OfficeRoom.class
 com\acs\dto\RoomDTO.class
 com\acs\service\impl\EmployeeServiceImpl.class
 com\acs\rest\DoorLockController.class
+com\acs\model\Scanner.class
 com\acs\service\OfficeRoomService.class
 com\acs\repository\ApplicationUserRepository.class
 com\acs\service\impl\KeyServiceImpl.class
 com\acs\repository\NotificationRepository.class
 com\acs\model\Notification.class
+com\acs\model\ScannerTypeEnum.class
 com\acs\dto\convertor\OfficeRoomDTOConverter.class
 com\acs\configuration\security\WebSecurity.class
 com\acs\rest\UserController.class

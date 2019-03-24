@@ -33,7 +33,8 @@ export class DoorLockService {
           for (let entry of response) {
             doors.push(new DoorLock(
               JSON.parse(JSON.stringify(entry)).id,
-              JSON.parse(JSON.stringify(entry)).name
+              JSON.parse(JSON.stringify(entry)).name,
+              null
             ));
           }
           return doors;

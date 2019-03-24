@@ -3,12 +3,15 @@ package com.acs.dto.convertor;
 import com.acs.dto.UserDTO;
 import com.acs.model.ApplicationUser;
 import com.acs.model.Employee;
+import com.acs.model.Key;
 import com.acs.model.OfficeRoom;
 import com.acs.service.OfficeRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,6 +40,7 @@ public class UserDTOConverter {
         userDTO.setId(employee.getId());
         userDTO.setPosition(employee.getPositions());
         userDTO.setDepartament(employee.getDepartament());
+        userDTO.setImage(employee.getImage());
         return userDTO;
     }
 
@@ -54,6 +58,11 @@ public class UserDTOConverter {
         officeRoomOptional.ifPresent(employee::setWorkingRoom);
         employee.setPositions(userDTO.getPosition());
         employee.setDepartament(userDTO.getDepartament());
+        employee.setImage(userDTO.getImage());
+        employee.setKeys(userDTO.getKeys().stream()
+                .map(keyDTOConverter::convertToEntity)
+                .collect(Collectors.toList()));
+
         return employee;
     }
 
