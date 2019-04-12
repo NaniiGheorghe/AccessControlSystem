@@ -1,13 +1,23 @@
-<mat-list style="margin-top: 5px">
+<div style="background-color: #EEEEEE">
+  <mat-list style="text-align: center;">
+    <mat-list-item >
+      <div style="text-align: center">
+        Signed in as
+        <b style="text-align: center">Gicu Nanii</b>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+
+<mat-list style="text-align: center;">
   <mat-list-item>
     <button mat-raised-button style="width: 100%">Account</button>
   </mat-list-item>
-  <mat-divider></mat-divider>
   <mat-list-item>
     <button mat-raised-button style="width: 100%">Privacy</button>
   </mat-list-item>
-  <mat-divider></mat-divider>
   <mat-list-item>
-    <button mat-raised-button style="width: 100%" (click)='signOut();'>Sign out</button>
+    <button mat-raised-button style="width: 100%; background-color: #DC3545" (click)='signOut();'>Sign out</button>
   </mat-list-item>
 </mat-list>

@@ -101,7 +101,7 @@ export class MainNavComponent implements OnInit {
   openAccoutDialog() {
     this.dialog.open(AccoutDialog, {
       width: '280px',
-      height: '170px',
+      height: '220px',
       position: { top: '50px', right: '10px' },
       panelClass: 'custom-dialog-container'
     });
