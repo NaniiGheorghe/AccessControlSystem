@@ -66,7 +66,7 @@ public class WhenSteps {
 
         Util.getDriver().findElement(By.id("createUserRoomDropDown")).click();
         Thread.sleep(1000);
-        Util.getDriver().findElement(By.xpath("//span[@class='mat-option-text'][contains(.,'Relax createRoom')]")).click();
+        Util.getDriver().findElement(By.xpath("//span[contains(.,'Relax room')]")).click();
 
         WebElement submitButton = Util.getDriver().findElement(By.id("createUserOkButton"));
         submitButton.click();
