@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Give access to a person.</h1>
 <div mat-dialog-content>
   <p></p>
-  <mat-form-field style="width: 350px">
+  <mat-form-field id="selectUser" style="width: 350px">
     <mat-select placeholder="Select User" [(ngModel)]="selectedEmployee" [formControl]="selectFormControlEmp" (selectionChange)="loadAllRooms($event)" required>
       <mat-option>--</mat-option>
       <mat-option *ngFor="let employee of data.data" [value]="employee">
@@ -15,7 +15,7 @@
 <div *ngIf="!userHasAccessToAllRooms">
 <div mat-dialog-content>
   <p></p>
-  <mat-form-field style="width: 350px">
+  <mat-form-field id="selectRoom" style="width: 350px">
     <mat-select placeholder="Select Room" [(ngModel)]="selectedRoom" [formControl]="selectFormControlRoom" (selectionChange)="loadDoorLocks($event)" required>
       <mat-option>--</mat-option>
       <mat-option *ngFor="let room of allRooms" [value]="room">
@@ -28,7 +28,7 @@
 
 <div mat-dialog-content>
   <p></p>
-  <mat-form-field style="width: 350px">
+  <mat-form-field id="selectDoor" style="width: 350px">
     <mat-select placeholder="Select Door" [(ngModel)]="selectedDoor" [formControl]="selectFormControlDoor" required>
       <mat-option>--</mat-option>
       <mat-option *ngFor="let door of allDoors" [value]="door">

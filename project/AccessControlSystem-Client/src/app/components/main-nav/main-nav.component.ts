@@ -33,7 +33,8 @@ export class MainNavComponent implements OnInit {
               private authentiticationService: AuthenticationService,
               private zone: NgZone,
               private router: Router,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private cookiesService: CookieService) {
   }
 
   ngOnInit() {
@@ -41,11 +42,12 @@ export class MainNavComponent implements OnInit {
       .pipe()
       .subscribe(
         data => {
-          console.log('Token is valid.')
+          console.log('Token is valid.');
           this.loadAccessManagementComponent();
         },
         error => {
-          console.log('Token is invalid.')
+          console.log('Token is invalid - ' + error);
+          this.cookiesService.remove('token');
           this.zone.run(() => this.router.navigateByUrl("login"));
         });
   }

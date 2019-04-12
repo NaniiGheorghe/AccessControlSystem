@@ -14,16 +14,15 @@ export class ActionService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   getAllActions() {
+   var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let actions: Action[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/action/list/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/action/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             actions.push(new Action(

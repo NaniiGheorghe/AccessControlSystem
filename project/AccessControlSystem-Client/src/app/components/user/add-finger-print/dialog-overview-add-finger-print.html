@@ -15,7 +15,7 @@
 <div mat-dialog-content>
 
   <mat-form-field style="width: 350px">
-    <mat-select placeholder="Select Key Type" [(ngModel)]="selectedKeyType"
+    <mat-select id="createUserSelectKeyType" placeholder="Select Key Type" [(ngModel)]="selectedKeyType"
                 (selectionChange)="displyKeyInputType($event)" required>
       <mat-option *ngFor="let keyType of allKeyTypes" [value]="keyType">
         {{keyType}}
@@ -41,7 +41,7 @@
 
   <div *ngIf="NFCKeyTypeSelected">
     <mat-form-field style="height: auto; min-width: 350px">
-      <input matInput [(ngModel)]="NFCKeyId" placeholder="Key ID">
+      <input id="createUserNFCkeyInput" matInput [(ngModel)]="NFCKeyId" placeholder="Key ID">
     </mat-form-field>
   </div>
 
@@ -76,7 +76,7 @@
 </div>
 <div *ngIf="successfullyRegistered" style="margin-top: 30px;">
   <mat-form-field style="height: auto; width: 200px">
-    <input matInput [(ngModel)]="fingerPrintName" placeholder="Name">
+    <input id="createUserKeyNameInput" matInput [(ngModel)]="fingerPrintName" placeholder="Name">
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="onOkClick()">Ok</button>
+  <button id="createUserOkButton" mat-raised-button color="primary" (click)="onOkClick()">Ok</button>
 </div>

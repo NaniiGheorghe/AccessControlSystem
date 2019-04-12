@@ -16,16 +16,16 @@ export class ScannerService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   getAllScanners() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+
     let scanners: Scanner[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/scanner/list/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/scanner/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             scanners.push(new Scanner(
@@ -40,8 +40,14 @@ export class ScannerService {
   }
 
   getAllScannersByType(scannerType: ScannerTypeEnum) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let scanners: Scanner[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/scanner/list/byType/' + scannerType.valueOf() + "/", this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/scanner/list/byType/' + scannerType.valueOf() + "/", httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             scanners.push(new Scanner(

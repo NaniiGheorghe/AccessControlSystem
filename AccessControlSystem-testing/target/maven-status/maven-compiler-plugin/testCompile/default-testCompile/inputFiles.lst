@@ -1,4 +1,11 @@
-D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\Steps\GivenSteps.java
-D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\Steps\Util.java
-D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\Steps\WhenSteps.java
-D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\Steps\ThenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\deleteUser\WhenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\deleteRoom\WhenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\util\UtilKey.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\createaUser\GivenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\util\Util.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\createRoom\WhenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\createaUser\WhenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\createRoom\ThenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\deleteUser\ThenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\deleteRoom\ThenSteps.java
+D:\personal\ACS\AccessControlSystem\AccessControlSystem-testing\src\test\java\createaUser\ThenSteps.java

@@ -16,16 +16,15 @@ export class ReportService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   getAllReports() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let reports: Report[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             reports.push(new Report(

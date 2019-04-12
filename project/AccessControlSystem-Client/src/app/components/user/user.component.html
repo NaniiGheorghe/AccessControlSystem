@@ -8,8 +8,8 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="create-delete-buttons align-start">
-        <button mat-raised-button color="primary" (click)="openCreateDialog()">Create</button>
-        <button *ngIf="selection.hasValue()" mat-raised-button color="warn" (click)="deleteSelected()">Delete</button>
+        <button id="userCreateButton" mat-raised-button color="primary" (click)="openCreateDialog()">Create</button>
+        <button id="userDeleteButton" *ngIf="selection.hasValue()" mat-raised-button color="warn" (click)="deleteSelected()">Delete</button>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>

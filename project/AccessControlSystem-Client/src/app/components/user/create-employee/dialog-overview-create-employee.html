@@ -7,23 +7,23 @@
         <div mat-dialog-content style="height: auto;">
 
           <mat-form-field style="height: auto; width: 300px;">
-            <input matInput [(ngModel)]="firstName" placeholder="First name">
+            <input id="createUserFirstNameInput" matInput [(ngModel)]="firstName" placeholder="First name">
           </mat-form-field>
 
           <mat-form-field style="height: auto; width: 300px">
-            <input matInput [(ngModel)]="lastName" placeholder="Last name">
+            <input id="createUserLastNameInput" matInput [(ngModel)]="lastName" placeholder="Last name">
           </mat-form-field>
 
           <mat-form-field style="height: auto; width: 300px">
-            <input matInput [(ngModel)]="department" placeholder="Departament">
+            <input id="createUserDepartmentInput" matInput [(ngModel)]="department" placeholder="Departament">
           </mat-form-field>
 
           <mat-form-field style="height: auto; width: 300px">
-            <input matInput [(ngModel)]="position" placeholder="Position">
+            <input id="createUserPositionInput" matInput [(ngModel)]="position" placeholder="Position">
           </mat-form-field>
 
           <mat-form-field style="height: auto; width: 300px">
-            <mat-select placeholder="Role" [(ngModel)]="selectedRole">
+            <mat-select id="createUserRoleDropDown" placeholder="Role" [(ngModel)]="selectedRole">
               <mat-option *ngFor="let role of roles" [value]="role">
                 {{role.viewValue}}
               </mat-option>
@@ -31,7 +31,7 @@
           </mat-form-field>
 
           <mat-form-field style="height: auto; width: 300px">
-            <mat-select placeholder="Select Room" [(ngModel)]="workingRoom">
+            <mat-select id="createUserRoomDropDown" placeholder="Select Room" [(ngModel)]="workingRoom">
               <mat-option *ngFor="let room of allRooms" [value]="room">
                 {{room.name}}
               </mat-option>
@@ -55,6 +55,6 @@
 
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
+    <button id="createUserOkButton" mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
   </div>
 </div>

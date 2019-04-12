@@ -18,17 +18,16 @@ export class DoorLockService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
-
   getInaccessibleDoorLocks(employeeId: number, roomId: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+
     let doors: DoorLock[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/officeroom/inaccesible_doorLocks/' + employeeId + '/' + roomId + '/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/officeroom/inaccesible_doorLocks/' + employeeId + '/' + roomId + '/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             doors.push(new DoorLock(

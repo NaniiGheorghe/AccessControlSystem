@@ -9,17 +9,10 @@ export class AuthenticationService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   login(username: string, password: string) {
     return this.http.post(`http://localhost:8080/login`, {username: username, password: password})
       .pipe(map(user => {
-        console.log('Token' + JSON.parse(JSON.stringify(user)).token);
+        console.log('Server returned a new Token - ' + JSON.parse(JSON.stringify(user)).token);
         return JSON.parse(JSON.stringify(user)).token;
       }));
   }
@@ -28,7 +21,13 @@ export class AuthenticationService {
   }
 
   isAuthentiticated() {
-    return this.http.get(`http://localhost:8080/users/validateToken`, this.httpOptions)
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+    return this.http.get(`http://localhost:8080/users/validateToken`, httpOptions)
       .pipe(map(user => {
         return 'Ok';
       }));

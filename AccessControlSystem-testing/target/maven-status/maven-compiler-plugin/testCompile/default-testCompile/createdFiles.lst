@@ -1,4 +1,11 @@
-Steps\GivenSteps.class
-Steps\ThenSteps.class
-Steps\Util.class
-Steps\WhenSteps.class
+createRoom\WhenSteps.class
+createaUser\WhenSteps.class
+deleteUser\WhenSteps.class
+deleteRoom\ThenSteps.class
+deleteRoom\WhenSteps.class
+deleteUser\ThenSteps.class
+util\Util.class
+util\UtilKey.class
+createRoom\ThenSteps.class
+createaUser\ThenSteps.class
+createaUser\GivenSteps.class

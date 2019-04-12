@@ -17,16 +17,15 @@ export class RoomService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   getAllRooms() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let rooms: Room[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/list/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             var doorNames: string[] = [];
@@ -49,8 +48,14 @@ export class RoomService {
   }
 
   getInaccesibleRoomsForEmployee(employeeId: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let rooms: Room[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/inaccesible_rooms/' + employeeId + '/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/user/api/v1/officeroom/inaccesible_rooms/' + employeeId + '/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             rooms.push(new Room(
@@ -67,8 +72,14 @@ export class RoomService {
   }
 
   deleteRoom(roomId: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     let rooms: Room[] = [];
-    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/delete/' + roomId + '/',{}, this.httpOptions).pipe(
+    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/delete/' + roomId + '/', {}, httpOptions).pipe(
       map(response => {
           return 'Ok';
         }
@@ -77,8 +88,14 @@ export class RoomService {
   }
 
   createRoom(roomName: string, doorIdentifier: string) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     console.log('http://localhost:8080/administrator/api/v1/officeroom/' + roomName + '/' + doorIdentifier + '/',);
-    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/' + roomName + '/' + doorIdentifier + '/', {}, this.httpOptions).pipe(
+    return this.http.post('http://localhost:8080/administrator/api/v1/officeroom/' + roomName + '/' + doorIdentifier + '/', {}, httpOptions).pipe(
       map(response => {
           return response;
         }

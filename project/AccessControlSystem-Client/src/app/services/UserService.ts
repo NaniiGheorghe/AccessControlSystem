@@ -15,17 +15,17 @@ export class UserService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
-
   getAllEmployees() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+
     console.log(this.cookiesService.get('token'));
     let actions: User[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             actions.push(new User(
@@ -48,9 +48,15 @@ export class UserService {
   }
 
   isValidUsername(username: string) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     var path = `http://localhost:8080/administrator/api/v1/employee/isValid/` + username + '/';
     console.log(path);
-    return this.http.get<boolean>(path, this.httpOptions).pipe(
+    return this.http.get<boolean>(path, httpOptions).pipe(
       map(response => {
           return response;
         }
@@ -60,9 +66,15 @@ export class UserService {
 
 
   createNewUser(emp: User) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     var path = 'http://localhost:8080/administrator/api/v1/employee';
     console.log('Tring to persist User ' + JSON.stringify(emp));
-    return this.http.post(path, emp, this.httpOptions)
+    return this.http.post(path, emp, httpOptions)
       .pipe(map(
         response => {
           return response;
@@ -71,9 +83,15 @@ export class UserService {
   }
 
   removeUser(id: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     var path = 'http://localhost:8080/administrator/api/v1/employee/remove/' + id + '/';
     console.log('Tring to remove User ' + JSON.stringify(id));
-    return this.http.post(path, null, this.httpOptions)
+    return this.http.post(path, null, httpOptions)
       .pipe(map(
         response => {
           return response;

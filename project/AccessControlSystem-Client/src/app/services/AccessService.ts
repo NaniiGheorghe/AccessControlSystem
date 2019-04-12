@@ -16,16 +16,17 @@ export class AccessService {
               private cookiesService: CookieService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.cookiesService.get('token')
-    })
-  };
 
   getAllAccesses() {
+   var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+
     let actions: Access[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/access', this.httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/access', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
 
@@ -52,18 +53,31 @@ export class AccessService {
   }
 
   registerNewAccess(employeeId: number, doorLockId: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+
     var path = `http://localhost:8080/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
     console.log(path);
-    return this.http.post(path, {}, this.httpOptions)
+    return this.http.post(path, {}, httpOptions)
       .pipe(map(response => {
         return 'Ok';
       }));
   }
 
   removeAnAccess(employeeId: number, doorLockId: number) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
     var path = `http://localhost:8080/administrator/api/v1/employee/remove_access/` + employeeId + '/' + doorLockId + '/';
     console.log(path);
-    return this.http.post(path, {}, this.httpOptions)
+    return this.http.post(path, {}, httpOptions)
       .pipe(map(response => {
         return 'Ok';
       }));
