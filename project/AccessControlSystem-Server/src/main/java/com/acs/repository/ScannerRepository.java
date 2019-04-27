@@ -17,5 +17,6 @@ public interface ScannerRepository extends JpaRepository<Scanner, Integer> {
 
     List<Scanner> findAllByScannerType(ScannerTypeEnum scannerType);
 
+    Optional<Scanner> findByName(String name);
 
 }

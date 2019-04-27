@@ -14,4 +14,6 @@ public interface ScannerService {
 
     List<Scanner> findAllByScannerType(ScannerTypeEnum scannerType);
 
+    Optional<Scanner> findByScannerName(String name);
+
 }

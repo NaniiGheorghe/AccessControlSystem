@@ -35,7 +35,7 @@ public class ProtocolMessageHandler {
         return protocolEvent;
     }
 
-    public static String buildProtocolMessage(OutgoingAbstractProtocolEvent outgoingAbstractProtocolEvent){
+    public static String buildProtocolMessage(OutgoingAbstractProtocolEvent outgoingAbstractProtocolEvent) {
         return null;
     }
 

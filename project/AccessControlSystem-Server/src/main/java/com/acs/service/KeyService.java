@@ -13,4 +13,6 @@ public interface KeyService {
     Optional<Key> findById(Integer id);
 
     void delete(Key key);
+
+    Optional<Key> findByValue(String keyValue);
 }

@@ -19,4 +19,6 @@ public interface DoorLockService {
 
     Optional<DoorLock> findByName(String name);
 
+    Optional<DoorLock> findByScannerName(String name);
+
 }

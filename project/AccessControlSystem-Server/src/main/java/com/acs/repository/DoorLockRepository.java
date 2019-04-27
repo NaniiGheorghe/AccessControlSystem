@@ -14,4 +14,6 @@ public interface DoorLockRepository extends JpaRepository<DoorLock, Integer> {
     Optional<DoorLock> findById(Integer integer);
 
     Optional<DoorLock> findByName(String name);
+
+    Optional<DoorLock> findByScanner_Name(String name);
 }

@@ -42,4 +42,10 @@ public class DoorLockServiceImpl implements DoorLockService {
     public Optional<DoorLock> findByName(String name) {
         return doorLockRepository.findByName(name);
     }
+
+
+    @Override
+    public Optional<DoorLock> findByScannerName(String name) {
+        return doorLockRepository.findByScanner_Name(name);
+    }
 }

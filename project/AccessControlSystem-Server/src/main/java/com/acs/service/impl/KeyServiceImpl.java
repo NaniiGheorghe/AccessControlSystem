@@ -34,4 +34,9 @@ public class KeyServiceImpl implements KeyService {
     public void delete(Key key) {
         keyRepository.delete(key);
     }
+
+    @Override
+    public Optional<Key> findByValue(String keyValue) {
+        return keyRepository.findByKeyValue(keyValue);
+    }
 }

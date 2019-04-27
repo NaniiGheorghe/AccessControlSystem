@@ -31,5 +31,12 @@ public class ScannerServiceImpl implements ScannerService {
         return scannerRepository.findAllByScannerType(scannerType);
     }
 
+    @Override
+    public Optional<Scanner> findByScannerName(String name) {
+        return scannerRepository.findByName(name);
+    }
+
+
+
 
 }
