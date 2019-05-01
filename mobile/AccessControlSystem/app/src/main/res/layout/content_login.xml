@@ -71,7 +71,7 @@
                         android:singleLine="true"
                         android:drawableTint="#FF4081"
                         android:hint="Password"
-                        android:inputType="numberPassword" />
+                        android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

@@ -1,21 +1,18 @@
 package com.acs.mobile.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.acs.mobile.MainActivity;
 import com.acs.mobile.R;
 import com.acs.mobile.di.App;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.acs.mobile.main.MainActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -23,6 +20,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements LoginActivityMVP.View {
@@ -50,8 +48,10 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
         setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
+        presenter.setView(this);
+        checkIfTokenIsValid();
     }
 
     @Override
@@ -81,4 +81,12 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
         presenter.setView(this);
     }
 
+    @Override
+    public Context getContext() {
+        return this.getApplicationContext();
+    }
+
+    private void checkIfTokenIsValid() {
+        this.presenter.validateToken();
+    }
 }

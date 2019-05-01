@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.acs.mobile"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -15,6 +15,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
     }
 }
 
@@ -51,6 +55,7 @@ dependencies {
 
     // DI - Dagger
     implementation 'com.google.dagger:dagger:2.16'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'
     implementation 'com.google.dagger:dagger-android-support:2.16'

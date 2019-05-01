@@ -1,7 +1,13 @@
 package com.acs.mobile.login;
 
-import com.acs.mobile.model.UnsuccessAuthenticationException;
-import com.acs.mobile.model.User;
+import android.content.Context;
+
+import com.acs.mobile.model.login.Token;
+import com.acs.mobile.model.login.User;
+
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 
 public class LoginActivityMVP {
 
@@ -16,21 +22,32 @@ public class LoginActivityMVP {
         void goToNextView();
 
         void onResume();
+
+        Context getContext();
     }
 
-    interface Presenter {
+    public interface Presenter {
 
         void setView(View view);
 
         void loginButtonClicked();
 
+        void handleOkResponse(Token token);
+
+        void handleOkResponse(ResponseBody ResponseBody);
+
+        void handleErrorResponse(Throwable throwable);
+
+        void validateToken();
     }
 
     public interface Model {
 
-        String authenticate(User user) throws UnsuccessAuthenticationException;
+        void authenticate(User user, final LoginActivityPresenter presenter);
 
-        void saveTokenValue(String token);
+        void saveTokenValue(Context context, String token);
+
+        void validateToken(Context context, final LoginActivityPresenter presenter);
 
     }
 }

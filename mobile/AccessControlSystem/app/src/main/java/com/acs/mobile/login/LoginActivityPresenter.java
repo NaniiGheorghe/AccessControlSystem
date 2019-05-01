@@ -2,13 +2,14 @@ package com.acs.mobile.login;
 
 import androidx.annotation.Nullable;
 
-import com.acs.mobile.model.UnsuccessAuthenticationException;
-import com.acs.mobile.model.User;
+import com.acs.mobile.model.login.Token;
+import com.acs.mobile.model.login.User;
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 
 public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
 
-
-    @Nullable
     private LoginActivityMVP.View view;
     private LoginActivityMVP.Model model;
 
@@ -16,9 +17,7 @@ public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
         this.model = model;
     }
 
-
     @Override
-
     public void setView(@Nullable LoginActivityMVP.View view) {
         this.view = view;
     }
@@ -29,15 +28,33 @@ public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
             if (view.getUsername().trim().equals("") || view.getPassword().trim().equals("")) {
                 view.showInputError("Please provide username and password!");
             } else {
-                try {
-                    String token = model.authenticate(new User(view.getUsername(), view.getPassword()));
-                    model.saveTokenValue(token);
-                    view.goToNextView();
-                } catch (UnsuccessAuthenticationException e) {
-                    view.showInputError("Username or password is not corrent!");
-                }
+                model.authenticate(new User(view.getUsername(), view.getPassword()), this);
             }
         }
     }
+
+
+    @Override
+    public void handleOkResponse(Token token) {
+        model.saveTokenValue(view.getContext(), token.getValue());
+        view.goToNextView();
+    }
+
+    @Override
+    public void handleOkResponse(ResponseBody responseBody) {
+        view.goToNextView();
+    }
+
+    @Override
+    public void handleErrorResponse(Throwable throwable) {
+        throwable.printStackTrace();
+        view.showInputError("Username or password is not corrent!");
+    }
+
+    @Override
+    public void validateToken() {
+        model.validateToken(view.getContext(), this);
+    }
+
 
 }
