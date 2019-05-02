@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.acs.mobile.model.login.Token;
 import com.acs.mobile.model.login.User;
-import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 
@@ -54,6 +53,11 @@ public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
     @Override
     public void validateToken() {
         model.validateToken(view.getContext(), this);
+    }
+
+    @Override
+    public void handleErrorValidateTokenResponse(Throwable throwable) {
+        throwable.printStackTrace();
     }
 
 

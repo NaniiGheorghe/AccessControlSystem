@@ -43,7 +43,7 @@ public class LoginModel implements LoginActivityMVP.Model {
         compositeSubscriptions.add(this.loginService.validateToken(cookiesService.getToken(context))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(presenter::handleOkResponse, presenter::handleErrorResponse));
+                .subscribe(presenter::handleOkResponse, presenter::handleErrorValidateTokenResponse));
     }
 
 }

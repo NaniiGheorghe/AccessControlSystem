@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        ((App) getApplication()).getComponent().inject(this);
+        ((App) getApplication()).getComponent().injectLogin(this);
         presenter.setView(this);
         checkIfTokenIsValid();
     }

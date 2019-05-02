@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)https://logomasterai.webpush.freshchat.com/index.html?ref=aHR0cHM6Ly9sb2dvbWFzdGVyLmFp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Freshchat Web Push Notification</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link type="application/json" rel="manifest" href="https://logomasterai.webpush.freshchat.com/manifest.json">
+      <style type="text/css">
+         body{
+         background: #7C8A9C;
+         margin: 0;
+         font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+         color: #413F3F;
+         font-size: 14px;
+         -webkit-font-smoothing: antialiased;
+         text-rendering: optimizeLegibility;
+         }
+         #footer {
+         bottom: 0px;
+         text-align: center;
+         width: 100%;
+         background: #E6EFF7;
+         font-size: 14px;
+         display: inline-block;
+         border-radius: 0 0 10px 10px;
+         padding: 20px 0;
+         }
+         #footer .text p{
+         margin: 0;
+         font-size: 16px;
+         padding: 10px 30px;
+         }
+  	     #bottom{
+		 position: absolute;
+    	 width: 100%;
+   		 top: 100%;
+	     text-align: center;
+		  }
+         #bottom p {    font-size: 11px;
+         padding: 10px 0 10px;
+         color: #E6EFF7;
+         margin: 0}
+         #bottom p .red {color: #FFF; text-decoration: none}
+         #main {
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         vertical-align: middle;
+         }
+         #main .middle {
+         background: #FFF;
+         min-width: 300px;
+         max-width: 400px;
+         width: 90%;
+         position: absolute;
+         border-radius: 10px;
+         top: 50%;
+         transform: translateX(-50%) translateY(-50%);
+         left: 50%;
+         box-shadow: 0 0 20px rgba(0,0,0,0.3);
+         }
+         #main .middle .inner {
+         margin-left: auto;
+         margin-right: auto;
+         text-align: center;
+         padding:  30px 15px;
+         }
+		  #main .middle .inner p{
+			  margin: 0;
+			  padding: 0;
+		  }
+         #main .middle .inner p img {
+         height: 60px;
+         /*      display: none;*/
+         }
+      </style>
+   </head>
+   <body>
+      <div id="main">
+         <div class="middle">
+            <div class="inner">
+               <p><img src="./fc_logo.png"></p>
+            </div>
+            <div id="footer">
+               <div class="text">
+                  <p>Click on “<strong>Allow</strong>“ to enable chat notifications</p>
+                  <p>Do not miss any conversations.</p>
+               </div>
+            </div>
+            <div id="bottom">
+                  <p>Powered by <a href="https://www.freshchat.com/" target="_blank" class="red">Freshchat</a></p>
+               </div>
+         </div>
+      </div>
+      <script type="text/javascript" async="" src="./ga.js.download"></script><script type="text/javascript" async="" src="./ga.js.download"></script><script>
+         (function() {
+           // Private Variables
+           var referrer = undefined,
+               action = undefined,
+               appLogoPath = undefined,
+               serviceWorkerUrl = '/firebase-sw.js',
+               widget_location = '';
+
+           // Private Methods
+           var getQueryString = function( field, url ) {
+                 var href = url ? url : window.location.href;
+                 var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+                 var string = reg.exec(href);
+                 return string ? string[1] : undefined;
+               },
+               initParams = function() {
+                 var refString = getQueryString('ref'),
+                     actionString = getQueryString('action'),
+                     appLogoPathString = getQueryString('appLogoPath');
+                 referrer = refString ? atob(refString) : '';
+                 action = actionString ? atob(actionString) : '';
+                 appLogoPath = appLogoPathString ? atob(appLogoPathString) : '';
+               },
+               updateUI = function() {
+                 if(appLogoPath) {
+                   var imgElement = document.querySelector("#main .middle .inner p img");
+                   if (imgElement) {
+                     imgElement.src = appLogoPath;
+                     imgElement.style["display"] = "inline-block";
+                   }
+                 }
+               },
+               onMessage = function(event) {
+                 // For Chrome, the origin property is in the event.originalEvent object.
+                 var origin = event.origin || event.originalEvent.origin;
+                 if (origin === referrer) {   // Trusted Sites
+                   var data = event.data, action = data && data.action;
+                   if (action) {
+                     switch(action) {
+                       case "widget_location":
+                         widget_location = data.payload || '';
+                         break;
+                       case "get:subscription":
+                         registerServiceWorker();
+                         break;
+                       case "clear:subscription":
+                         unsubscribePush();
+                         break;
+                       default:
+                         break;
+                     }
+                   }
+                 }
+               },
+               onServiceWorkerMessage = function(event){
+                 switch(event.data) {
+                   case "get_widget_location":
+                     event.ports[0].postMessage(widget_location);
+                     break;
+                 }
+               },
+               addMessagingEvents = function() {
+                 if (window.addEventListener) {
+                     window.addEventListener("message", onMessage, false);
+                 } else {
+                   window.attachEvent("onmessage", onMessage);
+                 }
+                 if('serviceWorker' in navigator){
+                   // Handler for messages coming from the service worker
+                   navigator.serviceWorker.addEventListener('message', onServiceWorkerMessage);
+                 }
+               },
+               sendMessage = function(_subscription) {
+                 var data = {
+                       action: "push_user_meta",
+                       data: {
+                         permission: Notification.permission,
+                         subscription: _subscription
+                       }
+                     };
+                 if(window.opener) {
+                   window.opener.postMessage(JSON.parse(JSON.stringify(data)), referrer);
+                   window.close();
+                 } else {
+                   top.postMessage(JSON.parse(JSON.stringify(data)), referrer);
+                 }
+               },
+               registerServiceWorker = function(askPermission, onlyRegister) {
+                 if ('serviceWorker' in navigator) {
+                   navigator.serviceWorker.register(serviceWorkerUrl).then(function(reg) {
+                     // registration worked
+                     if(!onlyRegister) {
+                       subscribePush(askPermission);
+                     }
+                   }).catch(function(error) {
+                     // failed to register service worker
+                     sendMessage();
+                   });
+                 }
+               },
+               subscribePush = function(askPermission) {
+                 if (Notification.permission !== 'granted' && !askPermission) {
+                   sendMessage();
+                   return;
+                 }
+                 if ('serviceWorker' in navigator) {
+                   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+                     serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true}).then(function(subscription){
+                       sendMessage(subscription);
+                     }).catch(function(e) {
+                       console.log('error: serviceworker subscription failed');
+                       sendMessage();
+                     });
+                   });
+                 }
+               },
+               unsubscribePush = function() {
+                 if ('serviceWorker' in navigator) {
+                   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+                     // To unsubscribe from push messaging, you need get the
+                     // subscription object, which you can call unsubscribe() on.
+                     serviceWorkerRegistration.pushManager.getSubscription().then(
+                       function(pushSubscription) {
+                         // Check we have a subscription to unsubscribe
+                         if (!pushSubscription) {
+                           // No subscription object, so set the state
+                           // to allow the user to subscribe to push
+                           sendMessage();
+                           return;
+                         }
+                         // We have a subscription, so call unsubscribe on it
+                         pushSubscription.unsubscribe().then(function(successful) {
+                           //Unsubscribe successful
+                           sendMessage();
+                         }).catch(function(e) {
+                           // We failed to unsubscribe, this can lead to
+                           // an unusual state, so may be best to remove
+                           // the users data from your data store and
+                           // inform the user that you have done so
+                           sendMessage();
+                         });
+                       }
+                     ).catch(function(e) {
+                       sendMessage();
+                     });
+                   });
+                 }
+               },
+               init = function() {
+                 initParams();
+                 updateUI();
+                 if(window.opener) {
+                   switch(action) {
+                     case "ask:permission":
+                       registerServiceWorker(true);
+                       break;
+                     case "get:subscription":
+                       registerServiceWorker();
+                       break;
+                     default:
+                       break;
+                   }
+                 } else {
+                   // send push_frame_loaded event to parent window
+                   addMessagingEvents();
+                   registerServiceWorker(false, true);
+                   top.postMessage(JSON.parse(JSON.stringify({'action': 'push_frame_loaded'})), referrer);
+                 }
+               };
+           init();
+         })();
+      </script>
+   
+
+</body></html>

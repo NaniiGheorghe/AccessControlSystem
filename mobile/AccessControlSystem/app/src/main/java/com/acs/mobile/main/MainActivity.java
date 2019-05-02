@@ -1,8 +1,14 @@
 package com.acs.mobile.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.acs.mobile.R;
+import com.acs.mobile.di.App;
+import com.acs.mobile.login.LoginActivity;
+import com.acs.mobile.main.card.AccessMangementSystemAdapter;
+import com.acs.mobile.model.main.AccessMangementDataModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,11 +25,32 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainActivityMVP.View {
+
+    @Inject
+    public MainActivityMVP.Presenter presenter;
+
+    @BindView(R.id.recycler_view)
+    public RecyclerView mRecyclerView;
+
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.Adapter mAdapter;
+    private List<AccessMangementDataModel> dataModelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +58,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,6 +65,19 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        ((App) getApplication()).getComponent().injectMain(this);
+
+        ButterKnife.bind(this);
+
+
+//        for (int i = 1; i <= 20; ++i) {
+//            dataModelList.add(new AccessMangementDataModel("Nanii Gheoghe", "Developer", "Service", "Service room", "Service department", "Door 2"));
+//        }
+
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
     }
 
     @Override
@@ -58,50 +90,53 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_access_management) {
+            presenter.loadAccessMagementComponents();
+        } else if (id == R.id.nav_users) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_actions) {
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_rooms) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_settings) {
 
+        } else if (id == R.id.nav_logout) {
+            presenter.logoutButtonClicked();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.setView(this);
+    }
+
+    @Override
+    public void goToLoginView() {
+        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void updateAccessManagementList(List<AccessMangementDataModel> accessMangementDataModels) {
+        this.dataModelList = accessMangementDataModels;
+        mAdapter = new AccessMangementSystemAdapter(dataModelList, this);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

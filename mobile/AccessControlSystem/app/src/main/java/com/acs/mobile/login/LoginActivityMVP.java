@@ -39,6 +39,8 @@ public class LoginActivityMVP {
         void handleErrorResponse(Throwable throwable);
 
         void validateToken();
+
+        void handleErrorValidateTokenResponse(Throwable throwable);
     }
 
     public interface Model {
