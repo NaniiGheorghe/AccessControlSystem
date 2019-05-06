@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.acs.mobile.service.AccessManagementService;
 import com.acs.mobile.service.CookiesService;
 import com.acs.mobile.service.LoginService;
+import com.acs.mobile.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -48,6 +49,12 @@ class AppModule {
     }
 
     @Provides
+    static UserService provideUserService(Retrofit retrofit) {
+        return retrofit.create(UserService.class);
+    }
+
+
+    @Provides
     static CookiesService provideCookiesService() {
         return new CookiesService();
     }
@@ -76,8 +83,7 @@ class AppModule {
 
     @Provides
     static Retrofit provideRetrofit(Context context, OkHttpClient client) {
-        String baseUrl = "http://192.168.100.4:8080";
-        //String baseUrl = "http://172.17.41.91:8080";
+        String baseUrl = "http://172.17.41.137:8080";
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)

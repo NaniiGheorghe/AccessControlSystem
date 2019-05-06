@@ -2,10 +2,12 @@ package com.acs.configuration.socket;
 
 import com.acs.configuration.socket.communication.IncomingAbstractProtocolEvent;
 import com.acs.configuration.socket.communication.OutgoingAbstractProtocolEvent;
+import com.acs.configuration.socket.communication.SwitchToRegistrationProtocolEvent;
 import com.acs.configuration.socket.communication.util.EventIdentifier;
 import com.acs.configuration.socket.communication.util.ProtocolDecodeException;
 import com.acs.configuration.socket.communication.util.ProtocolMessageHandler;
 import com.acs.handler.AbstractProtocolEventHandler;
+import org.bouncycastle.util.test.TestRandomData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Random;
+
+import static com.acs.configuration.socket.communication.util.EventIdentifier.SWITCH_TO_REGISTERING_SCAN;
 
 
 @Component
@@ -30,9 +35,6 @@ public class SocketServerProvider {
 
     @Autowired
     private AbstractProtocolEventHandler abstractProtocolEventHandler;
-
-    /*Error message*/
-    private static final String DECODE_ERROR = "DECODE_ERROR";
 
     public void start(int port) {
         SocketServerProvider.port = port;
@@ -54,11 +56,15 @@ public class SocketServerProvider {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 try {
+                    System.out.println("Received line" + inputLine);
+
                     incomingAbstractProtocolEvent = ProtocolMessageHandler.getProtocolEvent(inputLine);
+                    System.out.println("Received event" + incomingAbstractProtocolEvent.toString());
                     outgoingAbstractProtocolEvent = abstractProtocolEventHandler.handleEvent(incomingAbstractProtocolEvent);
+                    System.out.println("Send event" + incomingAbstractProtocolEvent.toString());
                     out.println(outgoingAbstractProtocolEvent.getMessage());
                 } catch (ProtocolDecodeException e) {
-                    out.println(DECODE_ERROR);
+                    out.println(EventIdentifier.DECODE_ERROR);
                     System.out.println(e.getMessage());
                 }
             }
@@ -79,6 +85,15 @@ public class SocketServerProvider {
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void switchToReadMode(String scanner) {
+        Random random = new Random();
+        int number = random.nextInt((999999999 - 100000000) + 1) + 100000000;
+        SwitchToRegistrationProtocolEvent event = new SwitchToRegistrationProtocolEvent(scanner, number);
+        if (out != null) {
+            out.println(event.getMessage());
         }
     }
 

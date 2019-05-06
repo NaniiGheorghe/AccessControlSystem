@@ -21,8 +21,6 @@ public class LoginActivityMVP {
 
         void goToNextView();
 
-        void onResume();
-
         Context getContext();
     }
 

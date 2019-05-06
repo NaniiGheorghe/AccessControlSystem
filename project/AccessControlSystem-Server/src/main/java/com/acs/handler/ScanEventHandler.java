@@ -38,7 +38,7 @@ public class ScanEventHandler extends AbstractProtocolEventHandler implements Ev
 
     private OutgoingAbstractProtocolEvent buildRejectEvent(String scannerId) {
         Optional<DoorLock> doorLock = doorLockService.findByScannerName(scannerId);
-        return doorLock.map(doorLock1 -> new RejectProtocolEvent(scannerId, doorLock1.getName())).orElse(null);
+        return doorLock.map(doorLock1 -> new RejectProtocolEvent(scannerId, doorLock1.getName())).orElse(new RejectProtocolEvent(null, null));
     }
 
     @Override

@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.acs.mobile.R;
 import com.acs.mobile.model.main.AccessMangementDataModel;
+import com.acs.mobile.model.main.DataModel;
 
 import java.util.List;
 
 public class AccessMangementSystemAdapter extends RecyclerView.Adapter<AccessMangementSystemAdapter.MyViewHolder> {
 
-    private List<AccessMangementDataModel> dataModelList;
+    private List<? extends DataModel> dataModelList;
     private Context mContext;
 
-    public AccessMangementSystemAdapter(List<AccessMangementDataModel> dataModelList, Context mContext) {
+    public AccessMangementSystemAdapter(List<? extends DataModel> dataModelList, Context mContext) {
         this.dataModelList = dataModelList;
         this.mContext = mContext;
     }
@@ -28,13 +29,15 @@ public class AccessMangementSystemAdapter extends RecyclerView.Adapter<AccessMan
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+                .inflate(R.layout.access_management_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bindData(dataModelList.get(position), mContext);
+        if (dataModelList.get(position) instanceof AccessMangementDataModel) {
+            holder.bindData((AccessMangementDataModel) dataModelList.get(position), mContext);
+        }
     }
 
     @Override

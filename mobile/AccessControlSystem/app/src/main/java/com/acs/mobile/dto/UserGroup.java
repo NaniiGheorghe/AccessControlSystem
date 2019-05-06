@@ -1,4 +1,4 @@
-package com.acs.mobile.model;
+package com.acs.mobile.dto;
 
 
 public enum UserGroup {

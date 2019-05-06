@@ -19,7 +19,11 @@ public class RejectProtocolEvent extends OutgoingAbstractProtocolEvent {
         super(null);
         this.scannerId = scannerId;
         this.doorLockId = doorLockId;
-        build();
+        if (scannerId == null || doorLockId == null) {
+            setMessage(EventIdentifier.DECODE_ERROR);
+        } else {
+            build();
+        }
     }
 
     @Override

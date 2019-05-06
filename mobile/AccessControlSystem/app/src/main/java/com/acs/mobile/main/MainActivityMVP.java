@@ -2,12 +2,12 @@ package com.acs.mobile.main;
 
 import android.content.Context;
 
-import com.acs.mobile.model.AccessDTO;
+import com.acs.mobile.dto.AccessDTO;
+import com.acs.mobile.dto.UserDTO;
 import com.acs.mobile.model.main.AccessMangementDataModel;
+import com.acs.mobile.model.main.UserDataModel;
 
 import java.util.List;
-
-import okhttp3.ResponseBody;
 
 public class MainActivityMVP {
 
@@ -20,6 +20,8 @@ public class MainActivityMVP {
         void goToLoginView();
 
         void updateAccessManagementList(List<AccessMangementDataModel> accessMangementDataModels);
+
+        void updateUserList(List<UserDataModel> users);
     }
 
     public interface Presenter {
@@ -34,6 +36,9 @@ public class MainActivityMVP {
 
         void handleError(Throwable throwable);
 
+        void loadUsers();
+
+        void handleLoadedUsers(List<UserDTO> userDTOS);
     }
 
     public interface Model {
@@ -41,6 +46,8 @@ public class MainActivityMVP {
         void clearSession(Context context);
 
         void getAllAccesses(Context context, final MainActivityPresenter presenter);
+
+        void getAllUsers(Context context, final MainActivityPresenter presenter);
     }
 
 

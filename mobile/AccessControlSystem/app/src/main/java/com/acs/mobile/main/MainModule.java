@@ -3,6 +3,7 @@ package com.acs.mobile.main;
 import com.acs.mobile.model.main.MainModel;
 import com.acs.mobile.service.AccessManagementService;
 import com.acs.mobile.service.CookiesService;
+import com.acs.mobile.service.UserService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,8 +17,8 @@ public class MainModule {
     }
 
     @Provides
-    MainActivityMVP.Model provideMainActivityModel(CookiesService cookiesService, AccessManagementService accessManagementService) {
-        return new MainModel(cookiesService, accessManagementService);
+    MainActivityMVP.Model provideMainActivityModel(CookiesService cookiesService, AccessManagementService accessManagementService, UserService userService) {
+        return new MainModel(cookiesService, accessManagementService, userService);
     }
 
 }

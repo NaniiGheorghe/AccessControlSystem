@@ -1,6 +1,6 @@
 package com.acs.mobile.service;
 
-import com.acs.mobile.model.AccessDTO;
+import com.acs.mobile.dto.AccessDTO;
 
 import java.util.List;
 

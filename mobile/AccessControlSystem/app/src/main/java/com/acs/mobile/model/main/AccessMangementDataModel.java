@@ -1,6 +1,6 @@
 package com.acs.mobile.model.main;
 
-public class AccessMangementDataModel {
+public class AccessMangementDataModel implements DataModel{
 
     private String fullName;
 

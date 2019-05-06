@@ -1,5 +1,6 @@
 package com.acs.rest;
 
+import com.acs.configuration.socket.SocketServerProvider;
 import com.acs.dto.ScannerDTO;
 import com.acs.dto.UserDTO;
 import com.acs.dto.convertor.ScannerDTOConverter;
@@ -25,6 +26,9 @@ public class ScannerController {
     @Autowired
     private ScannerDTOConverter scannerDTOConverter;
 
+    @Autowired
+    private SocketServerProvider socketServerProvider;
+
     @Transactional
     @RequestMapping(value = "/administrator/api/v1/scanner/list/", method = RequestMethod.GET)
     public List<ScannerDTO> list() {
@@ -47,5 +51,9 @@ public class ScannerController {
                 .collect(Collectors.toList());
     }
 
+    @RequestMapping(value = "/administrator/api/v1/scanner/switchMode/registration/{scannerId}", method = RequestMethod.POST)
+    public void listByType(@PathVariable(value = "scannerId") String scannerId) {
+        socketServerProvider.switchToReadMode(scannerId);
+    }
 
 }

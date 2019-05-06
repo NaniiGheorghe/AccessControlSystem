@@ -1,13 +1,13 @@
 package com.acs.mobile.main;
 
 
-import com.acs.mobile.model.AccessDTO;
+import com.acs.mobile.dto.AccessDTO;
+import com.acs.mobile.dto.UserDTO;
 import com.acs.mobile.model.main.AccessMangementDataModel;
+import com.acs.mobile.model.main.UserDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
 
 public class MainActivityPresenter implements MainActivityMVP.Presenter {
 
@@ -54,5 +54,20 @@ public class MainActivityPresenter implements MainActivityMVP.Presenter {
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void loadUsers() {
+        model.getAllUsers(view.getContext(), this);
+    }
+
+    @Override
+    public void handleLoadedUsers(List<UserDTO> userDTOS) {
+        List<UserDataModel> users = new ArrayList<>();
+        userDTOS.forEach(u -> {
+            users.add(new UserDataModel(u));
+        });
+
+        view.updateUserList(users);
     }
 }

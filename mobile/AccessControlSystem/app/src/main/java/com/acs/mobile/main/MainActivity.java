@@ -8,11 +8,10 @@ import com.acs.mobile.R;
 import com.acs.mobile.di.App;
 import com.acs.mobile.login.LoginActivity;
 import com.acs.mobile.main.card.AccessMangementSystemAdapter;
+import com.acs.mobile.main.card.UserAdapter;
 import com.acs.mobile.model.main.AccessMangementDataModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
+import com.acs.mobile.model.main.DataModel;
+import com.acs.mobile.model.main.UserDataModel;
 
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,8 +27,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Menu;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    private List<AccessMangementDataModel> dataModelList = new ArrayList<>();
+    private List<? extends DataModel> dataModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +65,6 @@ public class MainActivity extends AppCompatActivity
         ((App) getApplication()).getComponent().injectMain(this);
 
         ButterKnife.bind(this);
-
-
-//        for (int i = 1; i <= 20; ++i) {
-//            dataModelList.add(new AccessMangementDataModel("Nanii Gheoghe", "Developer", "Service", "Service room", "Service department", "Door 2"));
-//        }
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -98,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_access_management) {
             presenter.loadAccessMagementComponents();
         } else if (id == R.id.nav_users) {
-
+            presenter.loadUsers();
         } else if (id == R.id.nav_actions) {
 
         } else if (id == R.id.nav_rooms) {
@@ -137,6 +129,13 @@ public class MainActivity extends AppCompatActivity
     public void updateAccessManagementList(List<AccessMangementDataModel> accessMangementDataModels) {
         this.dataModelList = accessMangementDataModels;
         mAdapter = new AccessMangementSystemAdapter(dataModelList, this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void updateUserList(List<UserDataModel> users) {
+        this.dataModelList = users;
+        mAdapter = new UserAdapter(dataModelList, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 }
