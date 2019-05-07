@@ -6,6 +6,6 @@ import com.acs.configuration.socket.communication.ScanEvent;
 
 interface EventModel {
 
-    public ScanEvent getEventModel(IncomingAbstractProtocolEvent abstactProtocolEvent);
+    public <T extends IncomingAbstractProtocolEvent> T getEventModel(IncomingAbstractProtocolEvent abstactProtocolEvent);
 
 }

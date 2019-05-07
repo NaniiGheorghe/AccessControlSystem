@@ -6,10 +6,12 @@ import com.acs.service.AccessManagementService;
 import com.acs.service.DoorLockService;
 import com.acs.service.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Primary
 @Service
 public class ScanEventHandler extends AbstractProtocolEventHandler implements EventModel {
 

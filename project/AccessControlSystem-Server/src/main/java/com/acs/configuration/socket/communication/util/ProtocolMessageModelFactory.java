@@ -1,11 +1,12 @@
 package com.acs.configuration.socket.communication.util;
 
 
+import com.acs.configuration.socket.communication.FingerRegistrationScanEvent;
 import com.acs.configuration.socket.communication.IncomingAbstractProtocolEvent;
 import com.acs.configuration.socket.communication.OutgoingAbstractProtocolEvent;
 import com.acs.configuration.socket.communication.ScanEvent;
 
-public class ProtocolMessageHandler {
+public class ProtocolMessageModelFactory {
 
     public static IncomingAbstractProtocolEvent getProtocolEvent(String message) throws ProtocolDecodeException {
 
@@ -22,6 +23,9 @@ public class ProtocolMessageHandler {
             case EventIdentifier.SCAN_EVENT:
                 protocolEvent = new ScanEvent(message);
                 break;
+            case EventIdentifier.FINGER_REGISTRATION:
+                protocolEvent = new FingerRegistrationScanEvent(message);
+                break;
             default:
                 throw new ProtocolDecodeException("Identifier [" + identifier + "] is invalid.");
         }
@@ -34,10 +38,5 @@ public class ProtocolMessageHandler {
 
         return protocolEvent;
     }
-
-    public static String buildProtocolMessage(OutgoingAbstractProtocolEvent outgoingAbstractProtocolEvent) {
-        return null;
-    }
-
 
 }

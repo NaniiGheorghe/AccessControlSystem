@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class KeyServiceImpl implements KeyService {
@@ -26,6 +27,11 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
+    public void save(int name) {
+
+    }
+
+    @Override
     public Optional<Key> findById(Integer id) {
         return keyRepository.findById(id);
     }
@@ -38,5 +44,17 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public Optional<Key> findByValue(String keyValue) {
         return keyRepository.findByKeyValue(keyValue);
+    }
+
+    @Override
+    public int getNextId() {
+        Random random = new Random();
+        int number = 0;
+        do {
+            number = random.nextInt((256 - 1) + 1) + 1;
+        }
+        while (keyRepository.findByKeyValue(String.valueOf(number)).isPresent());
+
+        return number;
     }
 }

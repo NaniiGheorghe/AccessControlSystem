@@ -1,5 +1,6 @@
 package com.acs.rest;
 
+import com.acs.configuration.queue.LocalQueue;
 import com.acs.configuration.socket.SocketServerProvider;
 import com.acs.dto.ScannerDTO;
 import com.acs.dto.UserDTO;
@@ -52,8 +53,55 @@ public class ScannerController {
     }
 
     @RequestMapping(value = "/administrator/api/v1/scanner/switchMode/registration/{scannerId}", method = RequestMethod.POST)
-    public void listByType(@PathVariable(value = "scannerId") String scannerId) {
+    public void swithToRegistration(@PathVariable(value = "scannerId") String scannerId) {
         socketServerProvider.switchToReadMode(scannerId);
     }
+
+    @RequestMapping(value = "/administrator/api/v1/scanner/switchMode/scanning/{scannerId}", method = RequestMethod.POST)
+    public String switchToScanning(@PathVariable(value = "scannerId") String scannerId) {
+        boolean fingerIsScanned = false;
+        String number = null;
+        do {
+            Integer id = LocalQueue.getInstance().poll();
+            if (id != null) {
+                fingerIsScanned = true;
+                number = id.toString();
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (!fingerIsScanned);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        socketServerProvider.switchToScanningMode(scannerId);
+        return number;
+    }
+
+
+
+    @RequestMapping(value = "/administrator/api/v1/scanner/waitForScan", method = RequestMethod.POST)
+    public String waitForScan() {
+        boolean fingerIsScanned = false;
+        String number = null;
+        do {
+            Integer id = LocalQueue.getInstance().poll();
+            if (id != null) {
+                fingerIsScanned = true;
+                number = id.toString();
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (!fingerIsScanned);
+        return number;
+    }
+
 
 }

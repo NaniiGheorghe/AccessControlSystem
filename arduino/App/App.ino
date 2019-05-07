@@ -8,8 +8,8 @@
 byte mac[] = {
   0x90, 0xA2, 0xDA, 0x10, 0x1E, 0x51
 };
-IPAddress ip(192, 168, 100, 7);
-IPAddress server(192, 168, 100, 4);
+IPAddress ip(192, 168, 100, 8);
+IPAddress server(192, 168, 100, 2);
 EthernetClient client;
 
 SoftwareSerial mySerial(2, 3);
@@ -27,7 +27,8 @@ int fingerStatus;
     2 - Read data from finger and send to server for registartion
 */
 int state = 1;
-int fingerId;
+uint8_t fingerId;
+long fingerIdLong;
 
 
 
@@ -132,7 +133,7 @@ void checkServerConnection() {
 
 void loopState1() {
   handleFingerScan();
-  handleDoorOpening();
+  handleNextSocketMessage();
   delay(100);
 }
 
@@ -150,7 +151,7 @@ void handleFingerScan() {
     Serial.println(fingerId);
     String message = getScanProtocolMessage(fingerId);
     Serial.println(message);
-    client.println(message + "\n");
+    client.println(message);
   }
 
 }
@@ -166,14 +167,14 @@ String getScanProtocolMessage(int fingerId) {
 }
 
 
-void handleDoorOpening() {
+void handleNextSocketMessage() {
+  Serial.println("Trying to read next messge from socket...");
   String message = getNextMessageFromSocket();
   if (message != "") {
     Serial.println(message);
     String identifier = message.substring(0, 3);
-    Serial.println(identifier);
 
-    if (identifier == "ACK") {
+    if (identifier == "AKN") {
       digitalWrite(redLedPin, LOW);
       digitalWrite(greenLedPin, HIGH);
       digitalWrite(blueLedPin, LOW);
@@ -184,12 +185,23 @@ void handleDoorOpening() {
     } else if (identifier == "SFR") {
       String scanner = message.substring(3, 13);
       Serial.println(scanner);
+
       String nextId = message.substring(13, 23);
-      Serial.println(nextId);
-      fingerId = nextId.toInt();
+      nextId.trim();
+      fingerId = (uint8_t)nextId.toInt();
+      fingerIdLong = nextId.toInt();
+      Serial.println(fingerId);
       state = 2;
-    }
-    else {
+    } else if (identifier == "SFS") {
+      Serial.println("Swith state back to 1");
+      state = 1;
+    } else if (identifier == "CFR") {
+      String nextId = message.substring(3, 6);
+      nextId.trim();
+      fingerId = (uint8_t)nextId.toInt();
+      Serial.println(fingerId);
+      state = 2;
+    }  else if (identifier == "RJE") {
       digitalWrite(redLedPin, HIGH);
       digitalWrite(blueLedPin, LOW);
       digitalWrite(greenLedPin, LOW);
@@ -216,17 +228,24 @@ String getNextMessageFromSocket() {
 
 
 void loopState2() {
-
-
   delay(2000);
-
   Serial.print("Enrolling ID #");
   Serial.println(fingerId);
-  delay(2000);
+  uint8_t storedId = getFingerprintEnroll(fingerId);
+  Serial.println(storedId);
+  Serial.println(fingerId);
 
-  getFingerprintEnroll(fingerId);
-  delay(2000);
+  if (storedId == fingerId) {
 
+    String message = "FR" + String(fingerIdLong);
+    Serial.println(message);
+    client.println(message);
+  }
+  delay(100);
+  handleNextSocketMessage();
+  
+  delay(2000);
+  handleNextSocketMessage();
 }
 
 uint8_t getFingerprintEnroll(uint8_t id) {
@@ -240,7 +259,7 @@ uint8_t getFingerprintEnroll(uint8_t id) {
         Serial.println("Image taken");
         break;
       case FINGERPRINT_NOFINGER:
-        Serial.println(".");
+        Serial.print(".");
         break;
       case FINGERPRINT_PACKETRECIEVEERR:
         Serial.println("Communication error");
@@ -353,6 +372,7 @@ uint8_t getFingerprintEnroll(uint8_t id) {
   p = finger.storeModel(id);
   if (p == FINGERPRINT_OK) {
     Serial.println("Stored!");
+    return id;
   } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
     Serial.println("Communication error");
     return p;

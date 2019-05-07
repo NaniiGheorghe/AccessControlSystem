@@ -1,16 +1,18 @@
 com\acs\configuration\socket\communication\RejectProtocolEvent.class
 com\acs\configuration\swagger\SwaggerConfig.class
-com\acs\configuration\socket\communication\util\ProtocolMessageHandler.class
 com\acs\model\OfficeRoom.class
 com\acs\dto\RoomDTO.class
 com\acs\service\impl\EmployeeServiceImpl.class
 com\acs\rest\DoorLockController.class
 com\acs\configuration\socket\communication\IncomingAbstractProtocolEvent.class
+com\acs\configuration\socket\communication\SwitchToRegistrationProtocolEvent.class
+com\acs\configuration\socket\communication\util\ProtocolMessageModelFactory.class
 com\acs\configuration\socket\communication\util\EventIdentifier.class
 com\acs\repository\NotificationRepository.class
 com\acs\dto\convertor\OfficeRoomDTOConverter.class
 com\acs\rest\UserController.class
 com\acs\service\DoorLockService.class
+com\acs\configuration\socket\communication\ConfirmFingerRegistrationEvent.class
 com\acs\model\RequestAccessNotification.class
 com\acs\service\NotificationService.class
 com\acs\model\KeyTypeEnum.class
@@ -40,8 +42,10 @@ com\acs\dto\AccessDTO.class
 com\acs\dto\convertor\ActionDTOConverter.class
 com\acs\dto\DoorLockDTO.class
 com\acs\model\Employee.class
+com\acs\configuration\websocket\WebSocketConfig.class
 com\acs\handler\ScanEventHandler.class
 com\acs\service\impl\NotificationServiceImpl.class
+com\acs\handler\FingerRegistrationEventHandler.class
 com\acs\service\ActionService.class
 com\acs\configuration\security\JWTAuthenticationFilter.class
 com\acs\configuration\security\SecurityConstants.class
@@ -52,6 +56,7 @@ com\acs\model\Scanner.class
 com\acs\service\OfficeRoomService.class
 com\acs\repository\ApplicationUserRepository.class
 com\acs\service\impl\KeyServiceImpl.class
+com\acs\configuration\socket\communication\FingerRegistrationScanEvent.class
 com\acs\model\Notification.class
 com\acs\model\ScannerTypeEnum.class
 com\acs\configuration\security\WebSecurity.class
@@ -79,6 +84,7 @@ com\acs\aop\logging\LoggingAspect.class
 com\acs\dto\KeyDTO.class
 com\acs\model\Direction.class
 com\acs\dto\convertor\UserDTOConverter.class
+com\acs\configuration\context\SpringContext.class
 com\acs\rest\KeyController.class
 com\acs\handler\EventModel.class
 com\acs\configuration\socket\communication\ScanEvent.class

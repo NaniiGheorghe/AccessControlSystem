@@ -61,4 +61,56 @@ export class ScannerService {
     );
   }
 
+
+  switchScannerToRegistarationMode(scannerId: String) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+    let url = 'http://localhost:8080/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/';
+    console.log(url);
+    return this.http.post('http://localhost:8080/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/', {}, httpOptions).pipe(
+      map(response => {
+          return response;
+        }
+      )
+    );
+  }
+
+
+  waitForScannerEvent() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+    return this.http.post('http://localhost:8080/administrator/api/v1/scanner/waitForScan', {}, httpOptions).pipe(
+      map(response => {
+          return response;
+        }
+      )
+    );
+  }
+
+  switchScannerBackToInitialMode(scannerId: String) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+    let url = 'http://localhost:8080/administrator/api/v1/scanner/switchMode/scanning/' + scannerId + '/';
+    console.log(url);
+    return this.http.post(url, {}, httpOptions).pipe(
+      map(response => {
+          return response;
+        }
+      )
+    );
+  }
+
+
 }
