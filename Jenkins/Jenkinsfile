@@ -1,9 +1,12 @@
 pipeline {
     agent any
     stages {
+        dir("project") {
+         sh "cd"
+        }
         stage('---clean---') {
             steps {
-                bat "mvn -f project/pom.xml clean"
+                bat "mvn clean"
             }
         }
         stage('--test--') {
