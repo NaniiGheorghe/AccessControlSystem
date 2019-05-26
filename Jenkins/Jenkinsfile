@@ -8,6 +8,13 @@ pipeline {
                 }
             }
         }
+           stage('--package--') {
+            steps {
+                dir("project") {
+                    bat "mvn package -Dhttps.protocols=TLSv1.2"
+                }
+            }
+        }
         stage('--test--') {
             steps {
                 dir("project") {
@@ -15,12 +22,6 @@ pipeline {
                 }
             }
         }
-        stage('--package--') {
-            steps {
-                dir("project") {
-                    bat "mvn package -Dhttps.protocols=TLSv1.2"
-                }
-            }
-        }
+     
     }
 }
