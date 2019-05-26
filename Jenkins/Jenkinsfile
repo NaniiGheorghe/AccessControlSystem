@@ -4,14 +4,14 @@ pipeline {
        stage('---clean---') {
                 steps {
                  dir("project") {
-                    bat "mvn clean -Dhttps.protocols=TLSv1.2"
+                    bat "mvn clean -Dhttp.protocols=TLSv1.2"
                 }
             }
         }
         stage('--test--') {
             steps {
                 dir("project") {
-                    bat "mvn compile"
+                    bat "mvn test "
                 }
             }
         }
