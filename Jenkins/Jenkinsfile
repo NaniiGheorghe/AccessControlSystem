@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+		dir ('subdir') {
+			bat "cd project"
+		}
         stage('---clean---') {
             steps {
                 bat "mvn -f project/pom.xml clean"
