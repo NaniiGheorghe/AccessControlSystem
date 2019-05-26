@@ -10,9 +10,7 @@ pipeline {
         }
         stage('--test--') {
             steps {
-                dir("project") {
-                    bat "mvn test -X"
-                }
+                    bat "mvn test"
             }
         }
         stage('--package--') {
