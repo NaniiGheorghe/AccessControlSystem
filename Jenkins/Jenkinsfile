@@ -4,7 +4,7 @@ pipeline {
         stage('---change dir---') {
             steps {
                 dir('project') {
-                    sh 'cd'
+                    bat 'cd'
                 }
             }
         }
