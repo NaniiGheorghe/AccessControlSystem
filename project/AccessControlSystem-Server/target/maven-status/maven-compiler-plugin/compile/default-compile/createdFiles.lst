@@ -41,8 +41,8 @@ com\acs\service\ScannerService.class
 com\acs\dto\AccessDTO.class
 com\acs\dto\convertor\ActionDTOConverter.class
 com\acs\dto\DoorLockDTO.class
+com\acs\configuration\queue\LocalQueue.class
 com\acs\model\Employee.class
-com\acs\configuration\websocket\WebSocketConfig.class
 com\acs\handler\ScanEventHandler.class
 com\acs\service\impl\NotificationServiceImpl.class
 com\acs\handler\FingerRegistrationEventHandler.class
@@ -61,6 +61,7 @@ com\acs\model\Notification.class
 com\acs\model\ScannerTypeEnum.class
 com\acs\configuration\security\WebSecurity.class
 com\acs\repository\DoorLockRepository.class
+com\acs\configuration\socket\communication\SwitchToScanningModeProtocolEvent.class
 com\acs\rest\OfficeRoomController.class
 com\acs\service\impl\ApplicationUserSeviceImpl.class
 com\acs\dto\convertor\KeyDTOConverter.class

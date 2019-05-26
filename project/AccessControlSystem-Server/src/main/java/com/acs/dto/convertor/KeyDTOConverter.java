@@ -22,12 +22,15 @@ public class KeyDTOConverter {
         KeyDTO keyDTO = new KeyDTO();
         keyDTO.setId(key.getId());
         keyDTO.setKeyValue(key.getKeyValue());
+        keyDTO.setKeyValue2(key.getKeyValue2());
+        keyDTO.setKeyValue3(key.getKeyValue3());
+        keyDTO.setKeyValue4(key.getKeyValue4());
         keyDTO.setKeyName(key.getName());
         keyDTO.setKeyType(key.getKeyType().name());
         return keyDTO;
     }
 
-    public Key convertToEntity(KeyDTO keyDTO) {
+    Key convertToEntity(KeyDTO keyDTO) {
         Key key = modelMapper.map(keyDTO, Key.class);
         if (keyDTO.getKeyType().equals("Finger Print")) {
             key.setKeyType(KeyTypeEnum.FINGERPRINT);

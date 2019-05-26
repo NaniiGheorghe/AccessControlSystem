@@ -78,6 +78,7 @@ public class EmployeeController {
         return accesses;
     }
 
+    @Transactional
     @RequestMapping(value = "/administrator/api/v1/employee", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity createEmployee(@RequestBody UserDTO user) {
         Employee employee = userDTOConverter.convertToEntity(user);

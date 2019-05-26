@@ -8,6 +8,8 @@ import com.acs.dto.convertor.ScannerDTOConverter;
 import com.acs.model.ScannerTypeEnum;
 import com.acs.service.ScannerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,10 +59,16 @@ public class ScannerController {
         socketServerProvider.switchToReadMode(scannerId);
     }
 
+    @RequestMapping(value = "/administrator/api/v1/scanner/switchMode/scanning/hard/{scannerId}", method = RequestMethod.POST)
+    public void swithToScannignMode(@PathVariable(value = "scannerId") String scannerId) {
+        socketServerProvider.switchToScanningMode(scannerId);
+    }
+
     @RequestMapping(value = "/administrator/api/v1/scanner/switchMode/scanning/{scannerId}", method = RequestMethod.POST)
-    public String switchToScanning(@PathVariable(value = "scannerId") String scannerId) {
+    public ResponseEntity switchToScanning(@PathVariable(value = "scannerId") String scannerId) {
         boolean fingerIsScanned = false;
         String number = null;
+        int count = 0;
         do {
             Integer id = LocalQueue.getInstance().poll();
             if (id != null) {
@@ -72,22 +80,29 @@ public class ScannerController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } while (!fingerIsScanned);
+            count++;
+        } while (!fingerIsScanned && count < 300);
+
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         socketServerProvider.switchToScanningMode(scannerId);
-        return number;
+        if (number != null) {
+            return new ResponseEntity<>(number, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+        }
     }
 
 
-
     @RequestMapping(value = "/administrator/api/v1/scanner/waitForScan", method = RequestMethod.POST)
-    public String waitForScan() {
+    public ResponseEntity<String> waitForScan() {
         boolean fingerIsScanned = false;
         String number = null;
+        int count = 0;
         do {
             Integer id = LocalQueue.getInstance().poll();
             if (id != null) {
@@ -99,8 +114,13 @@ public class ScannerController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } while (!fingerIsScanned);
-        return number;
+            count++;
+        } while (!fingerIsScanned && count < 300);
+        if (number != null) {
+            return new ResponseEntity<>(number, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+        }
     }
 
 

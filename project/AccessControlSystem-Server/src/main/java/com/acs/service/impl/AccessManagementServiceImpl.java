@@ -33,7 +33,9 @@ public class AccessManagementServiceImpl implements AccessManagementService {
         if (key.isPresent() && scanner.isPresent()) {
             Optional<DoorLock> doorLock = doorLockService.findByScannerName(scanner.get().getName());
             if (doorLock.isPresent()) {
-                System.out.println("User has aceess");
+                if (key.get().getAccessibleDoorLocks().contains(doorLock.get())) {
+                    System.out.println("User has aceess");
+                }
                 return key.get().getAccessibleDoorLocks().contains(doorLock.get());
             }
         }

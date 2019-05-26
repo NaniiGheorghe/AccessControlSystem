@@ -13,13 +13,13 @@ public class AccessDTOConverter {
     private UserDTOConverter userDTOConverter;
 
     @Autowired
-    private DoorLockDTOConverter doorLockDTOConverter;
+    private OfficeRoomDTOConverter officeRoomDTOConverter;
 
     public AccessDTO convertToDTO(Employee employee, String accessibleRoom, DoorLock accessibleDoorLock) {
         AccessDTO accessDTO = new AccessDTO();
         accessDTO.setUserDTO(userDTOConverter.convertToDto(employee));
         accessDTO.setAccessibleRoom(accessibleRoom);
-        accessDTO.setAccessibleRoomDoorLock(doorLockDTOConverter.convertToDto(accessibleDoorLock));
+        accessDTO.setAccessibleRoomDoorLock(officeRoomDTOConverter.convertToDto(accessibleDoorLock));
         return accessDTO;
     }
 

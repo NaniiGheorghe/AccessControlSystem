@@ -1,5 +1,7 @@
 package com.acs.rest;
 
+import com.acs.dto.DoorLockDTO;
+import com.acs.dto.convertor.DoorLockDTOConverter;
 import com.acs.model.DoorLock;
 import com.acs.model.Employee;
 import com.acs.service.DoorLockService;
@@ -25,6 +27,9 @@ public class DoorLockController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private DoorLockDTOConverter doorLockDTOConverter;
 
     @RequestMapping(value = "/user/api/v1/doorlock/list/", method = RequestMethod.GET)
     public List<DoorLock> list() {
@@ -52,8 +57,8 @@ public class DoorLockController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/administrator/api/v1/officeroom/inaccesible_doorLocks/{employee_id}/{room_id}/")
     @Transactional
-    public List<DoorLock> getInnaccessibleDoorLocks(@PathVariable(value = "employee_id") Integer employee_id,
-                                                    @PathVariable(value = "room_id") Integer room_id) {
+    public List<DoorLockDTO> getInnaccessibleDoorLocks(@PathVariable(value = "employee_id") Integer employee_id,
+                                                       @PathVariable(value = "room_id") Integer room_id) {
         List<DoorLock> doorLockList = new ArrayList<>();
         Employee employee = employeeService.findById(employee_id).get();
 
@@ -73,7 +78,13 @@ public class DoorLockController {
                 }
         );
 
-        return doorLockList;
+        List<DoorLockDTO> retunList = new ArrayList<>();
+        doorLockList.forEach(door -> {
+            retunList.add(doorLockDTOConverter.convertToDto(door));
+
+        });
+
+        return retunList;
     }
 
 

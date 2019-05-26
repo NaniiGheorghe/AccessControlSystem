@@ -113,4 +113,22 @@ export class ScannerService {
   }
 
 
+  switchScannerBackToScanningMode(scannerId: String) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.cookiesService.get('token')
+      })
+    };
+    let url = 'http://localhost:8080/administrator/api/v1/scanner/switchMode/scanning/hard/' + scannerId + '/';
+    console.log(url);
+    return this.http.post(url, {}, httpOptions).pipe(
+      map(response => {
+          return response;
+        }
+      )
+    );
+  }
+
+
 }

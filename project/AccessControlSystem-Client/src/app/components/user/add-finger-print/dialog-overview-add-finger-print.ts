@@ -26,6 +26,8 @@ export class DialogOverviewAddFingerPrint {
   selectedKeyType: string;
   fingerPrintName: string;
   keys: Key[] = [];
+  keyValues: number[] = [];
+
 
   NFCKeyId: any;
 
@@ -122,11 +124,16 @@ export class DialogOverviewAddFingerPrint {
   onOkClick(): void {
     var newKet: Key;
     if (this.NFCKeyTypeSelected) {
-      newKet = new Key(null, this.fingerPrintName, this.NFCKeyId, this.selectedKeyType);
+      newKet = new Key(null, this.fingerPrintName, this.NFCKeyId, null, null, null, this.selectedKeyType);
+      this.keys.push(newKet);
     } else if (this.fingerPrintTypeSelected) {
-      newKet = new Key(null, this.fingerPrintName, null, this.selectedKeyType);
+      if (this.keyValues.length == 4) {
+        let newKet = new Key(null, this.fingerPrintName, this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.selectedKeyType);
+        this.keys.push(newKet);
+      } else {
+        console.log("Not 4 times the finger was scanned.")
+      }
     }
-    this.keys.push(newKet);
     this.employeeData.employee.keys = this.keys;
     this.employeeService.createNewUser(this.employeeData.employee)
       .pipe(first())
@@ -161,110 +168,98 @@ export class DialogOverviewAddFingerPrint {
   }
 
   switchToScannerMode(): void {
-    // console.log("Selected scanner " + this.selectedScanner.name);
-    // let scannerId = this.selectedScanner.name;
-    // this.scannerService.switchScannerToRegistarationMode(scannerId).pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       this.scannerService.waitForScannerEvent().pipe(first())
-    //         .subscribe(
-    //           data => {
-    //             this.nothingScanned = false;
-    //             this.firstScanGif = true;
-    //             setTimeout(() => {
-    //               this.resetAllFrames();
-    //               this.secondScan = true;
-    //             }, 2000);
-    //             this.addKey(data);
-    //             this.scannerService.waitForScannerEvent().pipe(first())
-    //               .subscribe(
-    //                 data => {
-    //                   this.secondScan = false;
-    //                   this.secondScanGif = true;
-    //                   setTimeout(() => {
-    //                     this.resetAllFrames();
-    //                     this.thirdScan = true;
-    //                   }, 2000);
-    //                   this.addKey(data);
-    //                   this.scannerService.waitForScannerEvent().pipe(first())
-    //                     .subscribe(
-    //                       data => {
-    //                         this.thirdScan = false;
-    //                         this.thirdScanGif = true;
-    //                         setTimeout(() => {
-    //                           this.resetAllFrames();
-    //                           this.fourthScan = true;
-    //                         }, 2000);
-    //                         this.addKey(data);
-    //                         this.scannerService.switchScannerBackToInitialMode(scannerId).pipe(first())
-    //                           .subscribe(
-    //                             data => {
-    //                               this.fourthScan = false;
-    //                               this.fourthScanGif = true;
-    //                               setTimeout(() => {
-    //                                 this.resetAllFrames();
-    //                                 this.successfullyRegistered = true;
-    //                               }, 2000);
-    //                               this.addKey(data);
-    //                               console.log("Switched scanner to scanning mode!");
-    //                             },
-    //                             error => {
-    //                               this.toastr.error("Something went wrong with scanner!");
-    //                               this.dialogRef.close();
-    //                             });
-    //                       },
-    //                       error => {
-    //                         this.toastr.error("Something went wrong with scanner!");
-    //                         this.dialogRef.close();
-    //                       });
-    //                 },
-    //                 error => {
-    //                   this.toastr.error("Something went wrong with scanner!");
-    //                   this.dialogRef.close();
-    //                 });
-    //           },
-    //           error => {
-    //             this.toastr.error("Something went wrong with scanner!");
-    //             this.dialogRef.close();
-    //           });
-    //     },
-    //     error => {
-    //       this.toastr.error("Something went wrong with scanner!");
-    //       this.dialogRef.close();
-    //     });
     console.log("Selected scanner " + this.selectedScanner.name);
     let scannerId = this.selectedScanner.name;
     this.scannerService.switchScannerToRegistarationMode(scannerId).pipe(first())
       .subscribe(
         data => {
-
-          this.scannerService.switchScannerBackToInitialMode(scannerId).pipe(first())
+          this.scannerService.waitForScannerEvent().pipe(first())
             .subscribe(
               data => {
-                this.fourthScan = false;
-                this.fourthScanGif = true;
+                console.log("Received keyValue" + data);
+                this.nothingScanned = false;
+                this.firstScanGif = true;
                 setTimeout(() => {
                   this.resetAllFrames();
-                  this.successfullyRegistered = true;
+                  this.secondScan = true;
                 }, 2000);
                 this.addKey(data);
-                console.log("Switched scanner to scanning mode!");
+                this.scannerService.waitForScannerEvent().pipe(first())
+                  .subscribe(
+                    data => {
+                      console.log("Received keyValue" + data);
+                      this.secondScan = false;
+                      this.secondScanGif = true;
+                      setTimeout(() => {
+                        this.resetAllFrames();
+                        this.thirdScan = true;
+                      }, 2000);
+                      this.addKey(data);
+                      this.scannerService.waitForScannerEvent().pipe(first())
+                        .subscribe(
+                          data => {
+                            console.log("Received keyValue" + data);
+                            this.thirdScan = false;
+                            this.thirdScanGif = true;
+                            setTimeout(() => {
+                              this.resetAllFrames();
+                              this.fourthScan = true;
+                            }, 2000);
+                            this.addKey(data);
+                            this.scannerService.switchScannerBackToInitialMode(scannerId).pipe(first())
+                              .subscribe(
+                                data => {
+                                  console.log("Received keyValue" + data);
+                                  this.fourthScan = false;
+                                  this.fourthScanGif = true;
+                                  setTimeout(() => {
+                                    this.resetAllFrames();
+                                    this.successfullyRegistered = true;
+                                  }, 2000);
+                                  this.addKey(data);
+                                  console.log("Switched scanner to scanning mode!");
+                                },
+                                error => {
+                                  this.toastr.error("Time out!");
+                                  this.switchBackToScannningMode(scannerId);
+                                  this.dialogRef.close();
+                                });
+                          },
+                          error => {
+                            this.toastr.error("Time out!");
+                            this.switchBackToScannningMode(scannerId);
+                            this.dialogRef.close();
+                          });
+                    },
+                    error => {
+                      this.toastr.error("Time out!");
+                      this.switchBackToScannningMode(scannerId);
+                      this.dialogRef.close();
+                    });
               },
               error => {
-                this.toastr.error("Something went wrong with scanner!");
+                this.toastr.error("Time out!");
+                this.switchBackToScannningMode(scannerId);
                 this.dialogRef.close();
               });
         },
         error => {
           this.toastr.error("Something went wrong with scanner!");
           this.dialogRef.close();
+          this.switchBackToScannningMode(scannerId);
         });
 
 
   }
 
+  switchBackToScannningMode(scanner: any): void {
+    this.scannerService.switchScannerBackToScanningMode(scanner).subscribe(
+      data => {
+        console.log("Switched scanner to scanning mode!");
+      });
+  }
+
   addKey(number: any): void {
-    let newKet = new Key(null, number, this.NFCKeyId, this.selectedKeyType);
-    this.keys.push(newKet);
+    this.keyValues.push(number);
   }
 }

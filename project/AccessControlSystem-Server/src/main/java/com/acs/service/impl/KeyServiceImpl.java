@@ -1,5 +1,6 @@
 package com.acs.service.impl;
 
+import com.acs.configuration.queue.LocalQueue;
 import com.acs.model.Key;
 import com.acs.repository.KeyRepository;
 import com.acs.service.KeyService;
@@ -43,7 +44,7 @@ public class KeyServiceImpl implements KeyService {
 
     @Override
     public Optional<Key> findByValue(String keyValue) {
-        return keyRepository.findByKeyValue(keyValue);
+        return keyRepository.findByKeyByValues(keyValue);
     }
 
     @Override
@@ -53,7 +54,10 @@ public class KeyServiceImpl implements KeyService {
         do {
             number = random.nextInt((256 - 1) + 1) + 1;
         }
-        while (keyRepository.findByKeyValue(String.valueOf(number)).isPresent());
+        while (keyRepository.findByKeyByValues(String.valueOf(number)).isPresent() ||
+                LocalQueue.getInstance().getTempKeyIds().contains(number));
+
+        LocalQueue.getInstance().add(number);
 
         return number;
     }

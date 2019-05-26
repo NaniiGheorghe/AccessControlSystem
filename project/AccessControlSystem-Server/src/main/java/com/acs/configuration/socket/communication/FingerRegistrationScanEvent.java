@@ -14,7 +14,7 @@ public class FingerRegistrationScanEvent extends IncomingAbstractProtocolEvent {
 
     @Override
     public void decode() {
-        fingerId = Integer.valueOf(getMessage().substring(2, getMessage().length() - 1).trim());
+        fingerId = Integer.valueOf(getMessage().substring(2, getMessage().length()).trim());
         setMessage(EventIdentifier.FINGER_REGISTRATION + fingerId);
     }
 

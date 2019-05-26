@@ -19,6 +19,7 @@ public class FingerRegistrationEventHandler extends AbstractProtocolEventHandler
     @Override
     OutgoingAbstractProtocolEvent processEvent(IncomingAbstractProtocolEvent abstactProtocolEvent) {
         FingerRegistrationScanEvent fingerRegistrationScanEvent = getEventModel(abstactProtocolEvent);
+        System.out.println("Confirmed new ID" + fingerRegistrationScanEvent.getFingerId());
         LocalQueue.getInstance().add(fingerRegistrationScanEvent.getFingerId());
         return buildResponseConfirmScanEvent(keyService.getNextId());
     }
