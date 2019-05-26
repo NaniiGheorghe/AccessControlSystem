@@ -8,13 +8,6 @@ pipeline {
                 }
             }
         }
-        stage('--intall--') {
-            steps {
-                dir("project") {
-                    bat "mvn install -Dhttps.protocols=TLSv1.2"
-                }
-            }
-        }
         stage('--test--') {
             steps {
                 dir("project") {
