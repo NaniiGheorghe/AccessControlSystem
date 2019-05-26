@@ -10,12 +10,16 @@ pipeline {
         }
         stage('--test--') {
             steps {
-                bat "mvn test"
+                dir("project") {
+                    bat "mvn test"
+                }
             }
         }
         stage('--package--') {
             steps {
-                bat "mvn package"
+                dir("project") {
+                    bat "mvn package"
+                }
             }
         }
     }
