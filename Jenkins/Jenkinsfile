@@ -11,7 +11,7 @@ pipeline {
         stage('--test--') {
             steps {
                 dir("project") {
-                    bat "mvn test"
+                    bat "mvn test -Dhttp.protocols=TLSv1.2"
                 }
             }
         }
