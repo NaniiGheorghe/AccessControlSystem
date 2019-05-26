@@ -4,7 +4,7 @@ pipeline {
        stage('---clean---') {
                 steps {
                  dir("project") {
-                    bat "mvn clean -Dhttps.protocols=TLSv1.2"
+                    bat "mvn clean compile -Dhttps.protocols=TLSv1.2"
                 }
             }
         }
@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-       ]stage('--package--') {
+       stage('--package--') {
             steps {
                 dir("project") {
                     bat "mvn package -Dhttps.protocols=TLSv1.2"
