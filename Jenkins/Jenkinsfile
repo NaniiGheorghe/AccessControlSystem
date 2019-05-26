@@ -11,14 +11,14 @@ pipeline {
         stage('--test--') {
             steps {
                 dir("project") {
-                    bat "mvn test"
+                    bat "mvn test -Dhttps.protocols=TLSv1.2"
                 }
             }
         }
         stage('--package--') {
             steps {
                 dir("project") {
-                    bat "mvn package"
+                    bat "mvn package -Dhttps.protocols=TLSv1.2"
                 }
             }
         }
