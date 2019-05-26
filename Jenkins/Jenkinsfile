@@ -9,10 +9,10 @@ pipeline {
             }
         }
         stage('---clean---') {
-                dir('project') {
+            steps {
+                 dir('project') {
                     bat 'cd'
                 }
-            steps {
                 bat "mvn clean"
             }
         }
