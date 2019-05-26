@@ -80,10 +80,14 @@ public class SocketServerProvider {
 
     private void stop() {
         try {
-            in.close();
-            out.close();
-            clientSocket.close();
-            serverSocket.close();
+            if (in != null)
+                in.close();
+            if (out != null)
+                out.close();
+            if (clientSocket != null)
+                clientSocket.close();
+            if (serverSocket != null)
+                serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
