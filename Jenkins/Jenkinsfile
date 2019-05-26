@@ -1,18 +1,8 @@
 pipeline {
     agent any
     stages {
-        stage('---change dir---') {
-            steps {
-                dir('project') {
-                    bat 'cd'
-                }
-            }
-        }
         stage('---clean---') {
             steps {
-                 dir('project') {
-                    bat 'cd'
-                }
                 bat "mvn clean"
             }
         }
