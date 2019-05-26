@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         dir("project") {
-         sh "cd"
+         bat "cd"
         }
         stage('---clean---') {
             steps {
