@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('---change dir---') {
             steps {
-                bat "cd project"
+                dir('project') {
+                    sh 'cd'
+                }
             }
         }
         stage('---clean---') {
