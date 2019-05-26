@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: com.acs.configuration.AccessControlSystemApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 19.944 s <<< FAILURE! - in com.acs.configuration.AccessControlSystemApplicationTests
+savedUser(com.acs.configuration.AccessControlSystemApplicationTests)  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: java.lang.reflect.UndeclaredThrowableException: 
+Failed to invoke event listener method
+HandlerMethod details: 
+Bean [com.acs.configuration.AccessControlSystemApplication$$EnhancerBySpringCGLIB$$6558ac25]
+Method [public void com.acs.configuration.AccessControlSystemApplication.doSomethingAfterStartup()]
+Resolved arguments: 
+
+Caused by: java.lang.StackOverflowError
+
