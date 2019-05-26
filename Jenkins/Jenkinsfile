@@ -1,22 +1,24 @@
 pipeline {
     agent any
     stages {
-		dir ('subdir') {
-			bat "cd project"
-		}
+        stage('---change dir---') {
+            steps {
+                bat "cd project"
+            }
+        }
         stage('---clean---') {
             steps {
-                bat "mvn -f project/pom.xml clean"
+                bat "mvn clean"
             }
         }
         stage('--test--') {
             steps {
-                bat "mvn -f project/pom.xml test"
+                bat "mvn test"
             }
         }
         stage('--package--') {
             steps {
-                bat "mvn -f project/pom.xml package"
+                bat "mvn package"
             }
         }
     }
