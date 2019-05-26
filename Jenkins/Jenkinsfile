@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('---clean---') {
             steps {
-                bat "mvn -f /project/pom.xml clean"
+                bat "mvn -f project/pom.xml clean"
             }
         }
         stage('--test--') {
             steps {
-                bat "mvn -f /project/pom.xml test"
+                bat "mvn -f project/pom.xml test"
             }
         }
         stage('--package--') {
             steps {
-                bat "mvn -f /project/pom.xml package"
+                bat "mvn -f project/pom.xml package"
             }
         }
     }
