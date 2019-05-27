@@ -1,1 +1,7 @@
-com\acs\configuration\AccessControlSystemApplicationTests.class
+com\acs\rest\OfficeRoomControllerTest.class
+com\acs\rest\EmployeeControllerTest.class
+com\acs\rest\ActionControllerTest.class
+com\acs\rest\KeyControllerTest.class
+com\acs\rest\DoorLockControllerTest.class
+com\acs\rest\ScannerControllerTest.class
+com\acs\rest\UserControllerTest.class

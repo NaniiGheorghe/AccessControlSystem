@@ -89,7 +89,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/remove/{id}")
-    public ResponseEntity createEmployee(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deleteEmployee(@PathVariable(value = "id") Integer id) {
         employeeService.findById(id).ifPresent(a -> employeeService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -126,7 +126,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/administrator/api/v1/employee/isValid/{username}/", method = RequestMethod.GET, consumes = {"application/json"})
-    public boolean createEmployee(@PathVariable(value = "username") String username) {
+    public boolean isValidUsername(@PathVariable(value = "username") String username) {
         return !employeeService.findByUsername(username).isPresent();
     }
 

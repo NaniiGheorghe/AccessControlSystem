@@ -23,8 +23,8 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
-    public void save(Key key) {
-        keyRepository.save(key);
+    public Key save(Key key) {
+        return keyRepository.save(key);
     }
 
     @Override

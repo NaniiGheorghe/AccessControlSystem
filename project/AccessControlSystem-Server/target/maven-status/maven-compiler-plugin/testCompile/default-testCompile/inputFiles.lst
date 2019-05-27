@@ -1,1 +1,7 @@
-D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\configuration\AccessControlSystemApplicationTests.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\OfficeRoomControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\ScannerControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\UserControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\ActionControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\DoorLockControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\KeyControllerTest.java
+D:\personal\ACS\AccessControlSystem\project\AccessControlSystem-Server\src\test\java\com\acs\rest\EmployeeControllerTest.java

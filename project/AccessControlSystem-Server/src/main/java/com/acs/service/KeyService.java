@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface KeyService {
     List<Key> getAllKeys();
 
-    void save(Key key);
+    Key save(Key key);
 
     void save(int name);
 

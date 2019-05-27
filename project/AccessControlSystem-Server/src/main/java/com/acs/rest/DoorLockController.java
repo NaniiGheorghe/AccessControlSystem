@@ -43,7 +43,7 @@ public class DoorLockController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/administrator/api/v1/doorlock/{id}")
-    public ResponseEntity createDoorLock(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deleteDoorLock(@PathVariable(value = "id") Integer id) {
         doorLockService.findById(id).ifPresent(a -> doorLockService.delete(a));
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class DoorLockController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/administrator/api/v1/officeroom/inaccesible_doorLocks/{employee_id}/{room_id}/")
     @Transactional
-    public List<DoorLockDTO> getInnaccessibleDoorLocks(@PathVariable(value = "employee_id") Integer employee_id,
+    public List<DoorLockDTO> getInaccessibleDoorLocksForRoom(@PathVariable(value = "employee_id") Integer employee_id,
                                                        @PathVariable(value = "room_id") Integer room_id) {
         List<DoorLock> doorLockList = new ArrayList<>();
         Employee employee = employeeService.findById(employee_id).get();
@@ -73,15 +73,12 @@ public class DoorLockController {
         });
 
         doorLockList.removeIf(
-                doorLock -> {
-                    return allAccessibleDoorLocksByEmployee.contains(doorLock);
-                }
+                allAccessibleDoorLocksByEmployee::contains
         );
 
         List<DoorLockDTO> retunList = new ArrayList<>();
         doorLockList.forEach(door -> {
             retunList.add(doorLockDTOConverter.convertToDto(door));
-
         });
 
         return retunList;
