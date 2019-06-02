@@ -21,6 +21,7 @@ pipeline {
                     sh "mvn package -Dhttps.protocols=TLSv1.2"
                     echo 'I will always say Hello again'
                     sh "ssh nanii_tolea@10.128.0.5 rm -rf /var/www/temp_deploy/dist/"
+                    echo 'I will always say Hello again'
                 }
             }
         }
