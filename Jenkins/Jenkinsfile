@@ -19,6 +19,8 @@ pipeline {
             steps {
                 dir("project") {
                     sh "mvn package -Dhttps.protocols=TLSv1.2"
+                    echo 'I will always say Hello again'
+                    ssh nanii_tolea@10.128.0.5 rm -rf /var/www/temp_deploy/dist/
                 }
             }
         }
