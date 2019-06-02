@@ -28,8 +28,8 @@ pipeline {
     post { 
         success { 
             echo 'I will always say Hello again!'
-            node {
             stage('Deploying to TEST') {
+            steps {
                 script{
                     sshPublisher {
                         server('10.128.0.5') {
