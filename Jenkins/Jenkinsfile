@@ -22,7 +22,6 @@ pipeline {
                 }
             }
         }
-    }
     node('slaves') {
     stage('Deploying to TEST') {
 
