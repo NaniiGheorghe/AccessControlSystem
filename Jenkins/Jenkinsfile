@@ -26,7 +26,7 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
-            stage('Deploying to TEST') {
+            steps('Deploying to TEST') {
 
             sshPublisher {
                 server('10.128.0.5') {
