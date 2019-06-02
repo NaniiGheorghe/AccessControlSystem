@@ -28,10 +28,10 @@ pipeline {
             echo 'I will always say Hello again!'
             steps('Deploying to TEST') {
                 script{
-                sshPublisher {
-                server('10.128.0.5') {
-                    credentials('nanii_tolea') {
-                        key:'''-----BEGIN RSA PRIVATE KEY-----
+                    sshPublisher {
+                        server('10.128.0.5') {
+                            credentials('nanii_tolea') {
+                                key:'''-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEA3ALzCKy96dzhOfuZv0XULNuwPNfPP3InKBrv+aBeFi0vTLHE
 vB27XouvEsE3C3ksbciFk9fJ0YRPaP6XmKm5nyDyP/2CBNrsbm4+ver2wp8tvbt6
 FbZdlXticq/gMkF06bjgjeSqN8YMwVadXSdaY77qDZwDC1CHb+szmkgId3MiPIal
@@ -58,17 +58,17 @@ xEUUkQKBgDL/cc1k9PBGBgdNxAwDUehki6u7L+Jog/yoCIcEvbz+rfhfdQG1qKzl
 FS8l+t3g+tC0NPbLxrAyMbZvoDQuBVKgNuJj7l4B02GSnjRLxtnnaKYu7rajvfYf
 FlcTV9EP1r3XoR/OB2LMx3sQ1zvQ8EcudPJNvL3bAyGmKfh2NdEg
 -----END RSA PRIVATE KEY-----'''
+                            }
+                            label('doker_test')
+                                transferSet {
+                                    sourceFiles("/var/lib/jenkins/workspace/Access Control System Pipeline/project/AccessControlSystem-Client/target/AccessControlSystem-Client-0.0.1-SNAPSHOT.jar")
+                                    remoteDirectory('/')
+                                    execCommand('mkdir deployfolder & unzip myproject-${version}.zip')
+                                }
+                            }
+                        }
                     }
-                    label('doker_test')
-                    transferSet {
-                        sourceFiles("/var/lib/jenkins/workspace/Access Control System Pipeline/project/AccessControlSystem-Client/target/AccessControlSystem-Client-0.0.1-SNAPSHOT.jar")
-                        remoteDirectory('/')
-                        execCommand('mkdir deployfolder & unzip myproject-${version}.zip')
-                    }
-                }
+                }   
             }
-    }
-            }}
-    }
-        
+        }
 }
