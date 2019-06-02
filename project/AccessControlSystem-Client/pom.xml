@@ -15,42 +15,42 @@
   <name>AccessControlSystem-Client</name>
   <description>Access Control System Client</description>
 
-  <!--<build>-->
-    <!--<resources>-->
-      <!--<resource>-->
-        <!--<directory>dist</directory>-->
-      <!--</resource>-->
-    <!--</resources>-->
-    <!--<plugins>-->
-      <!--<plugin>-->
-        <!--<groupId>com.github.eirslett</groupId>-->
-        <!--<artifactId>frontend-maven-plugin</artifactId>-->
-        <!--<version>1.6</version>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<id>install node and npm</id>-->
-            <!--<goals>-->
-              <!--<goal>install-node-and-npm</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<nodeVersion>v8.9.0</nodeVersion>-->
-              <!--<npmVersion>5.6.0</npmVersion>-->
-            <!--</configuration>-->
-          <!--</execution>-->
+  <build>
+    <resources>
+      <resource>
+        <directory>dist</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+              <nodeVersion>v8.12.0</nodeVersion>
+              <npmVersion>6.4.1</npmVersion>
+            </configuration>
+          </execution>
 
-          <!--<execution>-->
-            <!--<id>npm run build</id>-->
-            <!--<goals>-->
-              <!--<goal>npm</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<arguments>run build</arguments>-->
-            <!--</configuration>-->
-          <!--</execution>-->
+          <execution>
+            <id>npm run build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
 
-        <!--</executions>-->
-      <!--</plugin>-->
+        </executions>
+      </plugin>
 
-    <!--</plugins>-->
-  <!--</build>-->
+    </plugins>
+  </build>
 </project>

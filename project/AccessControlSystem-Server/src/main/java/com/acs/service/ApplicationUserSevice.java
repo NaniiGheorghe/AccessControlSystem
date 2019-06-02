@@ -6,4 +6,6 @@ public interface ApplicationUserSevice {
 
     void save(ApplicationUser aplicationUser);
 
+    void delete(ApplicationUser aplicationUser);
+
 }

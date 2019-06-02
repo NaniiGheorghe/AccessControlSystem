@@ -119,6 +119,7 @@ public class ScannerController {
         if (number != null) {
             return new ResponseEntity<>(number, HttpStatus.OK);
         } else {
+
             return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
         }
     }

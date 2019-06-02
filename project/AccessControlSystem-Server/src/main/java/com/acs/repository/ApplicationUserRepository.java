@@ -14,4 +14,6 @@ public interface ApplicationUserRepository extends JpaRepository<ApplicationUser
     @Override
     Optional<ApplicationUser> findById(Long id);
 
+
+
 }

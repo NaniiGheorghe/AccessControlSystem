@@ -1,0 +1,142 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="gnanii (generated)" id="1548269388250-1">
+        <createTable tableName="acs_action">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_action_pkey"/>
+            </column>
+            <column name="direction" type="INTEGER"/>
+            <column name="gendate" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="employee_id" type="INTEGER"/>
+            <column name="office_room_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-2">
+        <createTable tableName="acs_doorlock">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_doorlock_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-3">
+        <createTable tableName="acs_employee">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_employee_pkey"/>
+            </column>
+            <column name="firs_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="user_id" type="INTEGER"/>
+            <column name="working_room_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-4">
+        <createTable tableName="acs_employee_keys">
+            <column name="employee_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="keys_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-5">
+        <createTable tableName="acs_key">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_key_pkey"/>
+            </column>
+            <column name="key_type" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-6">
+        <createTable tableName="acs_key_accessible_door_locks">
+            <column name="key_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accessible_door_locks_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-7">
+        <createTable tableName="acs_notification">
+            <column name="dtype" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_notification_pkey"/>
+            </column>
+            <column name="employee_id" type="INTEGER"/>
+            <column name="office_room_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-8">
+        <createTable tableName="acs_officeroom">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_officeroom_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-9">
+        <createTable tableName="acs_officeroom_door_locks">
+            <column name="office_room_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="door_locks_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-10">
+        <createTable tableName="acs_user">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="acs_user_pkey"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="usergroup" type="INTEGER"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-11">
+        <addUniqueConstraint columnNames="door_locks_id" constraintName="uk_79p7w20amcycvyb5vkfulvn50" tableName="acs_officeroom_door_locks"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-12">
+        <addUniqueConstraint columnNames="keys_id" constraintName="uk_mh59nwy055khxyi7so61f6ou3" tableName="acs_employee_keys"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-13">
+        <addForeignKeyConstraint baseColumnNames="door_locks_id" baseTableName="acs_officeroom_door_locks" constraintName="fk1xa3s9ngky0udc05slq1xq0qe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_doorlock" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-14">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="acs_employee_keys" constraintName="fk7k9tgnwevwouutq4i0suddctp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_employee" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-15">
+        <addForeignKeyConstraint baseColumnNames="working_room_id" baseTableName="acs_employee" constraintName="fk8qtdevfbesgdybsbljsae3sgq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_officeroom" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-16">
+        <addForeignKeyConstraint baseColumnNames="office_room_id" baseTableName="acs_notification" constraintName="fkavrc8p5xa5gc6wcovr0f5f77m" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_officeroom" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-17">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="acs_action" constraintName="fkchkbeushewq346fjweu6nuwhu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_employee" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-18">
+        <addForeignKeyConstraint baseColumnNames="accessible_door_locks_id" baseTableName="acs_key_accessible_door_locks" constraintName="fkftpxt857l8xrk2jvoi0tg3lbd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_employee" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-19">
+        <addForeignKeyConstraint baseColumnNames="office_room_id" baseTableName="acs_officeroom_door_locks" constraintName="fkhbjhb2wkd1auq7embhmjlre2n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_officeroom" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-20">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="acs_notification" constraintName="fkirwc8s9c4jdbkd2jxrb83is4b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_employee" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-21">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="acs_employee" constraintName="fkkfj2rjgs2o8g0ssobdvmpqv9y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-22">
+        <addForeignKeyConstraint baseColumnNames="office_room_id" baseTableName="acs_action" constraintName="fkpp8d34giroqt9qjqdv2fb8qug" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_officeroom" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-23">
+        <addForeignKeyConstraint baseColumnNames="keys_id" baseTableName="acs_employee_keys" constraintName="fkq77xock8xuiwo69966h09y89w" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_key" validate="true"/>
+    </changeSet>
+    <changeSet author="gnanii (generated)" id="1548269388250-24">
+        <addForeignKeyConstraint baseColumnNames="key_id" baseTableName="acs_key_accessible_door_locks" constraintName="fkrxxqmqcomcbub6fkh6f6egam1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acs_key" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

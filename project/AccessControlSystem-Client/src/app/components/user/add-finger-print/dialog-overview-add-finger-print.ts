@@ -128,7 +128,7 @@ export class DialogOverviewAddFingerPrint {
       this.keys.push(newKet);
     } else if (this.fingerPrintTypeSelected) {
       if (this.keyValues.length == 4) {
-        let newKet = new Key(null, this.fingerPrintName, this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.selectedKeyType);
+        let newKet = new Key(null, this.fingerPrintName, this.keyValues[0].toString(), this.keyValues[1].toString(), this.keyValues[2].toString(), this.keyValues[3].toString(), this.selectedKeyType);
         this.keys.push(newKet);
       } else {
         console.log("Not 4 times the finger was scanned.")

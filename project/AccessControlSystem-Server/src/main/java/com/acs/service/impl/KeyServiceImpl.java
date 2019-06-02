@@ -57,7 +57,7 @@ public class KeyServiceImpl implements KeyService {
         while (keyRepository.findByKeyByValues(String.valueOf(number)).isPresent() ||
                 LocalQueue.getInstance().getTempKeyIds().contains(number));
 
-        LocalQueue.getInstance().add(number);
+        LocalQueue.getInstance().addNewKeyId(number);
 
         return number;
     }

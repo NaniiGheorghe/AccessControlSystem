@@ -8,14 +8,14 @@
 byte mac[] = {
   0x90, 0xA2, 0xDA, 0x10, 0x1E, 0x51
 };
-IPAddress ip(192, 168, 100, 8);
-IPAddress server(192, 168, 100, 5);
+IPAddress ip(192, 168, 100, 7);
+IPAddress server(192, 168, 100, 3);
 EthernetClient client;
 
 SoftwareSerial mySerial(2, 3);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-int greenLedPin = 5;
-int redLedPin = 7;
+int greenLedPin = 4;
+int redLedPin = 5;
 int blueLedPin = 6;
 int doorLockPin = 8;
 
@@ -316,8 +316,8 @@ uint8_t getFingerprintEnroll(uint8_t id) {
     Serial.println("Communication error");
     return p;
   } else if (p == FINGERPRINT_BADLOCATION) {
-    Serial.println("Could not store in that location");
-    return p;
+    Serial.println("Hellooolo!");
+    return id;
   } else if (p == FINGERPRINT_FLASHERR) {
     Serial.println("Error writing to flash");
     return p;
@@ -335,7 +335,11 @@ int getFingerprintIDez() {
     return -1;
   }    p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK) {
-    Serial.print("3");
+    Serial.println("Finge print was not found!");
+    digitalWrite(redLedPin, HIGH);
+    digitalWrite(blueLedPin, LOW);
+    digitalWrite(greenLedPin, LOW);
+    delay(1000);
     return -1;
   }
   Serial.print("Found ID #");

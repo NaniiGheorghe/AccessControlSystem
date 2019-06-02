@@ -28,8 +28,8 @@
     </properties>
 
     <modules>
-        <module>AccessControlSystem-Server</module>
         <module>AccessControlSystem-Client</module>
+        <module>AccessControlSystem-Server</module>
     </modules>
 
 </project>

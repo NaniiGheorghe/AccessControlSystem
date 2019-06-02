@@ -17,5 +17,10 @@ public class ApplicationUserSeviceImpl implements ApplicationUserSevice {
     public void save(ApplicationUser aplicationUser) {
         applicationUserRepository.save(aplicationUser);
     }
+
+    @Override
+    public void delete(ApplicationUser aplicationUser) {
+        applicationUserRepository.delete(aplicationUser);
+    }
 }
 

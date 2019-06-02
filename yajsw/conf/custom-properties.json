@@ -1,0 +1,16 @@
+{
+  "ignoredTerminalTypes": [
+    "WebTerminalType"
+  ],
+  "ignoredControllerIds": [
+    "ScadaListeningServer"
+  ],
+  "replaceTerminalStrings": {
+    "IOP_": "",
+    "_": " ",
+    "0": " "
+  },
+  "replaceControllerStrings": {
+    "_": " "
+  }
+}

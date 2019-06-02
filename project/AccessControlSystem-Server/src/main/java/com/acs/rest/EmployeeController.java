@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -89,8 +90,18 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/administrator/api/v1/employee/remove/{id}")
+    @Transactional
     public ResponseEntity deleteEmployee(@PathVariable(value = "id") Integer id) {
-        employeeService.findById(id).ifPresent(a -> employeeService.delete(a));
+        Optional<Employee> employee = employeeService.findById(id);
+        ApplicationUser user = null;
+        if(employee.isPresent()){
+            user = employee.get().getUser();
+        }
+        employee.ifPresent(e -> e.getKeys().forEach(k -> keyService.delete(k)));
+        employee.ifPresent(e -> employeeService.delete(e));
+        applicationUserSevice.delete(user);
+        
+        
         return new ResponseEntity(HttpStatus.OK);
     }
 
