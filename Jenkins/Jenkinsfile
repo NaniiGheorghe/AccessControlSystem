@@ -26,6 +26,7 @@ pipeline {
     post { 
         success { 
             echo 'I will always say Hello again!'
+            stages {
             steps('Deploying to TEST') {
                 script{
                     sshPublisher {
@@ -71,4 +72,5 @@ FlcTV9EP1r3XoR/OB2LMx3sQ1zvQ8EcudPJNvL3bAyGmKfh2NdEg
                 }   
             }
         }
+}
 }
