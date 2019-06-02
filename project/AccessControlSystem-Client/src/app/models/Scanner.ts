@@ -1,7 +1,7 @@
 export class Scanner {
   id: number;
   name: string;
-  scannerType: string
+  scannerType: string;
 
   constructor(id: number, name: string, scannerType: string) {
     this.id = id;

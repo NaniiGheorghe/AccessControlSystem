@@ -13,7 +13,7 @@ import {ScannerTypeEnum} from "../../../models/ScannerType";
 @Component({
   selector: 'dialog-overview-create-user',
   templateUrl: './dialog-overview-add-finger-print.html',
-  styleUrls: ['./dialog-overview-add-finger-print.css']
+  styleUrls: ['./dcompilerOptionsialog-overview-add-finger-print.css']
 })
 export class DialogOverviewAddFingerPrint {
 
