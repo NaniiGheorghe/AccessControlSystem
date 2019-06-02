@@ -24,7 +24,7 @@ pipeline {
         }
     }
     post { 
-        always { 
+        success { 
             echo 'I will always say Hello again!'
             steps('Deploying to TEST') {
                 script{
