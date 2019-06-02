@@ -22,7 +22,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploying to TEST') {
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+            stage('Deploying to TEST') {
 
             sshPublisher {
                 server('10.128.0.5') {
@@ -63,6 +67,8 @@ FlcTV9EP1r3XoR/OB2LMx3sQ1zvQ8EcudPJNvL3bAyGmKfh2NdEg
                     }
                 }
             }
+    }
         }
     }
+        
 }
