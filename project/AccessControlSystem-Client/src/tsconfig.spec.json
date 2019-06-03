@@ -6,7 +6,10 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "@/*":["../src/*"]
+    }
   },
   "files": [
     "test.ts",
