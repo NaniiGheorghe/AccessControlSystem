@@ -5,15 +5,15 @@ import {SpinnerService} from "../../services/SpinnerService";
 import {Subscription} from "rxjs";
 import {UserService} from "../../services/UserService";
 import {FormControl, Validators} from "@angular/forms";
-import {Room} from "../../models/Room";
+import {Room} from "../models/Room";
 import {RoomService} from "../../services/RoomService";
 import {first} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
-import {DoorLock} from "../../models/DoorLock";
+import {DoorLock} from "../models/DoorLock";
 import {DoorLockService} from "../../services/DoorLockService";
 import {SelectionModel} from "@angular/cdk/collections";
-import {Access} from "../../models/Access";
-import {User} from "../../models/User";
+import {Access} from "../models/Access";
+import {User} from "../models/User";
 import {AccessService} from "../../services/AccessService";
 
 export interface DialogData {

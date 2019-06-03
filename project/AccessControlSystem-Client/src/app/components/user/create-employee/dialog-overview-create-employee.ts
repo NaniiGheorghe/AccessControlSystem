@@ -1,9 +1,9 @@
 import {Component, ViewChild} from "@angular/core";
-import {Room} from "../../../models/Room";
+import {Room} from "../../models/Room";
 import {MatDialog, MatDialogRef} from "@angular/material";
 import {RoomService} from "../../../services/RoomService";
 import {Role} from "../user.component";
-import {User} from "../../../models/User";
+import {User} from "../../models/User";
 import {DialogOverviewCreateUser} from "../create-user/dialog-overview-create-user";
 import {UploadComponent} from "../../upload-component/upload.component";
 

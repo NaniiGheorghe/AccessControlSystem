@@ -5,10 +5,10 @@ import {ToastrService} from "ngx-toastr";
 import {first} from "rxjs/operators";
 import {CreateEmployeeDialogData} from "../create-employee/dialog-overview-create-employee";
 import {FormControl, Validators} from "@angular/forms";
-import {Key} from "../../../models/Key";
-import {Scanner} from "../../../models/scanner";
+import {Key} from "../../models/Key";
+import {Scanner} from "../../models/scanner";
 import {ScannerService} from "../../../services/ScannerService";
-import {ScannerTypeEnum} from "../../../models/ScannerType";
+import {ScannerTypeEnum} from "../../models/ScannerType";
 
 @Component({
   selector: 'dialog-overview-create-user',

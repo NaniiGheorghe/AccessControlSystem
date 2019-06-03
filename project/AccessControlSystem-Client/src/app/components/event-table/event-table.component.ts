@@ -3,7 +3,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
 import {ActionService} from "../../services/ActionService";
-import {Action} from "../../models/Action";
+import {Action} from "../models/Action";
 import {Subscription} from "rxjs";
 
 @Component({

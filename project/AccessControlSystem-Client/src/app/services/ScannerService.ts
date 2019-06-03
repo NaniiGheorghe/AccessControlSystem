@@ -2,9 +2,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {map} from "rxjs/operators";
 import {CookieService} from "ngx-cookie";
-import {Room} from "../models/Room";
-import {Scanner} from "../models/Scanner";
-import {ScannerTypeEnum} from "../models/ScannerType";
+import {Room} from "../components/models/Room";
+import {Scanner} from "../components/models/Scanner";
+import {ScannerTypeEnum} from "../components/models/ScannerType";
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,10 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Action} from "../models/Action";
+import {Action} from "../components/models/Action";
 import {map} from "rxjs/operators";
-import {User} from "../models/User";
+import {User} from "../components/models/User";
 import {CookieService} from "ngx-cookie";
-import {Access} from "../models/Access";
+import {Access} from "../components/models/Access";
 
 @Injectable({
   providedIn: 'root'
