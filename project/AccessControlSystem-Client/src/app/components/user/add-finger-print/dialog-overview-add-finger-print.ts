@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSelectChange} from "@angular/material";
-import {UserService} from "../../../services/UserService";
+import {UserService} from "lib/services/UserService";
 import {ToastrService} from "ngx-toastr";
 import {first} from "rxjs/operators";
 import {CreateEmployeeDialogData} from "../create-employee/dialog-overview-create-employee";
 import {FormControl, Validators} from "@angular/forms";
-import {Key} from "../../../models/Key";
-import {Scanner} from "../../../models/scanner";
-import {ScannerService} from "../../../services/ScannerService";
-import {ScannerTypeEnum} from "../../../models/ScannerType";
+import {Key} from "lib/models/Key";
+import {Scanner} from "lib/models/Scanner";
+import {ScannerService} from "lib/services/ScannerService";
+import {ScannerTypeEnum} from "lib/models/ScannerType";
 
 @Component({
   selector: 'dialog-overview-create-user',
