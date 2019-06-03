@@ -1,9 +1,9 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Action} from "../components/models/Action";
+import {Action} from "../models/Action";
 import {map} from "rxjs/operators";
-import {User} from "../components/models/User";
-import {Report} from "../components/models/Report";
+import {User} from "../models/User";
+import {Report} from "../models/Report";
 import {CookieService} from "ngx-cookie";
 
 @Injectable({

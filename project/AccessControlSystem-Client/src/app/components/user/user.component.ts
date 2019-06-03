@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from "rxjs";
-import {User} from "../models/User";
+import {User} from "../../models/User";
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
 import {UserService} from "../../services/UserService";

@@ -1,7 +1,7 @@
 import {Component, Output, EventEmitter, ViewChild, ElementRef, Input, Inject} from '@angular/core';
 import {ComponentPortal} from "@angular/cdk/portal";
 import {MAT_DIALOG_DATA} from "@angular/material";
-import {User} from "../models/User";
+import {User} from "../../models/User";
 
 @Component({
   'selector': 'input-file',

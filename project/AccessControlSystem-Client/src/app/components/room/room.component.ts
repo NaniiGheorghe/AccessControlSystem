@@ -3,11 +3,11 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTabl
 import {Subscription} from "rxjs";
 import {SpinnerService} from "../../services/SpinnerService";
 import {MessageService} from "../../services/MessageService";
-import {Room} from "../models/Room";
+import {Room} from "../../models/Room";
 import {RoomService} from "../../services/RoomService";
 import {SelectionModel} from "@angular/cdk/collections";
 import {DialogData} from "../access-management/access-management.component";
-import {DoorLock} from "../models/DoorLock";
+import {DoorLock} from "../../models/DoorLock";
 import {ToastrService} from "ngx-toastr";
 import {DoorLockService} from "../../services/DoorLockService";
 import {first} from "rxjs/operators";

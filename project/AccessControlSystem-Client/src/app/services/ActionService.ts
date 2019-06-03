@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Action} from "../components/models/Action";
+import {Action} from "../models/Action";
 import {map} from "rxjs/operators";
 import {CookieService} from "ngx-cookie";
 
