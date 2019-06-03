@@ -13,10 +13,9 @@ import {ScannerTypeEnum} from "../../../models/ScannerType";
 @Component({
   selector: 'dialog-overview-create-user',
   templateUrl: './dialog-overview-add-finger-print.html',
-  styleUrls: ['./dcompilerOptionsialog-overview-add-finger-print.css']
+  styleUrls: ['./dialog-overview-add-finger-print.css']
 })
 export class DialogOverviewAddFingerPrint {
-
   selectFormControlRoom = new FormControl('', Validators.required);
 
   allKeyTypes: string[] = ['Finger Print', 'NFC Key'];
