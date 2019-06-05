@@ -1554,13 +1554,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DialogOverviewAddFingerPrint", function() { return DialogOverviewAddFingerPrint; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _services_UserService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/UserService */ "./src/app/services/UserService.ts");
+/* harmony import */ var lib_services_UserService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lib/services/UserService */ "./src/app/services/UserService.ts");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _models_Key__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../models/Key */ "./src/app/models/Key.ts");
-/* harmony import */ var _services_ScannerService__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/ScannerService */ "./src/app/services/ScannerService.ts");
-/* harmony import */ var _models_ScannerType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../models/ScannerType */ "./src/app/models/ScannerType.ts");
+/* harmony import */ var lib_models_Key__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lib/models/Key */ "./src/app/models/Key.ts");
+/* harmony import */ var lib_services_ScannerService__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lib/services/ScannerService */ "./src/app/services/ScannerService.ts");
+/* harmony import */ var lib_models_ScannerType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lib/models/ScannerType */ "./src/app/models/ScannerType.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1607,7 +1607,7 @@ var DialogOverviewAddFingerPrint = /** @class */ (function () {
         this.successfullyRegistered = false;
         this.fingerPrintTypeSelected = false;
         this.NFCKeyTypeSelected = false;
-        this.scannerService.getAllScannersByType(_models_ScannerType__WEBPACK_IMPORTED_MODULE_8__["ScannerTypeEnum"].FINGERPRINT_SCANNER).subscribe(function (scanners) {
+        this.scannerService.getAllScannersByType(lib_models_ScannerType__WEBPACK_IMPORTED_MODULE_8__["ScannerTypeEnum"].FINGERPRINT_SCANNER).subscribe(function (scanners) {
             _this.allScanners = scanners;
         });
     }
@@ -1664,12 +1664,12 @@ var DialogOverviewAddFingerPrint = /** @class */ (function () {
         var _this = this;
         var newKet;
         if (this.NFCKeyTypeSelected) {
-            newKet = new _models_Key__WEBPACK_IMPORTED_MODULE_6__["Key"](null, this.fingerPrintName, this.NFCKeyId, null, null, null, this.selectedKeyType);
+            newKet = new lib_models_Key__WEBPACK_IMPORTED_MODULE_6__["Key"](null, this.fingerPrintName, this.NFCKeyId, null, null, null, this.selectedKeyType);
             this.keys.push(newKet);
         }
         else if (this.fingerPrintTypeSelected) {
             if (this.keyValues.length == 4) {
-                var newKet_1 = new _models_Key__WEBPACK_IMPORTED_MODULE_6__["Key"](null, this.fingerPrintName, this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.keyValues[0].toString(), this.selectedKeyType);
+                var newKet_1 = new lib_models_Key__WEBPACK_IMPORTED_MODULE_6__["Key"](null, this.fingerPrintName, this.keyValues[0].toString(), this.keyValues[1].toString(), this.keyValues[2].toString(), this.keyValues[3].toString(), this.selectedKeyType);
                 this.keys.push(newKet_1);
             }
             else {
@@ -1792,9 +1792,9 @@ var DialogOverviewAddFingerPrint = /** @class */ (function () {
         }),
         __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object, _services_UserService__WEBPACK_IMPORTED_MODULE_2__["UserService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object, lib_services_UserService__WEBPACK_IMPORTED_MODULE_2__["UserService"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"],
-            _services_ScannerService__WEBPACK_IMPORTED_MODULE_7__["ScannerService"]])
+            lib_services_ScannerService__WEBPACK_IMPORTED_MODULE_7__["ScannerService"]])
     ], DialogOverviewAddFingerPrint);
     return DialogOverviewAddFingerPrint;
 }());
