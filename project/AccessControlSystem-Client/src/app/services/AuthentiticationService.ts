@@ -10,7 +10,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post(`http://localhost:8080/login`, {username: username, password: password})
+    return this.http.post(`http://localhost:8083/login`, {username: username, password: password})
       .pipe(map(user => {
         console.log('Server returned a new Token - ' + JSON.parse(JSON.stringify(user)).token);
         return JSON.parse(JSON.stringify(user)).token;
@@ -27,7 +27,7 @@ export class AuthenticationService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    return this.http.get(`http://localhost:8080/users/validateToken`, httpOptions)
+    return this.http.get(`http://localhost:8083/users/validateToken`, httpOptions)
       .pipe(map(user => {
         return 'Ok';
       }));

@@ -24,7 +24,7 @@ export class ReportService {
       })
     };
     let reports: Report[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/employee/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             reports.push(new Report(

@@ -26,7 +26,7 @@ export class AccessService {
     };
 
     let actions: Access[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/access', httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/employee/list/access', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
 
@@ -60,7 +60,7 @@ export class AccessService {
       })
     };
 
-    var path = `http://localhost:8080/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
+    var path = `http://localhost:8083/administrator/api/v1/employee/give_access/` + employeeId + '/' + doorLockId + '/';
     console.log(path);
     return this.http.post(path, {}, httpOptions)
       .pipe(map(response => {
@@ -75,7 +75,7 @@ export class AccessService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    var path = `http://localhost:8080/administrator/api/v1/employee/remove_access/` + employeeId + '/' + doorLockId + '/';
+    var path = `http://localhost:8083/administrator/api/v1/employee/remove_access/` + employeeId + '/' + doorLockId + '/';
     console.log(path);
     return this.http.post(path, {}, httpOptions)
       .pipe(map(response => {

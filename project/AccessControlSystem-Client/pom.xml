@@ -39,13 +39,13 @@
           </execution>
 
           <!--<execution>-->
-            <!--<id>npm install</id>-->
-            <!--<goals>-->
-              <!--<goal>npm</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<arguments>install</arguments>-->
-            <!--</configuration>-->
+          <!--<id>npm install</id>-->
+          <!--<goals>-->
+          <!--<goal>npm</goal>-->
+          <!--</goals>-->
+          <!--<configuration>-->
+          <!--<arguments>install</arguments>-->
+          <!--</configuration>-->
           <!--</execution>-->
 
           <execution>
@@ -57,7 +57,16 @@
               <arguments>run build</arguments>
             </configuration>
           </execution>
-
+          <execution>
+            <id>prod</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run-script build</arguments>
+            </configuration>
+            <phase>generate-resources</phase>
+          </execution>
         </executions>
       </plugin>
 

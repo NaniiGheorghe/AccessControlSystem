@@ -25,7 +25,7 @@ export class UserService {
 
     console.log(this.cookiesService.get('token'));
     let actions: User[] = [];
-    return this.http.get<Object[]>('http://localhost:8080/administrator/api/v1/employee/list/', httpOptions).pipe(
+    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/employee/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             actions.push(new User(
@@ -54,7 +54,7 @@ export class UserService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    var path = `http://localhost:8080/administrator/api/v1/employee/isValid/` + username + '/';
+    var path = `http://localhost:8083/administrator/api/v1/employee/isValid/` + username + '/';
     console.log(path);
     return this.http.get<boolean>(path, httpOptions).pipe(
       map(response => {
@@ -72,7 +72,7 @@ export class UserService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    var path = 'http://localhost:8080/administrator/api/v1/employee';
+    var path = 'http://localhost:8083/administrator/api/v1/employee';
     console.log('Tring to persist User ' + JSON.stringify(emp));
     return this.http.post(path, emp, httpOptions)
       .pipe(map(
@@ -89,7 +89,7 @@ export class UserService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    var path = 'http://localhost:8080/administrator/api/v1/employee/remove/' + id + '/';
+    var path = 'http://localhost:8083/administrator/api/v1/employee/remove/' + id + '/';
     console.log('Tring to remove User ' + JSON.stringify(id));
     return this.http.post(path, null, httpOptions)
       .pipe(map(
