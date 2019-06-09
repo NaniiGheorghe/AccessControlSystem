@@ -1,0 +1,82 @@
+<div *ngIf="!NFCKeyTypeSelected && !fingerPrintTypeSelected">
+  <h1 mat-dialog-title>Please select key type</h1>
+</div>
+<div *ngIf="fingerPrintTypeSelected && selectFormControlRoom.hasError('required') && !successfullyRegistered">
+  <h1 mat-dialog-title>Please select a scanner</h1>
+</div>
+<div *ngIf="fingerPrintTypeSelected && !selectFormControlRoom.hasError('required') && !successfullyRegistered">
+  <h1 mat-dialog-title>Please scan your finger</h1>
+</div>
+<div *ngIf="successfullyRegistered">
+  <h1 mat-dialog-title>Please Confirm User creation</h1>
+</div>
+
+
+<div mat-dialog-content>
+
+  <mat-form-field style="width: 350px">
+    <mat-select id="createUserSelectKeyType" placeholder="Select Key Type" [(ngModel)]="selectedKeyType"
+                (selectionChange)="displyKeyInputType($event)" required>
+      <mat-option *ngFor="let keyType of allKeyTypes" [value]="keyType">
+        {{keyType}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p></p>
+
+  <div *ngIf="fingerPrintTypeSelected">
+    <mat-form-field style="width: 350px">
+      <mat-select placeholder="Select Room" [(ngModel)]="selectedScanner" [formControl]="selectFormControlRoom"
+                  (selectionChange)="displyScanners($event)"  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let scanner of allScanners" [value]="scanner">
+          {{scanner.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="selectFormControlRoom.hasError('required')">Please choose the room</mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div *ngIf="NFCKeyTypeSelected">
+    <mat-form-field style="height: auto; min-width: 350px">
+      <input id="createUserNFCkeyInput" matInput [(ngModel)]="NFCKeyId" placeholder="Key ID">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="fingerPrintTypeSelected">
+    <div *ngIf="!selectFormControlRoom.hasError('required')" style="margin-top: 20px; margin-bottom:15px"
+         (click)="onTestFingerClick()">
+
+      <div *ngIf="!successfullyRegistered">
+        <h5 align="middle">Please put your finger on scanner.</h5>
+
+        <img *ngIf="nothingScanned" src="../../../assets/1.png" class="scan-image"/>
+
+        <img *ngIf="firstScanGif" src="../../../assets/1.gif" class="scan-image"/>
+
+        <img *ngIf="secondScan" src="../../../assets/2.png" class="scan-image"/>
+        <img *ngIf="secondScanGif" src="../../../assets/2.gif" class="scan-image"/>
+
+        <img *ngIf="thirdScan" src="../../../assets/3.png" class="scan-image"/>
+        <img *ngIf="thirdScanGif" src="../../../assets/3.gif" class="scan-image"/>
+
+        <img *ngIf="fourthScan" src="../../../assets/4.png" class="scan-image"/>
+        <img *ngIf="fourthScanGif" src="../../../assets/4.gif" class="scan-image"/>
+      </div>
+
+      <div *ngIf="successfullyRegistered">
+        <h5 align="middle">Sucessfully register new finger print</h5>
+        <img src="../../../assets/scan_finger_step_4.png" class="completed-scan"/>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div *ngIf="successfullyRegistered" style="margin-top: 30px;">
+  <mat-form-field style="height: auto; width: 200px">
+    <input id="createUserKeyNameInput" matInput [(ngModel)]="fingerPrintName" placeholder="Name">
+  </mat-form-field>
+  <button id="createUserOkButton" mat-raised-button color="primary" (click)="onOkClick()">Ok</button>
+</div>

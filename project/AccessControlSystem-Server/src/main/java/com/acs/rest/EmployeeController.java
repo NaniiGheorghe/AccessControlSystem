@@ -10,11 +10,9 @@ import com.acs.service.ApplicationUserSevice;
 import com.acs.service.EmployeeService;
 import com.acs.service.KeyService;
 import com.acs.service.OfficeRoomService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -94,14 +92,14 @@ public class EmployeeController {
     public ResponseEntity deleteEmployee(@PathVariable(value = "id") Integer id) {
         Optional<Employee> employee = employeeService.findById(id);
         ApplicationUser user = null;
-        if(employee.isPresent()){
+        if (employee.isPresent()) {
             user = employee.get().getUser();
         }
         employee.ifPresent(e -> e.getKeys().forEach(k -> keyService.delete(k)));
         employee.ifPresent(e -> employeeService.delete(e));
         applicationUserSevice.delete(user);
-        
-        
+
+
         return new ResponseEntity(HttpStatus.OK);
     }
 

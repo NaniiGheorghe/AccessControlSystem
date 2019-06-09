@@ -2,10 +2,12 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+    "module": "commonjs",
+    "target": "es5",
+    "types": [
+      "jasmine",
+      "jasminewd2",
+      "node"
+    ]
+  }
 }

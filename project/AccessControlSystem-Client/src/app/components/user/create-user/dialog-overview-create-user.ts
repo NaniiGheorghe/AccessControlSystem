@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import {UserService} from "../../../services/UserService";
 import {ToastrService} from "ngx-toastr";
 import {first} from "rxjs/operators";
-import {DialogOverviewAddFingerPrint} from "../add-finger-print/dialog-overview-add-finger-print";
+import {DialogOverviewAddFingerPrint} from "../dialog-overview-add-finger-print";
 import {CreateEmployeeDialogData} from "../create-employee/dialog-overview-create-employee";
 
 @Component({

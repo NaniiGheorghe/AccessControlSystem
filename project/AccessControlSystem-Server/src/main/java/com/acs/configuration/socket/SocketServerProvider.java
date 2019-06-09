@@ -9,7 +9,6 @@ import com.acs.configuration.socket.communication.util.ProtocolDecodeException;
 import com.acs.configuration.socket.communication.util.ProtocolMessageModelFactory;
 import com.acs.handler.AbstractProtocolEventHandler;
 import com.acs.service.KeyService;
-import org.bouncycastle.util.test.TestRandomData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

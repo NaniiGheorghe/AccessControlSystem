@@ -1,16 +1,13 @@
 package com.acs.service.impl;
 
 import com.acs.model.Employee;
-import com.acs.model.Notification;
 import com.acs.model.OfficeRoom;
 import com.acs.model.RequestAccessNotification;
 import com.acs.repository.EmployeeRepository;
-import com.acs.repository.NotificationRepository;
 import com.acs.service.DoorLockService;
 import com.acs.service.EmployeeService;
 import com.acs.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
