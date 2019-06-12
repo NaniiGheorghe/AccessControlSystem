@@ -2,12 +2,10 @@ package com.acs.configuration;
 
 
 import com.acs.configuration.socket.SocketServerProvider;
-import com.acs.jmx.LoggerMXBean;
 import com.acs.jmx.LoggerMXBeanImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -27,7 +25,7 @@ import java.lang.management.ManagementFactory;
 @ComponentScan(basePackages = "com.acs")
 @EnableJpaRepositories("com.acs.repository")
 @EntityScan(basePackages = {"com.acs.model"})
-public class AccessControlSystemApplication {
+public class AccessControlSystemApplication{
 
 	@Autowired
 	private SocketServerProvider socketServerProvider;
