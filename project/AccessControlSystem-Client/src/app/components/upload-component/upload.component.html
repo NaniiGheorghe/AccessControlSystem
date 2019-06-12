@@ -2,6 +2,6 @@
   <input style="display: none;" class="loadImage" #file type="file" accept='image/*' (change)="preview(file.files)">
   <img [src]="imgURL" width="350" style="max-height:250px; max-width:250px" *ngIf="imgURL" (click)="file.click()">
   <button (click)="file.click()" *ngIf="!imgURL">
-    <img src="../../../assets/user-blue-icon.png" height="256" class="account-icon"/>
+    <img src="assets/user-blue-icon.png" height="256" class="account-icon"/>
   </button>
 </div>
