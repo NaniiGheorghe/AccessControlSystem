@@ -9,6 +9,8 @@ import com.acs.configuration.socket.communication.util.ProtocolDecodeException;
 import com.acs.configuration.socket.communication.util.ProtocolMessageModelFactory;
 import com.acs.handler.AbstractProtocolEventHandler;
 import com.acs.service.KeyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,9 @@ import java.net.SocketException;
 
 @Component
 public class SocketServerProvider {
+
+    Logger logger = LoggerFactory.getLogger("arduino");
+
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -44,10 +49,10 @@ public class SocketServerProvider {
             OutgoingAbstractProtocolEvent outgoingAbstractProtocolEvent = null;
 
             serverSocket = new ServerSocket(port);
-            System.out.println("Socket connection is opened");
+            logger.info("Socket connection is opened");
 
             clientSocket = serverSocket.accept();
-            System.out.println("Client with id [" + clientSocket.getInetAddress() + "] sucessfully connected.");
+            logger.info("Client with id [" + clientSocket.getInetAddress() + "] sucessfully connected.");
 
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -57,23 +62,22 @@ public class SocketServerProvider {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 try {
-                    System.out.println("Received message " + inputLine);
+                    logger.info("Received message " + inputLine);
 
                     incomingAbstractProtocolEvent = ProtocolMessageModelFactory.getProtocolEvent(inputLine);
-                    System.out.println("Received event " + incomingAbstractProtocolEvent.toString());
+                    logger.info("Received event " + incomingAbstractProtocolEvent.toString());
                     outgoingAbstractProtocolEvent = abstractProtocolEventHandler.handleEvent(incomingAbstractProtocolEvent);
-                    System.out.println("Send event " + incomingAbstractProtocolEvent.toString());
+                    logger.info("Send event " + incomingAbstractProtocolEvent.toString());
                     out.println(outgoingAbstractProtocolEvent.getMessage());
                 } catch (ProtocolDecodeException e) {
                     out.println(EventIdentifier.DECODE_ERROR);
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage());
                 }
             }
 
-        } catch (BindException e){
+        } catch (BindException e) {
             e.printStackTrace();
-        }
-        catch (SocketException ex) {
+        } catch (SocketException ex) {
             stop();
             start(SocketServerProvider.port);
         } catch (IOException e) {
@@ -109,7 +113,7 @@ public class SocketServerProvider {
     public void switchToScanningMode(String scanner) {
         SwitchToScanningModeProtocolEvent event = new SwitchToScanningModeProtocolEvent(scanner);
         if (out != null) {
-            System.out.println("Send message " + event.getMessage());
+            logger.info("Send message " + event.getMessage());
             out.println(event.getMessage());
         }
     }
