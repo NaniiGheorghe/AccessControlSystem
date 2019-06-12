@@ -25,7 +25,7 @@ public class KeyDTOConverter {
         keyDTO.setKeyValue2(key.getKeyValue2());
         keyDTO.setKeyValue3(key.getKeyValue3());
         keyDTO.setKeyValue4(key.getKeyValue4());
-        keyDTO.setKeyName(key.getName());
+        keyDTO.setName(key.getName());
         keyDTO.setKeyType(key.getKeyType().name());
         return keyDTO;
     }
