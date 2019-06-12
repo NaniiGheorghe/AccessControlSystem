@@ -3,7 +3,7 @@
 
     <jmxConfigurator />
 
-    <property name="LOGS" value="./logs" />
+    <property name="LOGS" value="${CATALINA_BASE}" />
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
@@ -116,7 +116,7 @@
         </rollingPolicy>
     </appender>
     <!-- LOG everything at INFO level -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </root>
