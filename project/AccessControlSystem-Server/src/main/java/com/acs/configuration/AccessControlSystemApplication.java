@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
@@ -26,7 +27,7 @@ import java.lang.management.ManagementFactory;
 @ComponentScan(basePackages = "com.acs")
 @EnableJpaRepositories("com.acs.repository")
 @EntityScan(basePackages = {"com.acs.model"})
-public class AccessControlSystemApplication {
+public class AccessControlSystemApplication extends SpringBootServletInitializer {
 
 	@Autowired
 	private SocketServerProvider socketServerProvider;
