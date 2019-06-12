@@ -27,7 +27,7 @@ import java.lang.management.ManagementFactory;
 @ComponentScan(basePackages = "com.acs")
 @EnableJpaRepositories("com.acs.repository")
 @EntityScan(basePackages = {"com.acs.model"})
-public class AccessControlSystemApplication extends SpringBootServletInitializer {
+public class AccessControlSystemApplication {
 
 	@Autowired
 	private SocketServerProvider socketServerProvider;
