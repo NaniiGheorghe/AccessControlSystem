@@ -3,7 +3,7 @@
 
     <jmxConfigurator />
 
-    <property name="LOGS" value="${CATALINA_BASE}" />
+    <property name="LOGS" value="./" />
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
