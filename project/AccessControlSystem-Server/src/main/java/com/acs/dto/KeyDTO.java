@@ -4,7 +4,7 @@ public class KeyDTO {
 
     private int id;
 
-    private String keyName;
+    private String name;
 
     private String keyType;
 
@@ -24,10 +24,6 @@ public class KeyDTO {
         this.id = id;
     }
 
-    public String getKeyName() {
-        return keyName;
-    }
-
     public String getKeyValue() {
         return keyValue;
     }
@@ -36,8 +32,12 @@ public class KeyDTO {
         this.keyValue = keyValue;
     }
 
-    public void setKeyName(String keyName) {
-        this.keyName = keyName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getKeyType() {

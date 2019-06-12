@@ -28,11 +28,6 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
-    public void save(int name) {
-
-    }
-
-    @Override
     public Optional<Key> findById(Integer id) {
         return keyRepository.findById(id);
     }

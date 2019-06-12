@@ -10,8 +10,6 @@ public interface KeyService {
 
     Key save(Key key);
 
-    void save(int name);
-
     Optional<Key> findById(Integer id);
 
     void delete(Key key);

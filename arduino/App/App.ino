@@ -9,7 +9,7 @@ byte mac[] = {
   0x90, 0xA2, 0xDA, 0x10, 0x1E, 0x51
 };
 IPAddress ip(192, 168, 100, 7);
-IPAddress server(192, 168, 100, 3);
+IPAddress server(35, 222, 23, 193);
 EthernetClient client;
 
 SoftwareSerial mySerial(2, 3);
