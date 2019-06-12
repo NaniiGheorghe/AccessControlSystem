@@ -22,7 +22,7 @@ export class ActionService {
       })
     };
     let actions: Action[] = [];
-    return this.http.get<Object[]>('http://localhost:8083/user/api/v1/action/list/', httpOptions).pipe(
+    return this.http.get<Object[]>('http://35.222.23.193:8083/user/api/v1/action/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             actions.push(new Action(

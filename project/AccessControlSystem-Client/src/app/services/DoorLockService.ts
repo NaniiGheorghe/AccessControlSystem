@@ -27,7 +27,7 @@ export class DoorLockService {
     };
 
     let doors: DoorLock[] = [];
-    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/officeroom/inaccesible_doorLocks/' + employeeId + '/' + roomId + '/', httpOptions).pipe(
+    return this.http.get<Object[]>('http://35.222.23.193:8083/administrator/api/v1/officeroom/inaccesible_doorLocks/' + employeeId + '/' + roomId + '/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             doors.push(new DoorLock(

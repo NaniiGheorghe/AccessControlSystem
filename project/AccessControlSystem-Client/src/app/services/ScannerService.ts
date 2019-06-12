@@ -25,7 +25,7 @@ export class ScannerService {
     };
 
     let scanners: Scanner[] = [];
-    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/scanner/list/', httpOptions).pipe(
+    return this.http.get<Object[]>('http://35.222.23.193:8083/administrator/api/v1/scanner/list/', httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             scanners.push(new Scanner(
@@ -47,7 +47,7 @@ export class ScannerService {
       })
     };
     let scanners: Scanner[] = [];
-    return this.http.get<Object[]>('http://localhost:8083/administrator/api/v1/scanner/list/byType/' + scannerType.valueOf() + "/", httpOptions).pipe(
+    return this.http.get<Object[]>('http://35.222.23.193:8083/administrator/api/v1/scanner/list/byType/' + scannerType.valueOf() + "/", httpOptions).pipe(
       map(response => {
           for (let entry of response) {
             scanners.push(new Scanner(
@@ -69,9 +69,9 @@ export class ScannerService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    let url = 'http://localhost:8083/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/';
+    let url = 'http://35.222.23.193:8083/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/';
     console.log(url);
-    return this.http.post('http://localhost:8083/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/', {}, httpOptions).pipe(
+    return this.http.post('http://35.222.23.193:8083/administrator/api/v1/scanner/switchMode/registration/' + scannerId + '/', {}, httpOptions).pipe(
       map(response => {
           return response;
         }
@@ -87,7 +87,7 @@ export class ScannerService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    return this.http.post('http://localhost:8083/administrator/api/v1/scanner/waitForScan', {}, httpOptions).pipe(
+    return this.http.post('http://35.222.23.193:8083/administrator/api/v1/scanner/waitForScan', {}, httpOptions).pipe(
       map(response => {
           return response;
         }
@@ -102,7 +102,7 @@ export class ScannerService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    let url = 'http://localhost:8083/administrator/api/v1/scanner/switchMode/scanning/' + scannerId + '/';
+    let url = 'http://35.222.23.193:8083/administrator/api/v1/scanner/switchMode/scanning/' + scannerId + '/';
     console.log(url);
     return this.http.post(url, {}, httpOptions).pipe(
       map(response => {
@@ -120,7 +120,7 @@ export class ScannerService {
         'Authorization': this.cookiesService.get('token')
       })
     };
-    let url = 'http://localhost:8083/administrator/api/v1/scanner/switchMode/scanning/hard/' + scannerId + '/';
+    let url = 'http://35.222.23.193:8083/administrator/api/v1/scanner/switchMode/scanning/hard/' + scannerId + '/';
     console.log(url);
     return this.http.post(url, {}, httpOptions).pipe(
       map(response => {
