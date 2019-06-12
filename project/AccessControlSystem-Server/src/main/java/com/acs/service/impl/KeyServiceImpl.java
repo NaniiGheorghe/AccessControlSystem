@@ -7,9 +7,8 @@ import com.acs.service.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class KeyServiceImpl implements KeyService {
@@ -24,6 +23,13 @@ public class KeyServiceImpl implements KeyService {
 
     @Override
     public Key save(Key key) {
+        List<Integer> keyIds = keyRepository.findAll().stream().map(Key::getId).collect(Collectors.toList());
+        Optional<Integer> max = keyIds.stream().max(Comparator.naturalOrder());
+        if(max.isPresent()){
+            key.setId(max.get() + 1);
+        }else{
+            key.setId(1);
+        }
         return keyRepository.save(key);
     }
 
