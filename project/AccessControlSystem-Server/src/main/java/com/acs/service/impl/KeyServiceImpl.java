@@ -4,6 +4,8 @@ import com.acs.configuration.queue.LocalQueue;
 import com.acs.model.Key;
 import com.acs.repository.KeyRepository;
 import com.acs.service.KeyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class KeyServiceImpl implements KeyService {
+
+    Logger LOGGER_SERVICE = LoggerFactory.getLogger("service-request");
+
 
     @Autowired
     private KeyRepository keyRepository;
@@ -25,11 +30,13 @@ public class KeyServiceImpl implements KeyService {
     public Key save(Key key) {
         List<Integer> keyIds = keyRepository.findAll().stream().map(Key::getId).collect(Collectors.toList());
         Optional<Integer> max = keyIds.stream().max(Comparator.naturalOrder());
-        if(max.isPresent()){
+        LOGGER_SERVICE.info("Generate key" + key.toString());
+        if (max.isPresent()) {
             key.setId(max.get() + 1);
-        }else{
+        } else {
             key.setId(1);
         }
+        LOGGER_SERVICE.info("Generate key" + key.toString());
         return keyRepository.save(key);
     }
 
